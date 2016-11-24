@@ -1,0 +1,11 @@
+rootProject.name = 'acrolinx-sidebar-javasdk'
+
+include ":sidebar_common"
+project(":sidebar_common").projectDir = file("./sidebar/common")
+
+include ":sidebar_demo_jfx"
+project(":sidebar_demo_jfx").projectDir = file("./samples/jfx")
+
+include ":sidebar_jfx"
+project(":sidebar_jfx").projectDir = file("./sidebar/jfx")
+

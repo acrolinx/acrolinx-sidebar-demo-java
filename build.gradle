@@ -1,0 +1,65 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2'
+}
+
+buildscript {
+
+
+}
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
+subprojects {
+
+    group 'com.acrolinx'
+    version '1.0.0-SNAPSHOT'
+
+    apply plugin: 'java'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile 'com.google.guava:guava:19.+'
+        compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.21'
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+    }
+}
+
+project(':sidebar_demo_jfx') {
+    apply plugin: 'application'
+
+    mainClassName = "com.acrolinx.client.sidebar.sample.jfx.AcrolinxDemoClientJFX"
+
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true"]
+
+    dependencies {
+        compile project(':sidebar_jfx')
+    }
+}
+
+project(':sidebar_jfx') {
+
+    dependencies {
+        compile project(':sidebar_common')
+    }
+}
+
+project(':sidebar_common') {
+
+    dependencies {
+        compile 'com.google.code.gson:gson:2.2.4'
+        compile 'commons-lang:commons-lang:2.6'
+    }
+}
