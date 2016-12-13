@@ -1,22 +1,21 @@
-package com.acrolinx.sidebar.jfx.adapter;
+package com.acrolinx.sidebar.swing.adapter;
 
 import com.acrolinx.sidebar.InvocationAdapterInterface;
-import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InvocationAdapterJFX implements InvocationAdapterInterface
+import javax.swing.*;
+
+public class InvocationAdapterSwing implements InvocationAdapterInterface
 {
-    final Logger logger = LoggerFactory.getLogger(InvocationAdapterJFX.class);
+    final private Logger logger = LoggerFactory.getLogger(InvocationAdapterSwing.class);
 
     @Override public void invokeSave(Runnable runnable)
     {
         try {
-            Platform.runLater(runnable);
+            SwingUtilities.invokeLater(runnable);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-
     }
-
 }

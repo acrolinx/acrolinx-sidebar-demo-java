@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AcrolinxSidebarInitParemeters
 {
-    private static String SIDEBAR_URL = "https://acrolinx-sidebar-classic.s3.amazonaws.com/v14/prod/index.html";
+    private static String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";
     private String serverAddress;
     private final String clientSignature;
     private String sidebarUrl;

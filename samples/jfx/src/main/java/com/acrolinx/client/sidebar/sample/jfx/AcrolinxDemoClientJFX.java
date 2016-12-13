@@ -10,7 +10,6 @@ import com.acrolinx.sidebar.jfx.adapter.InvocationAdapterJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.settings.*;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -28,11 +27,11 @@ import java.util.Optional;
 
 public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
-    protected final TextArea textArea = new TextArea();
-    protected TextAreaAdapter textAreaAdapter;
-    protected Stage applicationStage;
+    private final TextArea textArea = new TextArea();
+    private TextAreaAdapter textAreaAdapter;
+    private Stage applicationStage;
 
-    final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
+    private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
     @Override public void start(Stage primaryStage)
     {
@@ -40,13 +39,12 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         applicationStage = primaryStage;
         final BorderPane borderPane = new BorderPane();
         final TextArea textArea = this.getTextArea();
-        final ComboBox formatDropdown = new ComboBox();
+        final ComboBox<InputFormat> formatDropdown = new ComboBox<>();
         formatDropdown.getItems().addAll(InputFormat.XML, InputFormat.HTML, InputFormat.TEXT);
         formatDropdown.setValue(InputFormat.TEXT);
         this.textAreaAdapter = new TextAreaAdapter(this.getTextArea(), InputFormat.TEXT);
 
-        formatDropdown.valueProperty().addListener(
-                (ObservableValue observable, Object oldValue, Object newValue) -> textAreaAdapter.setInputFormat(
+        formatDropdown.valueProperty().addListener((observable, oldValue, newValue) -> textAreaAdapter.setInputFormat(
                         InputFormat.valueOf(newValue.toString())));
         borderPane.setRight(this.createSidebar());
         borderPane.setLeft(textArea);
@@ -62,7 +60,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         launch(args);
     }
 
-    public TextArea getTextArea()
+    private TextArea getTextArea()
     {
         textArea.setPrefHeight(600);
         textArea.setPrefWidth(600);
@@ -71,8 +69,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
 
     private Region createSidebar()
     {
-        Region sidebar = new AcrolinxSidebarJFX(this);
-        return sidebar;
+        return new AcrolinxSidebarJFX(this, 600);
     }
 
     private Stage getPopUpStage(String url)

@@ -37,12 +37,24 @@ subprojects {
     }
 }
 
+project(':sidebar_demo_swing') {
+    apply plugin: 'application'
+
+    mainClassName = "com.acrolinx.client.sidebar.sample.swing.AcrolinxDemoClientSwing"
+
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
+
+    dependencies {
+        compile project(':sidebar_swing')
+    }
+}
+
 project(':sidebar_demo_jfx') {
     apply plugin: 'application'
 
     mainClassName = "com.acrolinx.client.sidebar.sample.jfx.AcrolinxDemoClientJFX"
 
-    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true"]
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
 
     dependencies {
         compile project(':sidebar_jfx')
@@ -53,6 +65,13 @@ project(':sidebar_jfx') {
 
     dependencies {
         compile project(':sidebar_common')
+    }
+}
+
+project(':sidebar_swing') {
+
+    dependencies {
+        compile project(':sidebar_jfx')
     }
 }
 

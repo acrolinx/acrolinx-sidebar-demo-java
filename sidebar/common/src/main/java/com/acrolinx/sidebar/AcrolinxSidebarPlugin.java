@@ -12,6 +12,7 @@ import com.acrolinx.sidebar.document.AcrolinxMatch;
 import com.acrolinx.sidebar.document.CheckResult;
 import com.acrolinx.sidebar.settings.*;
 import com.google.common.base.Preconditions;
+import javafx.application.Platform;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,9 @@ public class AcrolinxSidebarPlugin
 {
     private AcrolinxIntegration client;
     private JSObject jsobj;
-    private AtomicReference<String> lastCheckedDocument = new AtomicReference<String>("");
+    private AtomicReference<String> lastCheckedDocument = new AtomicReference<>("");
     private AtomicReference<InputFormat> inputFormatRef = new AtomicReference<>();
+    private AtomicReference<AcrolinxSidebarInitParemeters> initParameters = new AtomicReference<>();
 
     final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarPlugin.class);
 
@@ -38,17 +40,15 @@ public class AcrolinxSidebarPlugin
         this.jsobj = jsobj;
     }
 
-    public AcrolinxIntegration getClient()
+    private AcrolinxIntegration getClient()
     {
         return client;
     }
 
     public void requestInit()
     {
-        invokeSave(() -> {
-            final AcrolinxSidebarInitParemeters initParemeters = client.getInitParameters();
-            jsobj.eval("acrolinxSidebar.init(" + initParemeters.toJSString() + ")");
-        });
+        this.initParameters.set(client.getInitParameters());
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.init(" + this.initParameters.get().toJSString() + ")"));
     }
 
     public void onInitFinished(final JSObject o)
@@ -68,7 +68,7 @@ public class AcrolinxSidebarPlugin
 
     public synchronized void configureSidebar(SidebarConfiguration sidebarConfiguration)
     {
-        invokeSave(() -> jsobj.eval("acrolinxSidebar.configure(" + sidebarConfiguration.toString() + ")"));
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.configure(" + sidebarConfiguration.toString() + ")"));
     }
 
     public synchronized void requestGlobalCheck()
@@ -76,7 +76,7 @@ public class AcrolinxSidebarPlugin
         lastCheckedDocument.set(client.getEditorAdapter().getContent());
         final CheckOptions checkOptions = getCheckSettingsFromClient();
 
-        invokeSave(() -> {
+        Platform.runLater(() -> {
             jsobj.setMember("checkText", lastCheckedDocument.get());
             jsobj.eval("acrolinxSidebar.checkGlobal(checkText," + checkOptions.toString() + ")");
         });

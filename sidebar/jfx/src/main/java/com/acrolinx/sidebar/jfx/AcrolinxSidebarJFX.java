@@ -3,6 +3,7 @@ package com.acrolinx.sidebar.jfx;
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.AcrolinxSidebarPlugin;
 import com.acrolinx.sidebar.JSConsole;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.geometry.HPos;
@@ -18,22 +19,23 @@ import org.slf4j.LoggerFactory;
 
 public class AcrolinxSidebarJFX extends Region
 {
-    final WebView browser = new WebView();
-    final WebEngine webEngine = browser.getEngine();
+    private final WebView browser = new WebView();
+    private final WebEngine webEngine = browser.getEngine();
+    private final int prefHeight;
 
-    final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
+    private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
 
-    public AcrolinxSidebarJFX(AcrolinxIntegration integration)
+    public AcrolinxSidebarJFX(AcrolinxIntegration integration, int prefHeight)
     {
+        this.prefHeight = prefHeight;
         logger.debug("Trying to load sidebar url: " + integration.getInitParameters().getSidebarUrl());
-        String sidebarUrl = integration.getInitParameters().getSidebarUrl();
         webEngine.load(integration.getInitParameters().getSidebarUrl());
         getChildren().add(browser);
         webEngine.setJavaScriptEnabled(true);
         browser.contextMenuEnabledProperty();
 
         webEngine.setOnError((final WebErrorEvent arg0) -> logger.error("Error: " + arg0.getMessage()));
-        webEngine.setOnAlert((final WebEvent<String> arg0) -> logger.info("Alert: " + arg0.getData()));
+        webEngine.setOnAlert((final WebEvent<String> arg0) -> logger.debug("Alert: " + arg0.getData()));
 
         webEngine.getLoadWorker().stateProperty().addListener(
                 (final ObservableValue<? extends Worker.State> observedValue, final Worker.State oldState, final Worker.State newState) -> {
@@ -51,6 +53,7 @@ public class AcrolinxSidebarJFX extends Region
                         logger.error(webEngine.getLoadWorker().getException().getMessage());
                     }
                 });
+        Platform.runLater(() -> webEngine.load(integration.getInitParameters().getSidebarUrl()));
     }
 
     @Override protected void layoutChildren()
@@ -67,6 +70,6 @@ public class AcrolinxSidebarJFX extends Region
 
     @Override protected double computePrefHeight(double width)
     {
-        return 500;
+        return this.prefHeight;
     }
 }

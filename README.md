@@ -15,4 +15,4 @@ on an UNIX system or
 
 on a Windows machine.
 
-All dependencies need will be downloaded and the project will be ready to be run.
+All dependencies needed will be downloaded.
