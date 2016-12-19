@@ -1,8 +1,6 @@
 package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.AcrolinxSidebarPlugin;
-import com.acrolinx.sidebar.JSConsole;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;

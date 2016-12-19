@@ -1,8 +1,10 @@
 package com.acrolinx.sidebar;
 
-import com.acrolinx.sidebar.document.CheckResult;
-import com.acrolinx.sidebar.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.document.CheckResult;
+import com.acrolinx.sidebar.pojo.document.DownloadInfo;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
 
 public interface AcrolinxIntegration
 {
@@ -21,12 +23,5 @@ public interface AcrolinxIntegration
 
     void onInitFinished(InitResult initResult);
 
-    //void requestGlobalCheck();
-
-    //void requestInit();
-
-    //void openWindow(URL url);*/
-
-    //download()
-    // configure()
+    void download(DownloadInfo downloadInfo);
 }

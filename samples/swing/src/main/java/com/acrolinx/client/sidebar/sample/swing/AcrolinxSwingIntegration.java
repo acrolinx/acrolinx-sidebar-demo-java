@@ -1,14 +1,19 @@
 package com.acrolinx.client.sidebar.sample.swing;
 
-import com.acrolinx.sidebar.*;
-import com.acrolinx.sidebar.document.CheckResult;
-import com.acrolinx.sidebar.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.settings.AcrolinxSidebarInitParemeters;
-import com.acrolinx.sidebar.settings.SoftwareComponent;
-import com.acrolinx.sidebar.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.AcrolinxIntegration;
+import com.acrolinx.sidebar.InputAdapterInterface;
+import com.acrolinx.sidebar.InvocationAdapterInterface;
+import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.document.CheckResult;
+import com.acrolinx.sidebar.pojo.document.DownloadInfo;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
 import com.acrolinx.sidebar.swing.adapter.InvocationAdapterSwing;
 import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
+import com.acrolinx.sidebar.utils.SidebarUtils;
 import javafx.embed.swing.JFXPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +98,11 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     @Override public void onInitFinished(InitResult initResult)
     {
         logger.debug("Finished init!");
+    }
+
+    @Override public void download(DownloadInfo downloadInfo)
+    {
+
     }
 
 }

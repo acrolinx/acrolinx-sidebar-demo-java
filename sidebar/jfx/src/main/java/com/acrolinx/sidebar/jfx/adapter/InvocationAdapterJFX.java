@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class InvocationAdapterJFX implements InvocationAdapterInterface
 {
-    final Logger logger = LoggerFactory.getLogger(InvocationAdapterJFX.class);
+    private final Logger logger = LoggerFactory.getLogger(InvocationAdapterJFX.class);
 
     @Override public void invokeSave(Runnable runnable)
     {

@@ -1,52 +1,40 @@
-package com.acrolinx.sidebar.jfx.adapter;
+package com.acrolinx.sidebar.swt.adapter;
 
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.google.common.base.Joiner;
-import javafx.scene.control.TextArea;
+import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TextAreaAdapter implements InputAdapterInterface
+public class TextAdapter implements InputAdapterInterface
 {
-    public final TextArea textArea;
-    public InputFormat inputFormat;
+    final private Text textWidget;
 
-    public TextAreaAdapter(TextArea textArea)
+    public TextAdapter(Text textWidget)
     {
-        this.textArea = textArea;
-        this.inputFormat = InputFormat.TEXT;
-    }
-
-    public TextAreaAdapter(TextArea textArea, InputFormat inputFormat)
-    {
-        this.textArea = textArea;
-        this.inputFormat = inputFormat;
+        this.textWidget = textWidget;
     }
 
     @Override public InputFormat getInputFormat()
     {
-        return inputFormat;
-    }
-
-    public void setInputFormat(InputFormat inputFormat)
-    {
-        this.inputFormat = inputFormat;
+        return InputFormat.TEXT;
     }
 
     @Override public String getContent()
     {
-        return textArea.getText();
+        return textWidget.getText();
     }
 
     @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches)
     {
         int minRange = matches.get(0).getRange().getMinimumInteger();
         int maxRange = matches.get(matches.size() - 1).getRange().getMaximumInteger();
-        textArea.selectRange(minRange, maxRange);
+        textWidget.clearSelection();
+        textWidget.setSelection(minRange, maxRange);
     }
 
     @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement)
@@ -56,6 +44,10 @@ public class TextAreaAdapter implements InputAdapterInterface
 
         String replacement = Joiner.on("").join(
                 matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
-        textArea.replaceText(minRange, maxRange, replacement);
+
+        textWidget.clearSelection();
+        String text = textWidget.getText();
+        String replacedText = text.substring(0, minRange) + replacement + text.substring(maxRange);
+        textWidget.setText(replacedText);
     }
 }

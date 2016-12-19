@@ -1,14 +1,15 @@
 package com.acrolinx.client.sidebar.sample.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.InitResult;
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.InvocationAdapterInterface;
-import com.acrolinx.sidebar.document.CheckResult;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
 import com.acrolinx.sidebar.jfx.adapter.InvocationAdapterJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
-import com.acrolinx.sidebar.settings.*;
+import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.document.CheckResult;
+import com.acrolinx.sidebar.pojo.document.DownloadInfo;
+import com.acrolinx.sidebar.pojo.settings.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -128,6 +129,11 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
     {
         logger.debug("Got check result for check id: " + initResult.toString());
         // Do nothing for now;
+
+    }
+
+    @Override public void download(DownloadInfo downloadInfo)
+    {
 
     }
 

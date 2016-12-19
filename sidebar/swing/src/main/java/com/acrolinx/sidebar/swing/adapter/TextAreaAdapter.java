@@ -1,10 +1,12 @@
 package com.acrolinx.sidebar.swing.adapter;
 
 import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.document.AcrolinxMatch;
-import com.acrolinx.sidebar.document.AcrolinxMatchWithReplacement;
-import com.acrolinx.sidebar.settings.InputFormat;
+import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
+import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.google.common.base.Joiner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -17,6 +19,7 @@ public class TextAreaAdapter implements InputAdapterInterface
 {
     private final JTextArea textArea;
     private InputFormat inputFormat;
+    final private Logger logger = LoggerFactory.getLogger(TextAreaAdapter.class);
 
     public TextAreaAdapter(JTextArea textArea)
     {
@@ -54,7 +57,7 @@ public class TextAreaAdapter implements InputAdapterInterface
         try {
             h.addHighlight(minRange, maxRange, DefaultHighlighter.DefaultPainter);
         } catch (BadLocationException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -71,7 +74,7 @@ public class TextAreaAdapter implements InputAdapterInterface
         try {
             h.addHighlight(minRange, minRange + replacement.length(), DefaultHighlighter.DefaultPainter);
         } catch (BadLocationException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }
