@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class AcrolinxSidebarInitParemeters
+public class AcrolinxSidebarInitParameter
 {
-    public static String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";
+    public static final String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";
     private String serverAddress;
     private final String clientSignature;
     private String sidebarUrl;
@@ -18,7 +18,7 @@ public class AcrolinxSidebarInitParemeters
     private Boolean enableSingleSignOn;
     private Boolean enforceHTTPS;
 
-    private AcrolinxSidebarInitParemeters(AcrolinxSidebarInitParemetersBuilder builder)
+    private AcrolinxSidebarInitParameter(AcrolinxSidebarInitParameterBuilder builder)
     {
         this.serverAddress = builder.serverAddress;
         this.clientSignature = builder.clientSignature;
@@ -56,7 +56,7 @@ public class AcrolinxSidebarInitParemeters
         return gson.toJson(this);
     }
 
-    public static class AcrolinxSidebarInitParemetersBuilder
+    public static class AcrolinxSidebarInitParameterBuilder
     {
         private String serverAddress;
         private final String clientSignature;
@@ -69,64 +69,64 @@ public class AcrolinxSidebarInitParemeters
         private Boolean enableSingleSignOn;
         private Boolean enforceHTTPS;
 
-        public AcrolinxSidebarInitParemetersBuilder(String clientSignature,
+        public AcrolinxSidebarInitParameterBuilder(String clientSignature,
                 ArrayList<SoftwareComponent> clientComponents)
         {
             this.clientSignature = clientSignature;
             this.clientComponents = clientComponents;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withServerAddress(String serverAddress)
+        public AcrolinxSidebarInitParameterBuilder withServerAddress(String serverAddress)
         {
             this.serverAddress = serverAddress;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withSidebarUrl(String sidebarUrl)
+        public AcrolinxSidebarInitParameterBuilder withSidebarUrl(String sidebarUrl)
         {
             this.sidebarUrl = sidebarUrl;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withClientLocale(String clientLocale)
+        public AcrolinxSidebarInitParameterBuilder withClientLocale(String clientLocale)
         {
             this.clientLocale = clientLocale;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withShowServerSelector(Boolean showServerSelector)
+        public AcrolinxSidebarInitParameterBuilder withShowServerSelector(Boolean showServerSelector)
         {
             this.showServerSelector = showServerSelector;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withCheckSettings(CheckSettings checkSettings)
+        public AcrolinxSidebarInitParameterBuilder withCheckSettings(CheckSettings checkSettings)
         {
             this.checkSettings = checkSettings;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withDefaultCheckSettings(CheckSettings defaultCheckSettings)
+        public AcrolinxSidebarInitParameterBuilder withDefaultCheckSettings(CheckSettings defaultCheckSettings)
         {
             this.defaultCheckSettings = defaultCheckSettings;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withEnableSingleSignOn(Boolean enableSingleSignOn)
+        public AcrolinxSidebarInitParameterBuilder withEnableSingleSignOn(Boolean enableSingleSignOn)
         {
             this.enableSingleSignOn = enableSingleSignOn;
             return this;
         }
 
-        public AcrolinxSidebarInitParemetersBuilder withEnforceHTTPS(Boolean enforceHTTPS)
+        public AcrolinxSidebarInitParameterBuilder withEnforceHTTPS(Boolean enforceHTTPS)
         {
             this.enforceHTTPS = enforceHTTPS;
             return this;
         }
 
-        public AcrolinxSidebarInitParemeters build()
+        public AcrolinxSidebarInitParameter build()
         {
-            return new AcrolinxSidebarInitParemeters(this);
+            return new AcrolinxSidebarInitParameter(this);
         }
     }
 }

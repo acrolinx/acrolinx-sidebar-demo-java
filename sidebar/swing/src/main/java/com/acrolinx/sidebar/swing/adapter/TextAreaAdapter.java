@@ -67,7 +67,8 @@ public class TextAreaAdapter implements InputAdapterInterface
         int maxRange = matchesWithReplacement.get(matchesWithReplacement.size() - 1).getRange().getMaximumInteger();
 
         String replacement = Joiner.on("").join(
-                matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
+                matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
+                        Collectors.toList()));
         textArea.replaceRange(replacement, minRange, maxRange);
         Highlighter h = textArea.getHighlighter();
         h.removeAllHighlights();

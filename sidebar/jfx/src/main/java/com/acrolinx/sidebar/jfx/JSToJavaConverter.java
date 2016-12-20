@@ -17,11 +17,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class JSToJavaConverter
+class JSToJavaConverter
 {
     final Logger logger = LoggerFactory.getLogger(JSToJavaConverter.class);
 
-    protected static List<AcrolinxMatch> getAcrolinxMatchFromJSObject(JSObject o)
+    static List<AcrolinxMatch> getAcrolinxMatchFromJSObject(JSObject o)
     {
         final String length = "" + o.getMember("length");
         final List<AcrolinxMatch> acrolinxMatches = Lists.newArrayList();
@@ -31,11 +31,10 @@ public class JSToJavaConverter
             // TODO (fp) extracted Range!!!
             acrolinxMatches.add(new AcrolinxMatch(range, surface));
         }
-        List<AcrolinxMatch> immutableList = Collections.unmodifiableList(acrolinxMatches);
-        return immutableList;
+        return Collections.unmodifiableList(acrolinxMatches);
     }
 
-    protected static List<AcrolinxMatchWithReplacement> getAcrolinxMatchWithReplacementFromJSObject(JSObject o)
+    static List<AcrolinxMatchWithReplacement> getAcrolinxMatchWithReplacementFromJSObject(JSObject o)
     {
         final String length = "" + o.getMember("length");
         final List<AcrolinxMatchWithReplacement> acrolinxMatches = Lists.newArrayList();
@@ -46,11 +45,10 @@ public class JSToJavaConverter
             // TODO (fp) extracted Range!!!
             acrolinxMatches.add(new AcrolinxMatchWithReplacement(surface, range, replacement));
         }
-        List<AcrolinxMatchWithReplacement> immutableList = Collections.unmodifiableList(acrolinxMatches);
-        return immutableList;
+        return Collections.unmodifiableList(acrolinxMatches);
     }
 
-    protected static IntRange getIntRangeFromJSString(String range)
+    private static IntRange getIntRangeFromJSString(String range)
     {
         String[] parts = range.split(",");
         IntRange intRange;
@@ -61,7 +59,7 @@ public class JSToJavaConverter
         return intRange;
     }
 
-    protected static CheckResult getCheckResultFromJSObject(JSObject o)
+    static CheckResult getCheckResultFromJSObject(JSObject o)
     {
         final JSObject checkedDocumentParts = (JSObject) o.getMember("checkedPart");
         final String checkId = checkedDocumentParts.getMember("checkId").toString();
@@ -70,19 +68,18 @@ public class JSToJavaConverter
         return new CheckResult(new CheckedDocumentPart(checkId, range));
     }
 
-    protected static AcrolinxPluginConfiguration getAcrolinxPluginConfigurationFromJSObject(JSObject o)
+    static AcrolinxPluginConfiguration getAcrolinxPluginConfigurationFromJSObject(JSObject o)
     {
         final JSObject pluginConf = (JSObject) o.getMember("supported");
         if (pluginConf != null) {
-            final JSObject pluginConfObj = (JSObject) pluginConf;
-            final boolean isBase64EncodedGzippedDocumentContent = (Boolean) pluginConfObj.getMember(
+            final boolean isBase64EncodedGzippedDocumentContent = (Boolean) pluginConf.getMember(
                     "base64EncodedGzippedDocumentContent");
             return new AcrolinxPluginConfiguration(isBase64EncodedGzippedDocumentContent);
         }
         return new AcrolinxPluginConfiguration(false);
     }
 
-    protected static InitResult getAcrolinxInitResultFromJSObject(JSObject o)
+    static InitResult getAcrolinxInitResultFromJSObject(JSObject o)
     {
         final Object hasError = o.getMember("error");
         if (!hasError.getClass().equals(String.class)) {

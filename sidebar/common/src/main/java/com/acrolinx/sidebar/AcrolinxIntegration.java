@@ -4,7 +4,7 @@ import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.document.DownloadInfo;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
 public interface AcrolinxIntegration
 {
@@ -13,7 +13,7 @@ public interface AcrolinxIntegration
 
     InvocationAdapterInterface getInvocationAdapter();
 
-    AcrolinxSidebarInitParemeters getInitParameters();
+    AcrolinxSidebarInitParameter getInitParameters();
 
     void onCheckResult(CheckResult checkResult);
 

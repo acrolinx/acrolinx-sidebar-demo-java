@@ -30,14 +30,12 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
 {
     private final TextArea textArea = new TextArea();
     private TextAreaAdapter textAreaAdapter;
-    private Stage applicationStage;
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
     @Override public void start(Stage primaryStage)
     {
 
-        applicationStage = primaryStage;
         final BorderPane borderPane = new BorderPane();
         final TextArea textArea = this.getTextArea();
         final ComboBox<InputFormat> formatDropdown = new ComboBox<>();
@@ -51,9 +49,9 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         borderPane.setLeft(textArea);
         borderPane.setTop(formatDropdown);
         Scene scene = new Scene(borderPane, 900, 600);
-        applicationStage.setTitle("Acrolinx Demo JFX");
-        applicationStage.setScene(scene);
-        applicationStage.show();
+        primaryStage.setTitle("Acrolinx Demo JFX");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args)
@@ -81,7 +79,6 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         Scene scene = new Scene(browser, 900, 600);
         Stage newStage = new Stage();
         newStage.setScene(scene);
-        //tell stage it is meannt to pop-up (Modal)
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.setTitle("Acrolinx");
         return newStage;
@@ -97,12 +94,12 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         return new InvocationAdapterJFX();
     }
 
-    @Override public AcrolinxSidebarInitParemeters getInitParameters()
+    @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1",
                 Optional.of(SoftwareComponentCategory.MAIN)));
-        return new AcrolinxSidebarInitParemeters.AcrolinxSidebarInitParemetersBuilder(
+        return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();
     }

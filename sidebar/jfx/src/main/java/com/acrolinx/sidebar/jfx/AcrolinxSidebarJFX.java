@@ -1,6 +1,10 @@
 package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
+import com.acrolinx.sidebar.AcrolinxSidebar;
+import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
+import com.acrolinx.sidebar.pojo.settings.CheckOptions;
+import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -15,11 +19,14 @@ import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AcrolinxSidebarJFX extends Region
+import java.util.concurrent.CompletableFuture;
+
+public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
 {
     private final WebView browser = new WebView();
     private final WebEngine webEngine = browser.getEngine();
     private final int prefHeight;
+    private AcrolinxSidebarPlugin acrolinxSidebarPlugin;
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
 
@@ -40,15 +47,20 @@ public class AcrolinxSidebarJFX extends Region
                     if (newState == Worker.State.SUCCEEDED) {
                         logger.debug("Sidebar loaded from " + webEngine.getLocation());
                         final JSObject jsobj = (JSObject) webEngine.executeScript("window");
-                        final AcrolinxSidebarPlugin acrolinxSidebarPlugin = new AcrolinxSidebarPlugin(integration,
+                        webEngine.executeScript(JSConsole.overwriteJSLogging());
+                        acrolinxSidebarPlugin = new AcrolinxSidebarPlugin(integration,
                                 jsobj);
                         jsobj.setMember("acrolinxPlugin", acrolinxSidebarPlugin);
                         jsobj.setMember("java", new JSConsole());
-                        webEngine.executeScript(JSConsole.overwriteJSLogging());
+                        jsobj.eval("console.log(window.acrolinxPlugin);");
                     }
                     logger.debug("state changed: " + observedValue.getValue() + ": " + oldState + " -> " + newState);
                     if ("FAILED".equals("" + newState)) {
-                        logger.error(webEngine.getLoadWorker().getException().getMessage());
+                        try {
+                            throw webEngine.getLoadWorker().getException();
+                        } catch (Throwable throwable) {
+                            logger.error(throwable.getMessage());
+                        }
                     }
                 });
         Platform.runLater(() -> webEngine.load(integration.getInitParameters().getSidebarUrl()));
@@ -69,5 +81,34 @@ public class AcrolinxSidebarJFX extends Region
     @Override protected double computePrefHeight(double width)
     {
         return this.prefHeight;
+    }
+
+    @Override public void configure(SidebarConfiguration configuration)
+    {
+        acrolinxSidebarPlugin.configureSidebar(configuration);
+
+    }
+
+    @Override public CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options)
+    {
+        return acrolinxSidebarPlugin.checkGlobal(documentContent, options);
+    }
+
+    @Override public void onGlobalCheckRejected()
+    {
+
+        acrolinxSidebarPlugin.onGlobalCheckRejected();
+    }
+
+    @Override public void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    {
+        acrolinxSidebarPlugin.invalidateRanges(invalidCheckedDocumentRanges);
+
+    }
+
+    @Override public void onVisibleRangesChanged(CheckedDocumentPart[] checkedDocumentRanges)
+    {
+        acrolinxSidebarPlugin.onVisibleRangesChanged(checkedDocumentRanges);
+
     }
 }

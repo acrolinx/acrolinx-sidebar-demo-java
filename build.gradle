@@ -57,10 +57,13 @@ project(':sidebar_demo_swt') {
 
     applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
 
+    sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
+
     dependencies {
         compile project(':sidebar_swt')
         testCompile project(':sidebar_swt')
     }
+
 }
 
 project(':sidebar_demo_swing') {

@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class TextAreaAdapter implements InputAdapterInterface
 {
-    public final TextArea textArea;
-    public InputFormat inputFormat;
+    private final TextArea textArea;
+    private InputFormat inputFormat;
 
     public TextAreaAdapter(TextArea textArea)
     {
@@ -55,7 +55,7 @@ public class TextAreaAdapter implements InputAdapterInterface
         int maxRange = matchesWithReplacement.get(matchesWithReplacement.size() - 1).getRange().getMaximumInteger();
 
         String replacement = Joiner.on("").join(
-                matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
+                matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(Collectors.toList()));
         textArea.replaceText(minRange, maxRange, replacement);
     }
 }

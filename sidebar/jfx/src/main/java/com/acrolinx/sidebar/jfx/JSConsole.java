@@ -5,12 +5,11 @@ import org.slf4j.LoggerFactory;
 
 public class JSConsole
 {
-    final Logger logger = LoggerFactory.getLogger(JSConsole.class);
+    private final Logger logger = LoggerFactory.getLogger(JSConsole.class);
 
     public void log(final String s)
     {
-        //logger.debug("SidebarLogs: " + s);
-        System.out.println("JSLOGS: " + s);
+        logger.debug("SidebarLogs: " + s);
     }
 
     public void error(final String s)

@@ -7,7 +7,7 @@ import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.document.DownloadInfo;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
@@ -27,7 +27,7 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSwingIntegration.class);
     private final JTextArea textArea = new JTextArea();
-    private JFrame frame = new JFrame("Acrolinx Demo Swing");
+    private final JFrame frame = new JFrame("Acrolinx Demo Swing");
 
     AcrolinxSwingIntegration()
     {
@@ -69,13 +69,13 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
         return new InvocationAdapterSwing();
     }
 
-    @Override public AcrolinxSidebarInitParemeters getInitParameters()
+    @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         logger.debug("Getting InitParams");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client Swing", "1.0.0.1",
                 Optional.of(SoftwareComponentCategory.MAIN)));
-        return new AcrolinxSidebarInitParemeters.AcrolinxSidebarInitParemetersBuilder(
+        return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();
     }

@@ -1,6 +1,6 @@
 package com.acrolinx.client.sidebar.sample.swt;
 
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class AcrolinxDemoClientSWT
 {
 
-    Display display = new Display();
+    final Display display = new Display();
 
     AcrolinxDemoClientSWT()
     {
@@ -46,9 +46,9 @@ public class AcrolinxDemoClientSWT
         right.grabExcessVerticalSpace = true;
 
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1",
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client SWT", "1.0.0.1",
                 Optional.of(SoftwareComponentCategory.MAIN)));
-        AcrolinxSidebarInitParemeters initParemeters = new AcrolinxSidebarInitParemeters.AcrolinxSidebarInitParemetersBuilder(
+        AcrolinxSidebarInitParameter initParemeters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
         TextAdapter textAdapter = new TextAdapter(textArea);

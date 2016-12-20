@@ -2,7 +2,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
-public class CheckSettings
+class CheckSettings
 {
     private final String language;
     private final String ruleSetName;

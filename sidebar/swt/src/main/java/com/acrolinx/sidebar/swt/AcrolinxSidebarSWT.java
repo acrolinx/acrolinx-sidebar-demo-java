@@ -5,10 +5,9 @@ import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
-import com.acrolinx.sidebar.utils.SidebarUtils;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,18 +21,22 @@ import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class AcrolinxSidebarSWT implements AcrolinxSidebar
 {
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarSWT.class);
 
-    Browser browser;
-    int prefHeight;
-    final AcrolinxIntegration client;
+    private final Browser browser;
+    private final int prefHeight;
+    private final AcrolinxIntegration client;
 
     public AcrolinxSidebarSWT(Composite parent, int prefHeight, AcrolinxIntegration client)
     {
@@ -54,13 +57,12 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
     private void initBrowser()
     {
         this.browser.setSize(300, prefHeight);
-        browser.setUrl(AcrolinxSidebarInitParemeters.SIDEBAR_URL);
+        browser.setUrl(AcrolinxSidebarInitParameter.SIDEBAR_URL);
         browser.addProgressListener(new ProgressListener()
         {
             @Override public void completed(ProgressEvent event)
             {
                 logger.debug("URL loaded");
-                // Execute JavaScript in the browser
                 initSidebar();
             }
 
@@ -150,7 +152,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                 try {
                     List<AcrolinxMatchFromJSON> match = new Gson().fromJson((String) arguments[1],
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
-                    List<AcrolinxMatch> result = match.stream().map(m -> m.getAsAcrolinxMatch()).collect(
+                    List<AcrolinxMatch> result = match.stream().map(AcrolinxMatchFromJSON::getAsAcrolinxMatch).collect(
                             Collectors.toCollection(ArrayList::new));
                     client.getEditorAdapter().selectRanges((String) arguments[0], result);
                 } catch (Exception e) {
@@ -169,7 +171,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                     List<AcrolinxMatchFromJSON> match = new Gson().fromJson((String) arguments[1],
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
                     List<AcrolinxMatchWithReplacement> result = match.stream().map(
-                            m -> m.getAsAcrolinxMatchWithReplacement()).collect(
+                            AcrolinxMatchFromJSON::getAsAcrolinxMatchWithReplacement).collect(
                             Collectors.toCollection(ArrayList::new));
                     client.getEditorAdapter().replaceRanges((String) arguments[0], result);
                 } catch (Exception e) {
@@ -227,22 +229,23 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
             }
         };
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File jsScript = new File(classLoader.getResource("acrolinxPluginScript.js").getFile());
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(jsScript));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL resource = classLoader.getResource("acrolinxPluginScript.js");
+            if (resource != null) {
+                File jsScript = new File(resource.getFile());
+                BufferedReader reader = new BufferedReader(new FileReader(jsScript));
+                String line;
+                StringBuilder sb = new StringBuilder();
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                String script = sb.toString();
+                reader.close();
+                browser.evaluate(script);
             }
-            String script = sb.toString();
-            reader.close();
-            browser.evaluate(script);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
     }
 
@@ -256,12 +259,13 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
         browser.execute("window.acrolinxSidebar.configure(" + configuration.toString() + ");");
     }
 
-    @Override public String checkGlobal(String content, CheckOptions options)
+    @Override public CompletableFuture<String> checkGlobal(String content, CheckOptions options)
     {
-        Object result = browser.evaluate(
-                "window.acrolinxSidebar.checkGlobal(" + content + "," + options.toString() + ");");
-        String checkId = result.toString().replace("{", "").replace("}", "");
-        return checkId;
+        CompletableFuture<String> future = new CompletableFuture<>();
+        String result = (String) browser.evaluate(
+                "JSON.stringify(window.acrolinxSidebar.checkGlobal(" + content + "," + options.toString() + "));");
+        future.complete(result);
+        return future;
     }
 
     @Override public void onGlobalCheckRejected()
@@ -271,14 +275,14 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
 
     @Override public void invalidateRanges(CheckedDocumentPart[] invalidDocumentParts)
     {
-        browser.execute("window.acrolinxSidebar.invalidateRanges(" +
-                SidebarUtils.getCheckedDocumentPartsAsString(invalidDocumentParts) + ");");
+        String json = new Gson().toJson(invalidDocumentParts);
+        browser.execute("window.acrolinxSidebar.invalidateRanges(JSON.parse(" + json + "));");
     }
 
     @Override public void onVisibleRangesChanged(CheckedDocumentPart[] changedDocumentRanges)
     {
-        browser.execute("window.acrolinxSidebar.onVisibleRangeChanged(" +
-                SidebarUtils.getCheckedDocumentPartsAsString(changedDocumentRanges) + ")");
+        String json = new Gson().toJson(changedDocumentRanges);
+        browser.execute("window.acrolinxSidebar.onVisibleRangeChanged(JSON.parse(" + json + "))");
     }
 
 }

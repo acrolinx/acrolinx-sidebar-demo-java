@@ -1,6 +1,6 @@
 package com.acrolinx.client.sidebar.sample.swing;
 
-public class AcrolinxDemoClientSwing
+class AcrolinxDemoClientSwing
 {
     public static void main(String[] args)
     {

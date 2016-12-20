@@ -2,7 +2,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
-public class RequestDescription
+class RequestDescription
 {
     private final String documentReference;
 

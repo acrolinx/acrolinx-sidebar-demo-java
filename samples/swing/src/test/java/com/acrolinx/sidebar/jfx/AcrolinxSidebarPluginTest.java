@@ -1,15 +1,11 @@
-import com.acrolinx.sidebar.AcrolinxSidebarPlugin;
-import junit.framework.TestCase;
+package com.acrolinx.sidebar.jfx;
+
 import org.junit.Test;
 
-public class AcrolinxSidebarPluginTest extends TestCase
+import static org.junit.Assert.assertTrue;
+
+public class AcrolinxSidebarPluginTest
 {
-
-    public AcrolinxSidebarPluginTest(String name)
-    {
-        super(name);
-    }
-
     @Test public void testInitPluginWithNull()
     {
         Throwable e = null;

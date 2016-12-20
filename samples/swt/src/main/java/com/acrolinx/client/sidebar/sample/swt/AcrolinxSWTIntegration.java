@@ -7,15 +7,14 @@ import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.document.DownloadInfo;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParemeters;
-import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
 public class AcrolinxSWTIntegration implements AcrolinxIntegration
 {
-    final private AcrolinxSidebarInitParemeters initParemeters;
+    final private AcrolinxSidebarInitParameter initParemeters;
     final private InputAdapterInterface inputAdapterInterface;
 
-    public AcrolinxSWTIntegration(AcrolinxSidebarInitParemeters initParemeters,
+    public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParemeters,
             InputAdapterInterface inputAdapterInterface)
     {
         this.initParemeters = initParemeters;
@@ -32,7 +31,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
         return null;
     }
 
-    @Override public AcrolinxSidebarInitParemeters getInitParameters()
+    @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         return this.initParemeters;
     }
@@ -60,10 +59,5 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     @Override public void download(DownloadInfo downloadInfo)
     {
 
-    }
-
-    @Override public SidebarConfiguration configureSidebar(SidebarConfiguration sidebarConfiguration)
-    {
-        return null;
     }
 }

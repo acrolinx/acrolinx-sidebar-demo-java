@@ -1,5 +1,6 @@
 package com.acrolinx.sidebar.pojo.document;
 
+import com.google.gson.Gson;
 import org.apache.commons.lang.math.IntRange;
 
 public class CheckedDocumentPart
@@ -21,5 +22,11 @@ public class CheckedDocumentPart
     public IntRange getRange()
     {
         return range;
+    }
+
+    @Override public String toString()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

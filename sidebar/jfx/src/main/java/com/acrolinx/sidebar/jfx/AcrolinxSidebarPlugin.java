@@ -12,8 +12,10 @@ import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
+import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import com.acrolinx.sidebar.pojo.settings.*;
 import com.google.common.base.Preconditions;
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
@@ -21,15 +23,16 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AcrolinxSidebarPlugin
 {
-    private AcrolinxIntegration client;
-    private JSObject jsobj;
-    private AtomicReference<String> lastCheckedDocument = new AtomicReference<>("");
-    private AtomicReference<InputFormat> inputFormatRef = new AtomicReference<>();
-    private AtomicReference<AcrolinxSidebarInitParemeters> initParameters = new AtomicReference<>();
+    private final AcrolinxIntegration client;
+    private final JSObject jsobj;
+    private final AtomicReference<String> lastCheckedDocument = new AtomicReference<>("");
+    private final AtomicReference<InputFormat> inputFormatRef = new AtomicReference<>();
+    private final AtomicReference<AcrolinxSidebarInitParameter> initParameters = new AtomicReference<>();
 
     final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarPlugin.class);
 
@@ -84,6 +87,17 @@ public class AcrolinxSidebarPlugin
         });
     }
 
+    public synchronized CompletableFuture<String> checkGlobal(String documentContent, CheckOptions checkOptions)
+    {
+        final CompletableFuture<String> future = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            jsobj.eval("var globalCheckResult = JSON.stringify(acrolinxSidebar.checkGlobal(" + documentContent + ","
+                    + checkOptions.toString() + "))");
+            future.complete((String) jsobj.getMember("globalCheckResult"));
+        });
+        return future;
+    }
+
     public synchronized void onCheckResult(final JSObject o)
     {
         final CheckResult checkResult = JSToJavaConverter.getCheckResultFromJSObject(o);
@@ -119,5 +133,22 @@ public class AcrolinxSidebarPlugin
         inputFormatRef.set(client.getEditorAdapter().getInputFormat());
         // TODO (fp) filename in requestDescription
         return new CheckOptions(Optional.of(inputFormatRef.get()), Optional.of(false), Optional.empty());
+    }
+
+    protected void onGlobalCheckRejected()
+    {
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onGlobalCheckRejected()"));
+    }
+
+    protected void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    {
+        String json = new Gson().toJson(invalidCheckedDocumentRanges);
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onGlobalCheckRejected(JSON.parse(" + json + "))"));
+    }
+
+    protected void onVisibleRangesChanged(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    {
+        String json = new Gson().toJson(invalidCheckedDocumentRanges);
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onVisibleRangeChanged(JSON.parse(" + json + "))"));
     }
 }

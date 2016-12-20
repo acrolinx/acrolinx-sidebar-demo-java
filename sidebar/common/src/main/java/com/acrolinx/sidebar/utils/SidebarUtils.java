@@ -1,6 +1,5 @@
 package com.acrolinx.sidebar.utils;
 
-import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,16 +21,5 @@ public class SidebarUtils
                 logger.error(e.getMessage());
             }
         }
-    }
-
-    public static String getCheckedDocumentPartsAsString(CheckedDocumentPart[] checkedDocumentParts)
-    {
-        String parts = "[";
-        for (CheckedDocumentPart part : checkedDocumentParts) {
-            parts += checkedDocumentParts.toString();
-            parts += ", ";
-        }
-        String substring = parts.substring(0, parts.length() - 2);
-        return substring += "]";
     }
 }
