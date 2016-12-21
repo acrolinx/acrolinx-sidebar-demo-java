@@ -1,5 +1,8 @@
 package com.acrolinx.sidebar.pojo;
 
+/**
+ * Error Object returned if an error occured within the Acrolinx Sidebar.
+ */
 public class SidebarError extends Error
 {
     private final String code;

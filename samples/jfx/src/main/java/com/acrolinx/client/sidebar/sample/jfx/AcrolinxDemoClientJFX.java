@@ -9,7 +9,10 @@ import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.document.DownloadInfo;
-import com.acrolinx.sidebar.pojo.settings.*;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -24,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
@@ -97,8 +99,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
     @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1",
-                Optional.of(SoftwareComponentCategory.MAIN)));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1"));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();

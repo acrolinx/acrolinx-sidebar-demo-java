@@ -10,6 +10,11 @@ public class SidebarUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(SidebarUtils.class);
 
+    /**
+     * Opens the given URL in the default Browser of the current OS.
+     *
+     * @param url
+     */
     public static void openWebpageInDefaultBrowser(String url)
     {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;

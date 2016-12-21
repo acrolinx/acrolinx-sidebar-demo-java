@@ -11,13 +11,13 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
 public class AcrolinxSWTIntegration implements AcrolinxIntegration
 {
-    final private AcrolinxSidebarInitParameter initParemeters;
+    final private AcrolinxSidebarInitParameter initParameters;
     final private InputAdapterInterface inputAdapterInterface;
 
-    public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParemeters,
+    public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParameters,
             InputAdapterInterface inputAdapterInterface)
     {
-        this.initParemeters = initParemeters;
+        this.initParameters = initParameters;
         this.inputAdapterInterface = inputAdapterInterface;
     }
 
@@ -26,6 +26,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
         return this.inputAdapterInterface;
     }
 
+    // Invocation adapter is not needed for SWT-Applications
     @Override public InvocationAdapterInterface getInvocationAdapter()
     {
         return null;
@@ -33,7 +34,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
 
     @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
-        return this.initParemeters;
+        return this.initParameters;
     }
 
     @Override public void onCheckResult(CheckResult checkResult)

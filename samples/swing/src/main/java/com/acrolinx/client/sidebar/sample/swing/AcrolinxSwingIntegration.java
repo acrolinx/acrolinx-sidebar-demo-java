@@ -9,7 +9,6 @@ import com.acrolinx.sidebar.pojo.document.DownloadInfo;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
-import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
 import com.acrolinx.sidebar.swing.adapter.InvocationAdapterSwing;
 import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
@@ -21,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Optional;
 
 class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
@@ -73,8 +71,7 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     {
         logger.debug("Getting InitParams");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client Swing", "1.0.0.1",
-                Optional.of(SoftwareComponentCategory.MAIN)));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client Swing", "1.0.0.1"));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();

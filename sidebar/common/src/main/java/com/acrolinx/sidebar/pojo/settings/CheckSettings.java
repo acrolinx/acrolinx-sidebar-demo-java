@@ -2,7 +2,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
-class CheckSettings
+public class CheckSettings
 {
     private final String language;
     private final String ruleSetName;
@@ -15,6 +15,21 @@ class CheckSettings
     private final Boolean checkSeo;
     private final String[] termStatuses;
 
+    /**
+     * Settings used by the Acrolinx Server to check the text. The available options depend on the configuration of
+     * the Acrolinx Server.
+     *
+     * @param language
+     * @param ruleSetName
+     * @param termSets
+     * @param checkSpelling
+     * @param checkGrammar
+     * @param checkStyle
+     * @param checkReuse
+     * @param harvestTerms
+     * @param checkSeo
+     * @param termStatuses
+     */
     public CheckSettings(String language, String ruleSetName, String[] termSets, Boolean checkSpelling,
             Boolean checkGrammar, Boolean checkStyle, Boolean checkReuse, Boolean harvestTerms, Boolean checkSeo,
             String[] termStatuses)
