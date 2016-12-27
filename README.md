@@ -8,8 +8,8 @@ It is designed to show up in their editor or editing environment.
 
 ## Table of contents
 
-   * [The Acrolinx Sidebar](#the-acrolinx-sidebar)
    * [Table of contents](#table-of-contents)
+   * [The Acrolinx Sidebar](#the-acrolinx-sidebar)
    * [Prerequisites](#prerequisites)
    * [Setup the Project](#setup-the-project)
    * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
@@ -33,7 +33,7 @@ The Acrolinx Sidebar is then available under
 
 For more information on Acrolinx check [www.acrolinx.com](https://www.acrolinx.com).
 
-[Back to top](#the-acrolinx-sidebar)
+[Back to top](#acrolinx-java-sidebar-demo)
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ need to get a license for your integration from Acrolinx.
 To work with this sample you will need to have Acrolinx Server Credentials.
 Please contact Acrolinx SDK support (sdk-support@acrolinx.com) to get these credentials.
 
-[Back to top](#the-acrolinx-sidebar)
+[Back to top](#acrolinx-java-sidebar-demo)
 
 ## Setup the Project
 
@@ -73,7 +73,7 @@ All dependencies needed will be downloaded and the samples are ready to be run.
 
 You'll find three runnable main classes inside the 'samples' folder.
 
-[Back to top](#the-acrolinx-sidebar)
+[Back to top](#acrolinx-java-sidebar-demo)
 
 ## Running the Acrolinx Samples
 
@@ -107,7 +107,7 @@ The Acrolinx Sidebar will then automatically select the next issue in line.
 
 ![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/IssueReplaced.png)
 
-[Back to top](#the-acrolinx-sidebar)
+[Back to top](#acrolinx-java-sidebar-demo)
 
 ## How to build your own integration
 
@@ -121,7 +121,7 @@ Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar t
 
 ![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
 
-[Back to top](#the-acrolinx-sidebar)
+[Back to top](#acrolinx-java-sidebar-demo)
 
 
 
