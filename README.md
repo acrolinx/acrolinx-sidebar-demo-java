@@ -6,6 +6,13 @@ different Java UI Frameworks.
 The Acrolinx Sidebar helps authors to review, correct and analyze their content.
 It is designed to show up in their editor or editing environment.
 
+   * [The Acrolinx Sidebar](#the-acrolinx-sidebar)
+   * [Prerequisites](#prerequisites)
+   * [Setup the Project](#setup-the-project)
+   * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
+   * [How to build your own integration](#how-to-build-your-own-integration)
+
+
 ## The Acrolinx Sidebar
 
 To use the Acrolinx Sidebar you need to have an Acrolinx Server set up.
@@ -56,4 +63,52 @@ on an UNIX system or
 on a Windows machine.
 
 All dependencies needed will be downloaded and the samples are ready to be run.
+
+You'll find three runnable main classes inside the 'samples' folder.
+
+## Running the Acrolinx Samples
+
+These samples run with the Acrolinx Sidebar hosted publicly.
+
+After building the project run `./gradlew sidebar_demo_jfx:run` for the JavaFX sample.
+Run `./gradlew sidebar_demo_swing:run` for the Java Swing sample
+and `./gradlew sidebar_demo_swt:run` for the Java SWT sample.
+
+On the start you'll the a textbox next to the Acrolinx Sidebar.
+Enter a Acrolinx Server address along with your credentials.
+Note that you'll have to provide a server address starting with 'https'.
+
+![Java FX Acrolinx Sidebar Sample: Login](/doc/img/LoginScreen.png)
+
+Once you successfully logged in you'll see:
+
+![Java FX Acrolinx Sidebar Sample: After login](/doc/img/ScreenshotIntegration.png)
+
+You can now type some text in the left side text box. Then click the 'Check' button in the Acrolinx Sidebar.
+
+![Java FX Acrolinx Sidebar Sample: After check](/doc/img/ArchitectureInterfaces.png)
+
+Click on a card on the left, to select the issue in the text.
+
+![Java FX Acrolinx Sidebar Sample: Issue selected](/doc/img/ScreenIssueSelected.png)
+
+Click on the green suggestion to replace the issue in the text with the suggestion.
+The card will disappear from the issue list in the sidebar and the text will be replaced.
+The Acrolinx Sidebar will then automatically select the next issue in line.
+
+![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/ScreenIssueSelected.png)
+
+## How to build your own integration
+
+This project provides you ready build UI-Elements to display the Acrolinx Sidebar.
+
+You will need to provide a mechanism, that allows the Acrolinx Sidebar to retrieve the text to be checked and to select
+and replace specific parts of the text in the editor.
+
+To build your own integration with an JFX, Swing or SWT based editor, you'll need to implement the AcrolinxIntegration
+Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
+
+![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ScreenshotIntegration.png)
+
+
 

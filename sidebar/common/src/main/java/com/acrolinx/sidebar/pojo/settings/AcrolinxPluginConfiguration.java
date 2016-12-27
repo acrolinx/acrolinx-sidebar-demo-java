@@ -15,6 +15,7 @@ public class AcrolinxPluginConfiguration
      */
     public boolean getBase64EncodedGzippedDocumentContent()
     {
+
         return base64EncodedGzippedDocumentContent;
     }
 
