@@ -6,7 +6,10 @@ different Java UI Frameworks.
 The Acrolinx Sidebar helps authors to review, correct and analyze their content.
 It is designed to show up in their editor or editing environment.
 
+## Table of contents
+
    * [The Acrolinx Sidebar](#the-acrolinx-sidebar)
+   * [Table of contents](#table-of-contents)
    * [Prerequisites](#prerequisites)
    * [Setup the Project](#setup-the-project)
    * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
@@ -30,6 +33,8 @@ The Acrolinx Sidebar is then available under
 
 For more information on Acrolinx check [www.acrolinx.com](https://www.acrolinx.com).
 
+[Back to top](#the-acrolinx-sidebar)
+
 ## Prerequisites
 
 This sample works with a test license on an internal Acrolinx Server. The license is provided
@@ -38,6 +43,8 @@ need to get a license for your integration from Acrolinx.
 
 To work with this sample you will need to have Acrolinx Server Credentials.
 Please contact Acrolinx SDK support (sdk-support@acrolinx.com) to get these credentials.
+
+[Back to top](#the-acrolinx-sidebar)
 
 ## Setup the Project
 
@@ -65,6 +72,8 @@ on a Windows machine.
 All dependencies needed will be downloaded and the samples are ready to be run.
 
 You'll find three runnable main classes inside the 'samples' folder.
+
+[Back to top](#the-acrolinx-sidebar)
 
 ## Running the Acrolinx Samples
 
@@ -98,6 +107,8 @@ The Acrolinx Sidebar will then automatically select the next issue in line.
 
 ![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/IssueReplaced.png)
 
+[Back to top](#the-acrolinx-sidebar)
+
 ## How to build your own integration
 
 This project provides you ready build UI-Elements to display the Acrolinx Sidebar.
@@ -109,6 +120,8 @@ To build your own integration with an JFX, Swing or SWT based editor, you'll nee
 Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
 
 ![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
+
+[Back to top](#the-acrolinx-sidebar)
 
 
 
