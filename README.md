@@ -86,7 +86,7 @@ Once you successfully logged in you'll see:
 
 You can now type some text in the left side text box. Then click the 'Check' button in the Acrolinx Sidebar.
 
-![Java FX Acrolinx Sidebar Sample: After check](/doc/img/ArchitectureInterfaces.png)
+![Java FX Acrolinx Sidebar Sample: After check](/doc/img/AcrolinxDemoCheck.png)
 
 Click on a card on the left, to select the issue in the text.
 
@@ -108,7 +108,7 @@ and replace specific parts of the text in the editor.
 To build your own integration with an JFX, Swing or SWT based editor, you'll need to implement the AcrolinxIntegration
 Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
 
-![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ScreenshotIntegration.png)
+![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
 
 
 
