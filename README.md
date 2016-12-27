@@ -96,7 +96,7 @@ Click on the green suggestion to replace the issue in the text with the suggesti
 The card will disappear from the issue list in the sidebar and the text will be replaced.
 The Acrolinx Sidebar will then automatically select the next issue in line.
 
-![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/ScreenIssueSelected.png)
+![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/IssueReplaced.png)
 
 ## How to build your own integration
 
