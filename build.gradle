@@ -35,6 +35,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
         maven {
             url "http://maven-eclipse.github.io/maven"
         }
@@ -118,5 +119,6 @@ project(':sidebar_common') {
     dependencies {
         compile 'com.google.code.gson:gson:2.2.4'
         compile 'commons-lang:commons-lang:2.6'
+        compile 'org.bitbucket.cowwoc:diff-match-patch:1.1'
     }
 }

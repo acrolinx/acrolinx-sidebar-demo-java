@@ -2,10 +2,7 @@ package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.SidebarError;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
-import com.acrolinx.sidebar.pojo.document.CheckResult;
-import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
+import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
 import com.google.common.collect.Lists;
 import netscape.javascript.JSObject;
@@ -28,7 +25,6 @@ class JSToJavaConverter
         for (int i = 0; i < Integer.parseInt(length); i++) {
             final IntRange range = getIntRangeFromJSString(((JSObject) o.getSlot(i)).getMember("range").toString());
             final String surface = "" + ((JSObject) o.getSlot(i)).getMember("content");
-            // TODO (fp) extracted Range!!!
             acrolinxMatches.add(new AcrolinxMatch(range, surface));
         }
         return Collections.unmodifiableList(acrolinxMatches);
@@ -42,7 +38,6 @@ class JSToJavaConverter
             final IntRange range = getIntRangeFromJSString(((JSObject) o.getSlot(i)).getMember("range").toString());
             final String surface = "" + ((JSObject) o.getSlot(i)).getMember("content");
             final String replacement = "" + ((JSObject) o.getSlot(i)).getMember("replacement");
-            // TODO (fp) extracted Range!!!
             acrolinxMatches.add(new AcrolinxMatchWithReplacement(surface, range, replacement));
         }
         return Collections.unmodifiableList(acrolinxMatches);
@@ -64,8 +59,22 @@ class JSToJavaConverter
         final JSObject checkedDocumentParts = (JSObject) o.getMember("checkedPart");
         final String checkId = checkedDocumentParts.getMember("checkId").toString();
         final IntRange range = getIntRangeFromJSString(checkedDocumentParts.getMember("range").toString());
-        // TODO (fp) extract ErrorObject!
-        return new CheckResult(new CheckedDocumentPart(checkId, range));
+        CheckError checkError = null;
+        if (!o.getMember("checkError").toString().equals("undefined")) {
+            checkError = getCheckErrorFromJSString((JSObject) o.getMember("checkError"));
+        }
+        return new CheckResult(new CheckedDocumentPart(checkId, range), checkError);
+    }
+
+    private static CheckError getCheckErrorFromJSString(JSObject checkError)
+    {
+        if (checkError.getClass().equals(String.class)) {
+            final String message = checkError.getMember("message").toString();
+            final String code = checkError.getMember("code").toString();
+            final String checkId = checkError.getMember("checkId").toString();
+            return new CheckError(message, code, checkId);
+        } else
+            return null;
     }
 
     static AcrolinxPluginConfiguration getAcrolinxPluginConfigurationFromJSObject(JSObject o)

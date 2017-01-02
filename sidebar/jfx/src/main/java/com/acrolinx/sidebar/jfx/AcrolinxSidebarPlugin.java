@@ -11,13 +11,15 @@ package com.acrolinx.sidebar.jfx;
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
+import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import com.acrolinx.sidebar.pojo.settings.*;
+import com.acrolinx.sidebar.utils.Lookup;
 import com.google.common.base.Preconditions;
-import com.google.gson.Gson;
 import javafx.application.Platform;
 import netscape.javascript.JSObject;
+import org.apache.commons.lang.math.IntRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,12 +27,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;
     private final JSObject jsobj;
     private final AtomicReference<String> lastCheckedDocument = new AtomicReference<>("");
+    private final AtomicReference<String> currentCheckId = new AtomicReference<>("");
     private final AtomicReference<InputFormat> inputFormatRef = new AtomicReference<>();
     private final AtomicReference<AcrolinxSidebarInitParameter> initParameters = new AtomicReference<>();
 
@@ -101,21 +105,46 @@ public class AcrolinxSidebarPlugin
     public synchronized void onCheckResult(final JSObject o)
     {
         final CheckResult checkResult = JSToJavaConverter.getCheckResultFromJSObject(o);
+        currentCheckId.set(checkResult.getCheckedDocumentPart().getCheckId());
         invokeSave(() -> client.onCheckResult(checkResult));
     }
 
     public synchronized void selectRanges(final String checkID, final JSObject o)
     {
         final List<AcrolinxMatch> matches = JSToJavaConverter.getAcrolinxMatchFromJSObject(o);
-        invokeSave(() -> client.getEditorAdapter().selectRanges(checkID,
-                JSToJavaConverter.getAcrolinxMatchFromJSObject(o)));
+        final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatch(matches,
+                lastCheckedDocument.get(), client.getEditorAdapter().getContent());
+        if (!correctedRanges.isPresent()) {
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> {
+                return new CheckedDocumentPart(currentCheckId.get(),
+                        new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()));
+            }).collect(Collectors.toList());
+            invalidateRanges(invalidDocumentParts);
+            return;
+        }
+        invokeSave(() -> {
+            client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges);
+        });
+
     }
 
     public synchronized void replaceRanges(final String checkID, final JSObject o)
     {
-        // TODO (fp) lookup and adjust ranges
-        invokeSave(() -> client.getEditorAdapter().replaceRanges(checkID,
-                JSToJavaConverter.getAcrolinxMatchWithReplacementFromJSObject(o)));
+        final List<AcrolinxMatchWithReplacement> matches = JSToJavaConverter.getAcrolinxMatchWithReplacementFromJSObject(
+                o);
+        final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatchWithReplacement(matches,
+                lastCheckedDocument.get(), client.getEditorAdapter().getContent());
+        if (!correctedRanges.isPresent()) {
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> {
+                return new CheckedDocumentPart(currentCheckId.get(),
+                        new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()));
+            }).collect(Collectors.toList());
+            invalidateRanges(invalidDocumentParts);
+            return;
+        }
+        invokeSave(() -> {
+            client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges);
+        });
     }
 
     public synchronized void openWindow(final JSObject o)
@@ -132,7 +161,7 @@ public class AcrolinxSidebarPlugin
     {
         inputFormatRef.set(client.getEditorAdapter().getInputFormat());
         // TODO (fp) filename in requestDescription
-        return new CheckOptions(Optional.of(inputFormatRef.get()), Optional.of(false), Optional.empty());
+        return new CheckOptions(null, false, inputFormatRef.get());
     }
 
     protected void onGlobalCheckRejected()
@@ -140,15 +169,23 @@ public class AcrolinxSidebarPlugin
         Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onGlobalCheckRejected()"));
     }
 
-    protected void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    private static String buildStringOfCheckedDocumentRanges(java.util.List<CheckedDocumentPart> checkedDocumentParts)
     {
-        String json = new Gson().toJson(invalidCheckedDocumentRanges);
-        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onGlobalCheckRejected(JSON.parse(" + json + "))"));
+        return checkedDocumentParts.stream().map(checkedDocumentPart -> checkedDocumentPart.getAsJS()).collect(
+                Collectors.joining(", "));
     }
 
-    protected void onVisibleRangesChanged(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    protected void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
-        String json = new Gson().toJson(invalidCheckedDocumentRanges);
-        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onVisibleRangeChanged(JSON.parse(" + json + "))"));
+        String js = buildStringOfCheckedDocumentRanges(invalidCheckedDocumentRanges);
+        System.out.println(js);
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.invalidateRanges([" + js + "])"));
+    }
+
+    protected void onVisibleRangesChanged(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
+    {
+        String js = buildStringOfCheckedDocumentRanges(invalidCheckedDocumentRanges);
+        System.out.println(js);
+        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onVisibleRangeChanged(JSON.parse([" + js + "]))"));
     }
 }

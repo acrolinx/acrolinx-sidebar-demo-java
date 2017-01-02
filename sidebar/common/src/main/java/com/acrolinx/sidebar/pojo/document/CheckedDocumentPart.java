@@ -29,4 +29,12 @@ public class CheckedDocumentPart
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
+    public String getAsJS()
+    {
+        return "{checkId: \"" + checkId +
+                "\", range:[" + range.getMinimumInteger() +
+                "," + range.getMaximumInteger() +
+                "]}";
+    }
 }

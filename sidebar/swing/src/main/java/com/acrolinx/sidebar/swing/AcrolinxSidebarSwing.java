@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
@@ -53,12 +54,12 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
         sidebarJFX.onGlobalCheckRejected();
     }
 
-    @Override public void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    @Override public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         sidebarJFX.invalidateRanges(invalidCheckedDocumentRanges);
     }
 
-    @Override public void onVisibleRangesChanged(CheckedDocumentPart[] checkedDocumentRanges)
+    @Override public void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges)
     {
         sidebarJFX.onVisibleRangesChanged(checkedDocumentRanges);
     }

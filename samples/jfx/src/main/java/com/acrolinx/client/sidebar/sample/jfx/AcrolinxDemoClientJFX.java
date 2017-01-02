@@ -125,7 +125,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
 
     @Override public void onInitFinished(InitResult initResult)
     {
-        logger.debug("Got check result for check id: " + initResult.toString());
+        logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;
 
     }

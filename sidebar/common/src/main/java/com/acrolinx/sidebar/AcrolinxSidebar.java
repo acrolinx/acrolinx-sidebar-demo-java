@@ -4,6 +4,7 @@ import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -39,11 +40,11 @@ public interface AcrolinxSidebar
      * The sidebar will then invalidate all cards containing issues within this text range.
      * @param invalidCheckedDocumentRanges
      */
-    void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges);
+    void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges);
 
     /**
      * Notifies the sidebar about the currently displayed parts of the checked document.
      * @param checkedDocumentRanges
      */
-    void onVisibleRangesChanged(CheckedDocumentPart[] checkedDocumentRanges);
+    void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges);
 }

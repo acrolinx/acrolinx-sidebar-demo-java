@@ -5,6 +5,7 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.google.common.base.Joiner;
+import org.apache.commons.lang.math.IntRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TextAreaAdapter implements InputAdapterInterface
@@ -48,34 +50,39 @@ public class TextAreaAdapter implements InputAdapterInterface
         return textArea.getText();
     }
 
-    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches)
+    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
     {
-        int minRange = matches.get(0).getRange().getMinimumInteger();
-        int maxRange = matches.get(matches.size() - 1).getRange().getMaximumInteger();
-        Highlighter h = textArea.getHighlighter();
-        h.removeAllHighlights();
-        try {
-            h.addHighlight(minRange, maxRange, DefaultHighlighter.DefaultPainter);
-        } catch (BadLocationException e) {
-            logger.error(e.getMessage());
-        }
+        correctedRange.ifPresent(range -> {
+            int minRange = range.getMinimumInteger();
+            int maxRange = range.getMaximumInteger();
+            Highlighter h = textArea.getHighlighter();
+            h.removeAllHighlights();
+            try {
+                h.addHighlight(minRange, maxRange, DefaultHighlighter.DefaultPainter);
+            } catch (BadLocationException e) {
+                logger.error(e.getMessage());
+            }
+        });
     }
 
-    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement)
+    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
+            Optional<IntRange> correctedRange)
     {
-        int minRange = matchesWithReplacement.get(0).getRange().getMinimumInteger();
-        int maxRange = matchesWithReplacement.get(matchesWithReplacement.size() - 1).getRange().getMaximumInteger();
+        correctedRange.ifPresent(range -> {
+            int minRange = range.getMinimumInteger();
+            int maxRange = range.getMaximumInteger();
 
-        String replacement = Joiner.on("").join(
-                matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
-                        Collectors.toList()));
-        textArea.replaceRange(replacement, minRange, maxRange);
-        Highlighter h = textArea.getHighlighter();
-        h.removeAllHighlights();
-        try {
-            h.addHighlight(minRange, minRange + replacement.length(), DefaultHighlighter.DefaultPainter);
-        } catch (BadLocationException e) {
-            logger.error(e.getMessage());
-        }
+            String replacement = Joiner.on("").join(
+                    matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
+                            Collectors.toList()));
+            textArea.replaceRange(replacement, minRange, maxRange);
+            Highlighter h = textArea.getHighlighter();
+            h.removeAllHighlights();
+            try {
+                h.addHighlight(minRange, minRange + replacement.length(), DefaultHighlighter.DefaultPainter);
+            } catch (BadLocationException e) {
+                logger.error(e.getMessage());
+            }
+        });
     }
 }

@@ -19,6 +19,7 @@ import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
@@ -30,6 +31,10 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
 
+    /**
+     * @param integration
+     * @param prefHeight
+     */
     public AcrolinxSidebarJFX(AcrolinxIntegration integration, int prefHeight)
     {
         this.prefHeight = prefHeight;
@@ -100,13 +105,13 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
         acrolinxSidebarPlugin.onGlobalCheckRejected();
     }
 
-    @Override public void invalidateRanges(CheckedDocumentPart[] invalidCheckedDocumentRanges)
+    @Override public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         acrolinxSidebarPlugin.invalidateRanges(invalidCheckedDocumentRanges);
 
     }
 
-    @Override public void onVisibleRangesChanged(CheckedDocumentPart[] checkedDocumentRanges)
+    @Override public void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges)
     {
         acrolinxSidebarPlugin.onVisibleRangesChanged(checkedDocumentRanges);
 
