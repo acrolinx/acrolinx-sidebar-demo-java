@@ -16,6 +16,7 @@ public class TextAreaAdapter implements InputAdapterInterface
 {
     private final TextArea textArea;
     private InputFormat inputFormat;
+    private String documentReference;
 
     public TextAreaAdapter(TextArea textArea)
     {
@@ -27,6 +28,13 @@ public class TextAreaAdapter implements InputAdapterInterface
     {
         this.textArea = textArea;
         this.inputFormat = inputFormat;
+    }
+
+    public TextAreaAdapter(TextArea textArea, InputFormat inputFormat, String documentReference)
+    {
+        this.textArea = textArea;
+        this.inputFormat = inputFormat;
+        this.documentReference = documentReference;
     }
 
     @Override public InputFormat getInputFormat()
@@ -42,6 +50,16 @@ public class TextAreaAdapter implements InputAdapterInterface
     @Override public String getContent()
     {
         return textArea.getText();
+    }
+
+    @Override public String getDocumentReference()
+    {
+        return documentReference;
+    }
+
+    public void setDocumentReference(String documentReference)
+    {
+        this.documentReference = documentReference;
     }
 
     @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)

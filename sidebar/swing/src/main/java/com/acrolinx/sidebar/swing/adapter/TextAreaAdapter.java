@@ -21,6 +21,7 @@ public class TextAreaAdapter implements InputAdapterInterface
 {
     private final JTextArea textArea;
     private InputFormat inputFormat;
+    private String documentReference;
     final private Logger logger = LoggerFactory.getLogger(TextAreaAdapter.class);
 
     public TextAreaAdapter(JTextArea textArea)
@@ -33,6 +34,13 @@ public class TextAreaAdapter implements InputAdapterInterface
     {
         this.textArea = textArea;
         this.inputFormat = inputFormat;
+    }
+
+    public TextAreaAdapter(JTextArea textArea, InputFormat inputFormat, String documentReference)
+    {
+        this.textArea = textArea;
+        this.inputFormat = inputFormat;
+        this.documentReference = documentReference;
     }
 
     @Override public InputFormat getInputFormat()
@@ -48,6 +56,16 @@ public class TextAreaAdapter implements InputAdapterInterface
     @Override public String getContent()
     {
         return textArea.getText();
+    }
+
+    @Override public String getDocumentReference()
+    {
+        return documentReference;
+    }
+
+    public void setDocumentReference(String documentReference)
+    {
+        this.documentReference = documentReference;
     }
 
     @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)

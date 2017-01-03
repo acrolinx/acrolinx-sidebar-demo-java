@@ -4,13 +4,14 @@ import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.*;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import com.acrolinx.sidebar.utils.Lookup;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.lang.math.IntRange;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
@@ -27,7 +28,9 @@ import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class AcrolinxSidebarSWT implements AcrolinxSidebar
@@ -37,6 +40,8 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
     private final Browser browser;
     private final int prefHeight;
     private final AcrolinxIntegration client;
+    private AtomicReference<String> lastCheckedText = new AtomicReference<>("");
+    private AtomicReference<String> currentCheckId = new AtomicReference<>("");
 
     public AcrolinxSidebarSWT(Composite parent, int prefHeight, AcrolinxIntegration client)
     {
@@ -96,6 +101,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
             @Override public Object function(final Object[] arguments)
             {
                 final String requestText = client.getEditorAdapter().getContent();
+                lastCheckedText.set(requestText);
                 if (Strings.isNullOrEmpty(requestText)) {
                     return "<unsupported/>";
                 }
@@ -135,8 +141,10 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                 String checkResult = arguments[0].toString();
                 logger.debug("CheckResult: " + checkResult);
                 try {
-                    CheckResult checkResultObj = new Gson().fromJson(checkResult, CheckResult.class);
-                    client.onCheckResult(checkResultObj);
+                    CheckResultFromJSON checkResultObj = new Gson().fromJson(checkResult, CheckResultFromJSON.class);
+                    CheckResult result = checkResultObj.getAsCheckResult();
+                    client.onCheckResult(result);
+                    currentCheckId.set(result.getCheckedDocumentPart().getCheckId());
                 } catch (Exception e) {
                     logger.error(e.getMessage());
                 }
@@ -154,7 +162,16 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
                     List<AcrolinxMatch> result = match.stream().map(AcrolinxMatchFromJSON::getAsAcrolinxMatch).collect(
                             Collectors.toCollection(ArrayList::new));
-                    client.getEditorAdapter().selectRanges((String) arguments[0], result);
+                    Optional<IntRange> range = Lookup.getCorrectedRangeFromAcrolinxMatch(result, lastCheckedText.get(),
+                            client.getEditorAdapter().getContent());
+                    client.getEditorAdapter().selectRanges((String) arguments[0], result, range);
+                    if (!range.isPresent()) {
+                        invalidateRanges(result.stream().map(
+                                acrolinxMatch -> new CheckedDocumentPart(currentCheckId.get(),
+                                        new IntRange(acrolinxMatch.getRange().getMinimumInteger(),
+                                                acrolinxMatch.getRange().getMaximumInteger()))).collect(
+                                Collectors.toList()));
+                    }
                 } catch (Exception e) {
                     logger.error(e.getMessage());
                 }
@@ -173,7 +190,16 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                     List<AcrolinxMatchWithReplacement> result = match.stream().map(
                             AcrolinxMatchFromJSON::getAsAcrolinxMatchWithReplacement).collect(
                             Collectors.toCollection(ArrayList::new));
-                    client.getEditorAdapter().replaceRanges((String) arguments[0], result);
+                    Optional<IntRange> range = Lookup.getCorrectedRangeFromAcrolinxMatchWithReplacement(result,
+                            lastCheckedText.get(), client.getEditorAdapter().getContent());
+                    client.getEditorAdapter().replaceRanges((String) arguments[0], result, range);
+                    if (!range.isPresent()) {
+                        invalidateRanges(result.stream().map(
+                                acrolinxMatchWithReplacement -> new CheckedDocumentPart(currentCheckId.get(),
+                                        new IntRange(acrolinxMatchWithReplacement.getRange().getMinimumInteger(),
+                                                acrolinxMatchWithReplacement.getRange().getMaximumInteger()))).collect(
+                                Collectors.toList()));
+                    }
                 } catch (Exception e) {
                     logger.debug(e.getMessage());
                 }
@@ -185,7 +211,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
         {
             @Override public Object function(final Object[] arguments)
             {
-                return null;
+                return client.getEditorAdapter().getDocumentReference();
             }
 
         };
@@ -194,15 +220,6 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
         {
             @Override public Object function(final Object[] arguments)
             {
-                String configuration = arguments[0].toString();
-                logger.debug(configuration);
-                try {
-                    AcrolinxPluginConfiguration pluginConfiguration = new Gson().fromJson(configuration,
-                            AcrolinxPluginConfiguration.class);
-                    client.configure(pluginConfiguration);
-                } catch (Exception e) {
-                    logger.debug(e.getMessage());
-                }
                 return null;
             }
         };
@@ -211,9 +228,6 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
         {
             @Override public Object function(final Object[] arguments)
             {
-                logger.debug((String) arguments[0]);
-                DownloadInfo downloadInfo = new Gson().fromJson((String) arguments[0], DownloadInfo.class);
-                client.download(downloadInfo);
                 return null;
             }
         };
@@ -273,16 +287,15 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
         browser.execute("window.acrolinxSidebar.onGlobalCheckRejected();");
     }
 
-    @Override public void invalidateRanges(CheckedDocumentPart[] invalidDocumentParts)
+    private static String buildStringOfCheckedDocumentRanges(java.util.List<CheckedDocumentPart> checkedDocumentParts)
     {
-        String json = new Gson().toJson(invalidDocumentParts);
-        browser.execute("window.acrolinxSidebar.invalidateRanges(JSON.parse(" + json + "));");
+        return checkedDocumentParts.stream().map(checkedDocumentPart -> checkedDocumentPart.getAsJS()).collect(
+                Collectors.joining(", "));
     }
 
-    @Override public void onVisibleRangesChanged(CheckedDocumentPart[] changedDocumentRanges)
+    @Override public void invalidateRanges(List<CheckedDocumentPart> invalidDocumentParts)
     {
-        String json = new Gson().toJson(changedDocumentRanges);
-        browser.execute("window.acrolinxSidebar.onVisibleRangeChanged(JSON.parse(" + json + "))");
+        String js = buildStringOfCheckedDocumentRanges(invalidDocumentParts);
+        browser.execute("window.acrolinxSidebar.invalidateRanges([" + js + "]);");
     }
-
 }

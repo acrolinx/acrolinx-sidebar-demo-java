@@ -110,10 +110,4 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
         acrolinxSidebarPlugin.invalidateRanges(invalidCheckedDocumentRanges);
 
     }
-
-    @Override public void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges)
-    {
-        acrolinxSidebarPlugin.onVisibleRangesChanged(checkedDocumentRanges);
-
-    }
 }

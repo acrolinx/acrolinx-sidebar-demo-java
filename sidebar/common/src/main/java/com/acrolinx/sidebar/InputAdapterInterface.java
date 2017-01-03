@@ -30,6 +30,11 @@ public interface InputAdapterInterface
     String getContent();
 
     /**
+     * The path or filename of the document to check. In a CMS it can be the id that is used to look up the document.
+     */
+    String getDocumentReference();
+
+    /**
      * Is called by the Acrolinx Integration to highlight current issues in the text editor.
      *
      * @param checkId The current check id.
@@ -48,7 +53,4 @@ public interface InputAdapterInterface
      */
     void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
             Optional<IntRange> correctedIntRange);
-
-    //registerCheckCall(checkInfo: Check): void;
-    //registerCheckResult(checkResult: CheckResult): void;
 }

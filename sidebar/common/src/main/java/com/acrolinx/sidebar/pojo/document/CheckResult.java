@@ -1,5 +1,7 @@
 package com.acrolinx.sidebar.pojo.document;
 
+import java.util.Optional;
+
 public class CheckResult
 {
     private final CheckedDocumentPart checkedDocumentPart;
@@ -20,8 +22,8 @@ public class CheckResult
         return checkedDocumentPart;
     }
 
-    public CheckError getCheckError()
+    public Optional<CheckError> getCheckError()
     {
-        return checkError;
+        return Optional.ofNullable(checkError);
     }
 }

@@ -58,9 +58,4 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
     {
         sidebarJFX.invalidateRanges(invalidCheckedDocumentRanges);
     }
-
-    @Override public void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges)
-    {
-        sidebarJFX.onVisibleRangesChanged(checkedDocumentRanges);
-    }
 }

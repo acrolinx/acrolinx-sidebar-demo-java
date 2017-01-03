@@ -5,23 +5,47 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.google.common.base.Joiner;
+import org.apache.commons.lang.math.IntRange;
 import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TextAdapter implements InputAdapterInterface
 {
     final private Text textWidget;
+    private String documentReference;
+    private InputFormat inputFormat;
 
     public TextAdapter(Text textWidget)
     {
         this.textWidget = textWidget;
     }
 
+    public TextAdapter(Text textWidget, InputFormat inputFormat)
+    {
+
+        this.textWidget = textWidget;
+        this.inputFormat = inputFormat;
+    }
+
+    public TextAdapter(Text textWidget, InputFormat inputFormat, String documentReference)
+    {
+
+        this.textWidget = textWidget;
+        this.inputFormat = inputFormat;
+        this.documentReference = documentReference;
+    }
+
     @Override public InputFormat getInputFormat()
     {
-        return InputFormat.TEXT;
+        return inputFormat;
+    }
+
+    public void setInputFormat(InputFormat inputFormat)
+    {
+        this.inputFormat = inputFormat;
     }
 
     @Override public String getContent()
@@ -29,25 +53,37 @@ public class TextAdapter implements InputAdapterInterface
         return textWidget.getText();
     }
 
-    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches)
+    @Override public String getDocumentReference()
     {
-        int minRange = matches.get(0).getRange().getMinimumInteger();
-        int maxRange = matches.get(matches.size() - 1).getRange().getMaximumInteger();
-        textWidget.clearSelection();
-        textWidget.setSelection(minRange, maxRange);
+        return documentReference;
     }
 
-    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement)
+    public void setDocumentReference(String documentReference)
     {
-        int minRange = matchesWithReplacement.get(0).getRange().getMinimumInteger();
-        int maxRange = matchesWithReplacement.get(matchesWithReplacement.size() - 1).getRange().getMaximumInteger();
+        this.documentReference = documentReference;
+    }
 
-        String replacement = Joiner.on("").join(
-                matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
+    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
+    {
+        correctedRange.ifPresent(range -> {
+            textWidget.clearSelection();
+            textWidget.setSelection(range.getMinimumInteger(), range.getMaximumInteger());
+        });
+    }
 
-        textWidget.clearSelection();
-        String text = textWidget.getText();
-        String replacedText = text.substring(0, minRange) + replacement + text.substring(maxRange);
-        textWidget.setText(replacedText);
+    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
+            Optional<IntRange> correctedRange)
+    {
+        correctedRange.ifPresent(range -> {
+            int minRange = range.getMinimumInteger();
+            int maxRange = range.getMaximumInteger();
+            String replacement = Joiner.on("").join(
+                    matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
+
+            textWidget.clearSelection();
+            String text = textWidget.getText();
+            String replacedText = text.substring(0, minRange) + replacement + text.substring(maxRange);
+            textWidget.setText(replacedText);
+        });
     }
 }

@@ -8,18 +8,15 @@ import com.google.gson.Gson;
 public class CheckOptions
 {
     private InputFormat inputFormat;
-    private Boolean base64EncodedGzipped;
     private RequestDescription requestDescription;
 
     /**
      * @param inputFormat Check InputFormat for valid formats.
-     * @param base64EncodedGzipped Check AcrolinxPluginConfiguration to see if this option is available.
-     * @param requestDescription Contains the document reference.
+     * @param requestDescription Contains the document reference. This can be an id or path to identify the document.
      */
-    public CheckOptions(RequestDescription requestDescription, Boolean base64EncodedGzipped, InputFormat inputFormat)
+    public CheckOptions(RequestDescription requestDescription, InputFormat inputFormat)
     {
         this.requestDescription = requestDescription;
-        this.base64EncodedGzipped = base64EncodedGzipped;
         this.inputFormat = inputFormat;
     }
 

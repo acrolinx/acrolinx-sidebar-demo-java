@@ -20,31 +20,27 @@ public interface AcrolinxSidebar
      */
     void configure(SidebarConfiguration configuration);
 
+    // TODO(fp) Do we want to offer checkGlobal and on globalCheckRejected??? Is is needed for now?
+
     /**
      * Pushes a check request to the Acrolinx Sidebar.
+     *
      * @param documentContent
      * @param options
      * @return String containing the checkId assigned with the requested check
      */
     CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options);
 
-    // TODO(fp) check in sidebarcode
-
     /**
-     * Notifies the sidebar that the check was cancelled.
+     * Notifies the sidebar that the check was canceled.
      */
     void onGlobalCheckRejected();
 
     /**
      * Notifies the sidebar about invalid ranges of the current document.
      * The sidebar will then invalidate all cards containing issues within this text range.
+     *
      * @param invalidCheckedDocumentRanges
      */
     void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges);
-
-    /**
-     * Notifies the sidebar about the currently displayed parts of the checked document.
-     * @param checkedDocumentRanges
-     */
-    void onVisibleRangesChanged(List<CheckedDocumentPart> checkedDocumentRanges);
 }

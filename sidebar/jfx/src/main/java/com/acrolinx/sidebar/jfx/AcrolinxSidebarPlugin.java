@@ -36,9 +36,10 @@ public class AcrolinxSidebarPlugin
     private final AtomicReference<String> lastCheckedDocument = new AtomicReference<>("");
     private final AtomicReference<String> currentCheckId = new AtomicReference<>("");
     private final AtomicReference<InputFormat> inputFormatRef = new AtomicReference<>();
+    private final AtomicReference<String> documentReference = new AtomicReference<>("");
     private final AtomicReference<AcrolinxSidebarInitParameter> initParameters = new AtomicReference<>();
 
-    final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarPlugin.class);
+    private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarPlugin.class);
 
     public AcrolinxSidebarPlugin(final AcrolinxIntegration client, final JSObject jsobj)
     {
@@ -64,15 +65,6 @@ public class AcrolinxSidebarPlugin
     {
         final InitResult initResult = JSToJavaConverter.getAcrolinxInitResultFromJSObject(o);
         invokeSave(() -> client.onInitFinished(initResult));
-    }
-
-    public synchronized void configure(final JSObject o)
-    {
-        invokeSave(() -> {
-            final AcrolinxPluginConfiguration pluginConfiguration = JSToJavaConverter.getAcrolinxPluginConfigurationFromJSObject(
-                    o);
-            client.configure(pluginConfiguration);
-        });
     }
 
     public synchronized void configureSidebar(SidebarConfiguration sidebarConfiguration)
@@ -115,16 +107,14 @@ public class AcrolinxSidebarPlugin
         final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatch(matches,
                 lastCheckedDocument.get(), client.getEditorAdapter().getContent());
         if (!correctedRanges.isPresent()) {
-            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> {
-                return new CheckedDocumentPart(currentCheckId.get(),
-                        new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()));
-            }).collect(Collectors.toList());
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
+                    (match) -> new CheckedDocumentPart(currentCheckId.get(),
+                            new IntRange(match.getRange().getMinimumNumber(),
+                                    match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
             return;
         }
-        invokeSave(() -> {
-            client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges);
-        });
+        invokeSave(() -> client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges));
 
     }
 
@@ -135,16 +125,14 @@ public class AcrolinxSidebarPlugin
         final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatchWithReplacement(matches,
                 lastCheckedDocument.get(), client.getEditorAdapter().getContent());
         if (!correctedRanges.isPresent()) {
-            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> {
-                return new CheckedDocumentPart(currentCheckId.get(),
-                        new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()));
-            }).collect(Collectors.toList());
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
+                    (match) -> new CheckedDocumentPart(currentCheckId.get(),
+                            new IntRange(match.getRange().getMinimumNumber(),
+                                    match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
             return;
         }
-        invokeSave(() -> {
-            client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges);
-        });
+        invokeSave(() -> client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges));
     }
 
     public synchronized void openWindow(final JSObject o)
@@ -160,8 +148,8 @@ public class AcrolinxSidebarPlugin
     private CheckOptions getCheckSettingsFromClient()
     {
         inputFormatRef.set(client.getEditorAdapter().getInputFormat());
-        // TODO (fp) filename in requestDescription
-        return new CheckOptions(null, false, inputFormatRef.get());
+        documentReference.set(client.getEditorAdapter().getDocumentReference());
+        return new CheckOptions(new RequestDescription(documentReference.get()), inputFormatRef.get());
     }
 
     protected void onGlobalCheckRejected()
@@ -178,14 +166,7 @@ public class AcrolinxSidebarPlugin
     protected void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         String js = buildStringOfCheckedDocumentRanges(invalidCheckedDocumentRanges);
-        System.out.println(js);
+        logger.debug(js);
         Platform.runLater(() -> jsobj.eval("acrolinxSidebar.invalidateRanges([" + js + "])"));
-    }
-
-    protected void onVisibleRangesChanged(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
-    {
-        String js = buildStringOfCheckedDocumentRanges(invalidCheckedDocumentRanges);
-        System.out.println(js);
-        Platform.runLater(() -> jsobj.eval("acrolinxSidebar.onVisibleRangeChanged(JSON.parse([" + js + "]))"));
     }
 }

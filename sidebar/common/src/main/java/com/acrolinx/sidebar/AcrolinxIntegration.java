@@ -2,8 +2,6 @@ package com.acrolinx.sidebar;
 
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
-import com.acrolinx.sidebar.pojo.document.DownloadInfo;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
 /**
@@ -49,22 +47,9 @@ public interface AcrolinxIntegration
     void openWindow(String url);
 
     /**
-     * Notifies the AcrolinxIntegration about the capabilities of the Acrolinx Sidebar.
-     * @param pluginConfiguration
-     */
-    void configure(AcrolinxPluginConfiguration pluginConfiguration);
-
-    /**
      * Notifies the Acrolinx Integration about the result of the initializing process.
      * @param initResult
      * @see InitResult
      */
     void onInitFinished(InitResult initResult);
-
-    /**
-     * Called by the Acrolinx Sidebar to download assets.
-     * @param downloadInfo
-     * @see DownloadInfo
-     */
-    void download(DownloadInfo downloadInfo);
 }

@@ -8,8 +8,6 @@ import com.acrolinx.sidebar.jfx.adapter.InvocationAdapterJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
-import com.acrolinx.sidebar.pojo.document.DownloadInfo;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
@@ -118,20 +116,10 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         popupStage.showAndWait();
     }
 
-    @Override public void configure(AcrolinxPluginConfiguration pluginConfiguration)
-    {
-
-    }
-
     @Override public void onInitFinished(InitResult initResult)
     {
         logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;
-
-    }
-
-    @Override public void download(DownloadInfo downloadInfo)
-    {
 
     }
 

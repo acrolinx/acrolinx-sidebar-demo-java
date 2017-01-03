@@ -1,6 +1,7 @@
 package com.acrolinx.client.sidebar.sample.swt;
 
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
@@ -48,7 +49,7 @@ public class AcrolinxDemoClientSWT
         AcrolinxSidebarInitParameter initParemeters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
-        TextAdapter textAdapter = new TextAdapter(textArea);
+        TextAdapter textAdapter = new TextAdapter(textArea, InputFormat.TEXT, "samplefilename");
 
         AcrolinxSWTIntegration client = new AcrolinxSWTIntegration(initParemeters, textAdapter);
 
