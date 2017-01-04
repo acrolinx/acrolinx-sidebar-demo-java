@@ -37,32 +37,33 @@ public class TextAreaAdapter implements InputAdapterInterface
         this.documentReference = documentReference;
     }
 
-    @Override public InputFormat getInputFormat()
+    @Override public synchronized InputFormat getInputFormat()
     {
         return inputFormat;
     }
 
-    public void setInputFormat(InputFormat inputFormat)
+    public synchronized void setInputFormat(InputFormat inputFormat)
     {
         this.inputFormat = inputFormat;
     }
 
-    @Override public String getContent()
+    @Override public synchronized String getContent()
     {
         return textArea.getText();
     }
 
-    @Override public String getDocumentReference()
+    @Override public synchronized String getDocumentReference()
     {
         return documentReference;
     }
 
-    public void setDocumentReference(String documentReference)
+    public synchronized void setDocumentReference(String documentReference)
     {
         this.documentReference = documentReference;
     }
 
-    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
+    @Override public synchronized void selectRanges(String checkId, List<AcrolinxMatch> matches,
+            Optional<IntRange> correctedRange)
     {
         correctedRange.ifPresent(range -> {
             int minRange = range.getMinimumInteger();
@@ -71,12 +72,12 @@ public class TextAreaAdapter implements InputAdapterInterface
         });
     }
 
-    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
-            Optional<IntRange> correctedRange)
+    @Override public synchronized void replaceRanges(String checkId,
+            List<AcrolinxMatchWithReplacement> matchesWithReplacement, Optional<IntRange> correctedRange)
     {
         correctedRange.ifPresent(range -> {
-            int minRange = matchesWithReplacement.get(0).getRange().getMinimumInteger();
-            int maxRange = matchesWithReplacement.get(matchesWithReplacement.size() - 1).getRange().getMaximumInteger();
+            int minRange = range.getMinimumInteger();
+            int maxRange = range.getMaximumInteger();
 
             String replacement = Joiner.on("").join(
                     matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(

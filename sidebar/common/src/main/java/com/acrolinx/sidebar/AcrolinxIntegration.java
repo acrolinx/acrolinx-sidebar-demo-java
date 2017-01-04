@@ -27,13 +27,6 @@ public interface AcrolinxIntegration
     AcrolinxSidebarInitParameter getInitParameters();
 
     /**
-     * Is needed for JFX and Swing Applications to invoke methods in threads.
-     *
-     * @return
-     */
-    InvocationAdapterInterface getInvocationAdapter();
-
-    /**
      * Notifies the Acrolinx Integration about the checks result.
      * @param checkResult
      */

@@ -2,7 +2,6 @@ package com.acrolinx.client.sidebar.sample.swt;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.InvocationAdapterInterface;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
@@ -26,12 +25,6 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     @Override public InputAdapterInterface getEditorAdapter()
     {
         return this.inputAdapterInterface;
-    }
-
-    // Invocation adapter is not needed for SWT-Applications
-    @Override public InvocationAdapterInterface getInvocationAdapter()
-    {
-        return null;
     }
 
     @Override public AcrolinxSidebarInitParameter getInitParameters()

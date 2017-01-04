@@ -4,7 +4,6 @@ import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.*;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
 import com.acrolinx.sidebar.utils.Lookup;
@@ -62,7 +61,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
     private void initBrowser()
     {
         this.browser.setSize(300, prefHeight);
-        browser.setUrl(AcrolinxSidebarInitParameter.SIDEBAR_URL);
+        browser.setUrl(client.getInitParameters().getSidebarUrl());
         browser.addProgressListener(new ProgressListener()
         {
             @Override public void completed(ProgressEvent event)

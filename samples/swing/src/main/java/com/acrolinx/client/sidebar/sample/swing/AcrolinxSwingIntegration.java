@@ -2,13 +2,12 @@ package com.acrolinx.client.sidebar.sample.swing;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.InvocationAdapterInterface;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
-import com.acrolinx.sidebar.swing.adapter.InvocationAdapterSwing;
 import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.utils.SidebarUtils;
 import javafx.embed.swing.JFXPanel;
@@ -60,16 +59,12 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
         return new TextAreaAdapter(this.textArea);
     }
 
-    @Override public InvocationAdapterInterface getInvocationAdapter()
-    {
-        return new InvocationAdapterSwing();
-    }
-
     @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         logger.debug("Getting InitParams");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client Swing", "1.0.0.1"));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client Swing", "1.0.0.1",
+                SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();

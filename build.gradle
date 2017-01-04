@@ -110,7 +110,7 @@ project(':sidebar_swt') {
     apply plugin: 'com.diffplug.gradle.swt.nativedeps'
 
     dependencies {
-        compile project(':sidebar_jfx')
+        compile project(':sidebar_common')
     }
 }
 

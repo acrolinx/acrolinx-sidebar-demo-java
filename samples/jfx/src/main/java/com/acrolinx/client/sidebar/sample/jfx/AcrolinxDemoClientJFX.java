@@ -2,15 +2,14 @@ package com.acrolinx.client.sidebar.sample.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.InvocationAdapterInterface;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
-import com.acrolinx.sidebar.jfx.adapter.InvocationAdapterJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -89,15 +88,11 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         return textAreaAdapter;
     }
 
-    @Override public InvocationAdapterInterface getInvocationAdapter()
-    {
-        return new InvocationAdapterJFX();
-    }
-
     @Override public AcrolinxSidebarInitParameter getInitParameters()
     {
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1"));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1",
+                SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();

@@ -61,10 +61,15 @@ public class AcrolinxSidebarPlugin
         Platform.runLater(() -> jsobj.eval("acrolinxSidebar.init(" + this.initParameters.get().toString() + ")"));
     }
 
+    public synchronized void configure(final JSObject o)
+    {
+        //
+    }
+
     public synchronized void onInitFinished(final JSObject o)
     {
         final InitResult initResult = JSToJavaConverter.getAcrolinxInitResultFromJSObject(o);
-        invokeSave(() -> client.onInitFinished(initResult));
+        client.onInitFinished(initResult);
     }
 
     public synchronized void configureSidebar(SidebarConfiguration sidebarConfiguration)
@@ -76,7 +81,6 @@ public class AcrolinxSidebarPlugin
     {
         lastCheckedDocument.set(client.getEditorAdapter().getContent());
         final CheckOptions checkOptions = getCheckSettingsFromClient();
-
         Platform.runLater(() -> {
             jsobj.setMember("checkText", lastCheckedDocument.get());
             jsobj.eval("acrolinxSidebar.checkGlobal(checkText," + checkOptions.toString() + ")");
@@ -98,7 +102,7 @@ public class AcrolinxSidebarPlugin
     {
         final CheckResult checkResult = JSToJavaConverter.getCheckResultFromJSObject(o);
         currentCheckId.set(checkResult.getCheckedDocumentPart().getCheckId());
-        invokeSave(() -> client.onCheckResult(checkResult));
+        client.onCheckResult(checkResult);
     }
 
     public synchronized void selectRanges(final String checkID, final JSObject o)
@@ -112,9 +116,9 @@ public class AcrolinxSidebarPlugin
                             new IntRange(match.getRange().getMinimumNumber(),
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
-            return;
+        } else {
+            client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges);
         }
-        invokeSave(() -> client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges));
 
     }
 
@@ -130,19 +134,14 @@ public class AcrolinxSidebarPlugin
                             new IntRange(match.getRange().getMinimumNumber(),
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
-            return;
+        } else {
+            client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges);
         }
-        invokeSave(() -> client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges));
     }
 
     public synchronized void openWindow(final JSObject o)
     {
-        invokeSave(() -> client.openWindow(o.getMember("url").toString()));
-    }
-
-    private void invokeSave(Runnable runnable)
-    {
-        this.getClient().getInvocationAdapter().invokeSave(runnable);
+        client.openWindow(o.getMember("url").toString());
     }
 
     private CheckOptions getCheckSettingsFromClient()

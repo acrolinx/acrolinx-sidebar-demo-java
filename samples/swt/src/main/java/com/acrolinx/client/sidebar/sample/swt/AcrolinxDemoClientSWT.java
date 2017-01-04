@@ -3,6 +3,7 @@ package com.acrolinx.client.sidebar.sample.swt;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import org.eclipse.swt.SWT;
@@ -45,7 +46,8 @@ public class AcrolinxDemoClientSWT
         right.grabExcessVerticalSpace = true;
 
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client SWT", "1.0.0.1"));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client SWT", "1.0.0.1",
+                SoftwareComponentCategory.MAIN));
         AcrolinxSidebarInitParameter initParemeters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
