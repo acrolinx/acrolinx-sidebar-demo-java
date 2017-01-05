@@ -39,7 +39,6 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
     {
         this.prefHeight = prefHeight;
         logger.debug("Trying to load sidebar url: " + integration.getInitParameters().getSidebarUrl());
-        webEngine.load(integration.getInitParameters().getSidebarUrl());
         getChildren().add(browser);
         webEngine.setJavaScriptEnabled(true);
         browser.contextMenuEnabledProperty();
@@ -53,11 +52,9 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
                         logger.debug("Sidebar loaded from " + webEngine.getLocation());
                         final JSObject jsobj = (JSObject) webEngine.executeScript("window");
                         webEngine.executeScript(JSConsole.overwriteJSLogging());
-                        acrolinxSidebarPlugin = new AcrolinxSidebarPlugin(integration,
-                                jsobj);
+                        acrolinxSidebarPlugin = new AcrolinxSidebarPlugin(integration, jsobj);
                         jsobj.setMember("acrolinxPlugin", acrolinxSidebarPlugin);
                         jsobj.setMember("java", new JSConsole());
-                        jsobj.eval("console.log(window.acrolinxPlugin);");
                     }
                     logger.debug("state changed: " + observedValue.getValue() + ": " + oldState + " -> " + newState);
                     if ("FAILED".equals("" + newState)) {
