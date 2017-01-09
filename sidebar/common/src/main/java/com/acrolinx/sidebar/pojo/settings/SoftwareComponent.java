@@ -2,6 +2,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
+@SuppressWarnings({"SameParameterValue", "FieldCanBeLocal"})
 public class SoftwareComponent
 {
     private final String id;

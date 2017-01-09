@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("WeakerAccess")
 public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;
@@ -61,6 +62,7 @@ public class AcrolinxSidebarPlugin
         Platform.runLater(() -> jsobj.eval("acrolinxSidebar.init(" + this.initParameters.get().toString() + ")"));
     }
 
+    @SuppressWarnings("EmptyMethod")
     public synchronized void configure(final JSObject o)
     {
         //
@@ -158,8 +160,7 @@ public class AcrolinxSidebarPlugin
 
     private static String buildStringOfCheckedDocumentRanges(java.util.List<CheckedDocumentPart> checkedDocumentParts)
     {
-        return checkedDocumentParts.stream().map(checkedDocumentPart -> checkedDocumentPart.getAsJS()).collect(
-                Collectors.joining(", "));
+        return checkedDocumentParts.stream().map(CheckedDocumentPart::getAsJS).collect(Collectors.joining(", "));
     }
 
     protected void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)

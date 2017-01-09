@@ -11,13 +11,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-public class AcrolinxSWTIntegration implements AcrolinxIntegration
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class AcrolinxSWTIntegration
+        implements AcrolinxIntegration
 {
     final private AcrolinxSidebarInitParameter initParameters;
     final private InputAdapterInterface inputAdapterInterface;
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
 
+    @SuppressWarnings("WeakerAccess")
     public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParameters,
             InputAdapterInterface inputAdapterInterface)
     {
@@ -47,7 +49,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     @Override
     public void openWindow(String url)
     {
-        SidebarUtils.openWebpageInDefaultBrowser(url);
+        SidebarUtils.openWebPageInDefaultBrowser(url);
     }
 
     @Override

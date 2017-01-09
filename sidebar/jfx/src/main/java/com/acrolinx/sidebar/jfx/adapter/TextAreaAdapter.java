@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class TextAreaAdapter implements InputAdapterInterface
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class TextAreaAdapter implements InputAdapterInterface
 {
     private final TextArea textArea;
     private InputFormat inputFormat;
@@ -67,7 +67,7 @@ public class TextAreaAdapter implements InputAdapterInterface
 
     @Override
     public synchronized void selectRanges(String checkId, List<AcrolinxMatch> matches,
-            Optional<IntRange> correctedRange)
+            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<IntRange> correctedRange)
     {
         correctedRange.ifPresent(range -> {
             int minRange = range.getMinimumInteger();

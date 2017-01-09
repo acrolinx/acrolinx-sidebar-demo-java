@@ -1,6 +1,6 @@
 package com.acrolinx.sidebar.utils;
 
-public class OffsetAlign
+@SuppressWarnings("WeakerAccess") public class OffsetAlign
 {
     private final int oldPosition;
     private final int diffOffset;

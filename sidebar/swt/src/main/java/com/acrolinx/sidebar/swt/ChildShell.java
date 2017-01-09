@@ -8,7 +8,8 @@ import org.eclipse.swt.widgets.Shell;
 
 public class ChildShell
 {
-    Shell child;
+    @SuppressWarnings("WeakerAccess")
+    final Shell child;
 
     public ChildShell(Shell parent, Display display)
     {

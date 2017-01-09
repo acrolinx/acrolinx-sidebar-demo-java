@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 import java.util.ArrayList;
 
-public class AcrolinxDemoClientSWT
+@SuppressWarnings("WeakerAccess") public class AcrolinxDemoClientSWT
 {
 
     final Display display = new Display();
@@ -48,12 +48,12 @@ public class AcrolinxDemoClientSWT
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client SWT", "1.0.0.1",
                 SoftwareComponentCategory.MAIN));
-        AcrolinxSidebarInitParameter initParemeters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
+        AcrolinxSidebarInitParameter initParameters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
         TextAdapter textAdapter = new TextAdapter(textArea, InputFormat.TEXT, "samplefilename");
 
-        AcrolinxSWTIntegration client = new AcrolinxSWTIntegration(initParemeters, textAdapter);
+        AcrolinxSWTIntegration client = new AcrolinxSWTIntegration(initParameters, textAdapter);
 
         AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(shell, 600, client);
         sidebarSWT.getSidebarBrowser().setLayoutData(right);

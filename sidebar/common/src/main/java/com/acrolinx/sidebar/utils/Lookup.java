@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Lookup
+@SuppressWarnings("WeakerAccess") public class Lookup
 {
     final static private DiffMatchPatch DIFFER = new DiffMatchPatch();
 
@@ -43,7 +43,6 @@ public class Lookup
     protected static Optional<IntRange> getCorrectedMatch(String checkedText, String changedText, int offsetStart,
             int offsetEnd)
     {
-        Optional<IntRange> result = null;
         LinkedList<DiffMatchPatch.Diff> diffs = getDiffs(checkedText, changedText);
         LinkedList<OffsetAlign> aligns = createOffsetMappingArray(diffs);
         Optional<OffsetAlign> first = aligns.stream().filter((a) -> a.getOldPosition() >= offsetEnd).findFirst();

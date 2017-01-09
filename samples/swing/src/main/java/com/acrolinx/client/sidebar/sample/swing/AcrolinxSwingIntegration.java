@@ -82,10 +82,11 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     @Override
     public void openWindow(String url)
     {
-        SidebarUtils.openWebpageInDefaultBrowser(url);
+        SidebarUtils.openWebPageInDefaultBrowser(url);
     }
 
     @Override
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public void onInitFinished(Optional<SidebarError> initResult)
     {
         logger.debug("Finished init!");

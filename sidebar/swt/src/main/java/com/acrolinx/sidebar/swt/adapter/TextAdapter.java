@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class TextAdapter implements InputAdapterInterface
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class TextAdapter implements InputAdapterInterface
 {
     final private Text textWidget;
     private String documentReference;
@@ -83,7 +83,8 @@ public class TextAdapter implements InputAdapterInterface
             int minRange = range.getMinimumInteger();
             int maxRange = range.getMaximumInteger();
             String replacement = Joiner.on("").join(
-                    matchesWithReplacement.stream().map(o -> o.getReplacement()).collect(Collectors.toList()));
+                    matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
+                            Collectors.toList()));
 
             textWidget.clearSelection();
             String text = textWidget.getText();

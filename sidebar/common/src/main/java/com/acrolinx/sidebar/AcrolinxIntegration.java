@@ -24,7 +24,7 @@ public interface AcrolinxIntegration
     /**
      * Gets the parameters used to initialize the Acrolinx Sidebar.
      *
-     * @return AcrolinxInitParamter
+     * @return AcrolinxInitParameter
      * @see AcrolinxSidebarInitParameter
      */
     AcrolinxSidebarInitParameter getInitParameters();
@@ -49,5 +49,5 @@ public interface AcrolinxIntegration
      *
      * @param initResult
      */
-    void onInitFinished(Optional<SidebarError> initResult);
+    void onInitFinished(@SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<SidebarError> initResult);
 }

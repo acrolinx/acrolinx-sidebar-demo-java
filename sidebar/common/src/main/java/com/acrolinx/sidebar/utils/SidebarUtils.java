@@ -15,7 +15,7 @@ public class SidebarUtils
      *
      * @param url
      */
-    public static void openWebpageInDefaultBrowser(String url)
+    public static void openWebPageInDefaultBrowser(String url)
     {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {

@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("SameParameterValue")
 public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
 {
     private final VBox pane = new VBox();

@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class TextAreaAdapter implements InputAdapterInterface
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType, WeakerAccess") public class TextAreaAdapter
+        implements InputAdapterInterface
 {
     private final JTextArea textArea;
     private InputFormat inputFormat;

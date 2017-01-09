@@ -83,7 +83,7 @@ After building the project run `./gradlew sidebar_demo_jfx:run` for the JavaFX s
 Run `./gradlew sidebar_demo_swing:run` for the Java Swing sample
 and `./gradlew sidebar_demo_swt:run` for the Java SWT sample.
 
-On the start you'll the a textbox next to the Acrolinx Sidebar.
+On the start you'll the a text box next to the Acrolinx Sidebar.
 Enter a Acrolinx Server address along with your credentials.
 Note that you'll have to provide a server address starting with 'https'.
 

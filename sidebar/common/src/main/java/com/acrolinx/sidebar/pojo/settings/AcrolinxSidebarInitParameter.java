@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+@SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
 public class AcrolinxSidebarInitParameter
 {
-    public static final String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";
+    private static final String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";
     private String serverAddress;
     private final String clientSignature;
     private String sidebarUrl;
@@ -57,6 +58,7 @@ public class AcrolinxSidebarInitParameter
         return gson.toJson(this);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static class AcrolinxSidebarInitParameterBuilder
     {
         private String serverAddress;

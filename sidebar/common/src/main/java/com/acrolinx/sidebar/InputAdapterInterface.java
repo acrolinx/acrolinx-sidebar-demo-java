@@ -11,6 +11,7 @@ import java.util.Optional;
 /**
  * This interface serves to interact with the current editor.
  */
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public interface InputAdapterInterface
 {
 

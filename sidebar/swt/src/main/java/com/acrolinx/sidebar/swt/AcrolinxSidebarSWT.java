@@ -34,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("SameParameterValue")
 public class AcrolinxSidebarSWT implements AcrolinxSidebar
 {
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarSWT.class);
@@ -41,9 +42,10 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
     private final Browser browser;
     private final int prefHeight;
     private final AcrolinxIntegration client;
-    private AtomicReference<String> lastCheckedText = new AtomicReference<>("");
-    private AtomicReference<String> currentCheckId = new AtomicReference<>("");
+    private final AtomicReference<String> lastCheckedText = new AtomicReference<>("");
+    private final AtomicReference<String> currentCheckId = new AtomicReference<>("");
 
+    @SuppressWarnings("WeakerAccess")
     public AcrolinxSidebarSWT(Composite parent, int prefHeight, AcrolinxIntegration client)
     {
         this.client = client;
@@ -314,8 +316,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
 
     private static String buildStringOfCheckedDocumentRanges(java.util.List<CheckedDocumentPart> checkedDocumentParts)
     {
-        return checkedDocumentParts.stream().map(checkedDocumentPart -> checkedDocumentPart.getAsJS()).collect(
-                Collectors.joining(", "));
+        return checkedDocumentParts.stream().map(CheckedDocumentPart::getAsJS).collect(Collectors.joining(", "));
     }
 
     @Override

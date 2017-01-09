@@ -5,9 +5,10 @@ import com.google.gson.Gson;
 /**
  * Check options define how the Acrolinx Server handles document to check.
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class CheckOptions
 {
-    private InputFormat inputFormat;
+    private final InputFormat inputFormat;
     private RequestDescription requestDescription;
 
     /**

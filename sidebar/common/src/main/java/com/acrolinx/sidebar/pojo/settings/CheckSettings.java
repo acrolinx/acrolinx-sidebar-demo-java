@@ -2,6 +2,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class CheckSettings
 {
     private final String language;

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 /**
  * Available configuration for the Acrolinx Sidebar
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class SidebarConfiguration
 {
     private final Boolean readOnlySuggestion;

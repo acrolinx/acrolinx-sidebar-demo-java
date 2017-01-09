@@ -27,7 +27,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class AcrolinxDemoClientJFX extends Application
+        implements AcrolinxIntegration
 {
     private final TextArea textArea = new TextArea();
     private TextAreaAdapter textAreaAdapter;
@@ -113,11 +114,12 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
     @Override
     public void openWindow(String url)
     {
-        SidebarUtils.openWebpageInDefaultBrowser(url);
+        SidebarUtils.openWebPageInDefaultBrowser(url);
     }
 
     @Override
-    public void onInitFinished(Optional<SidebarError> initResult)
+    public void onInitFinished(
+            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<SidebarError> initResult)
     {
         logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;
