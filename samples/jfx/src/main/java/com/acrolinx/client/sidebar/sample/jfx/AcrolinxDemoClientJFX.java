@@ -4,7 +4,7 @@ import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
-import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
@@ -99,7 +100,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
                 SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
-                withShowServerSelector(true).withSidebarUrl("http://localhost:9001/index.html").build();
+                withShowServerSelector(true).build();
     }
 
     @Override
@@ -116,7 +117,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
     }
 
     @Override
-    public void onInitFinished(InitResult initResult)
+    public void onInitFinished(Optional<SidebarError> initResult)
     {
         logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;

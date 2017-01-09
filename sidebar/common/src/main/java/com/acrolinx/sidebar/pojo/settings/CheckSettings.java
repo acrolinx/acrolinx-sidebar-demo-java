@@ -46,7 +46,8 @@ public class CheckSettings
         this.termStatuses = termStatuses;
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         Gson gson = new Gson();
         return gson.toJson(this);

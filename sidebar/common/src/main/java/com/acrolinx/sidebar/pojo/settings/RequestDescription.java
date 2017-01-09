@@ -16,7 +16,8 @@ public class RequestDescription
         this.documentReference = documentReference;
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         Gson gson = new Gson();
         return gson.toJson(this);

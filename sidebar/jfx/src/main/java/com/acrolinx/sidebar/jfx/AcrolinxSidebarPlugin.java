@@ -9,7 +9,7 @@
 package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
@@ -68,7 +68,7 @@ public class AcrolinxSidebarPlugin
 
     public synchronized void onInitFinished(final JSObject o)
     {
-        final InitResult initResult = JSToJavaConverter.getAcrolinxInitResultFromJSObject(o);
+        final Optional<SidebarError> initResult = JSToJavaConverter.getAcrolinxInitResultFromJSObject(o);
         client.onInitFinished(initResult);
     }
 

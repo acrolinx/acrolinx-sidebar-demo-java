@@ -35,7 +35,8 @@ public class SoftwareComponent
         this.category = category;
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         Gson gson = new Gson();
         return gson.toJson(this);

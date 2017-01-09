@@ -2,12 +2,14 @@ package com.acrolinx.client.sidebar.sample.swt;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.utils.SidebarUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
 
 public class AcrolinxSWTIntegration implements AcrolinxIntegration
 {
@@ -49,7 +51,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onInitFinished(InitResult initResult)
+    public void onInitFinished(Optional<SidebarError> initResult)
     {
         logger.debug(initResult.toString());
 

@@ -1,8 +1,10 @@
 package com.acrolinx.sidebar;
 
-import com.acrolinx.sidebar.pojo.InitResult;
+import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+
+import java.util.Optional;
 
 /**
  * This interface needs be implemented to integrate Acrolinx with an editor or editing environment.
@@ -21,6 +23,7 @@ public interface AcrolinxIntegration
 
     /**
      * Gets the parameters used to initialize the Acrolinx Sidebar.
+     *
      * @return AcrolinxInitParamter
      * @see AcrolinxSidebarInitParameter
      */
@@ -28,6 +31,7 @@ public interface AcrolinxIntegration
 
     /**
      * Notifies the Acrolinx Integration about the checks result.
+     *
      * @param checkResult
      */
     void onCheckResult(CheckResult checkResult);
@@ -35,14 +39,15 @@ public interface AcrolinxIntegration
     /**
      * Is called to open an URL in a new window.
      * This is needed to display the Acrolinx Scorecard in your integration.
+     *
      * @param url
      */
     void openWindow(String url);
 
     /**
      * Notifies the Acrolinx Integration about the result of the initializing process.
+     *
      * @param initResult
-     * @see InitResult
      */
-    void onInitFinished(InitResult initResult);
+    void onInitFinished(Optional<SidebarError> initResult);
 }

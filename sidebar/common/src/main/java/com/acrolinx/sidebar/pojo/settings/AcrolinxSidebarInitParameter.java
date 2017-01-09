@@ -50,7 +50,8 @@ public class AcrolinxSidebarInitParameter
             return SIDEBAR_URL;
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         Gson gson = new Gson();
         return gson.toJson(this);
@@ -88,6 +89,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * Configure the server that should be used to check the content.
          * If this is not set, set member 'showServerSelector' to true.
+         *
          * @param serverAddress Address of the Acrolinx Server that is used to check the content.
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -100,6 +102,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * The url of the Acrolinx Sidebar.
          * If this is not set the publicly available Sidebar will be used by default.
+         *
          * @param sidebarUrl
          * @returnReturns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -111,6 +114,7 @@ public class AcrolinxSidebarInitParameter
 
         /**
          * By default the client locale is set to 'en'. It can be set to "fr", "de", etc.
+         *
          * @param clientLocale Should be "en", "fr", "de", "sv", "ja", etc.
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -123,6 +127,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * If this parameter is set to 'true' the Acrolinx Sidebar will provide an input field to set an url
          * for the Acrolinx Server.
+         *
          * @param showServerSelector
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -135,6 +140,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * This parameter defines the check settings that will apply to all triggered checks.
          * If this parameter is set, then the default check settings and the check settings saved by the user will be ignored.
+         *
          * @param checkSettings
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -147,6 +153,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * These check settings will be used as the initial check settings when the Acrolinx Sidebar is used for
          * the first time.
+         *
          * @param defaultCheckSettings
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -159,6 +166,7 @@ public class AcrolinxSidebarInitParameter
         /**
          * If the Acrolinx Server is set up for single sign on, this parameter has to be set to 'true'
          * in order enable single sign on from the integration.
+         *
          * @param enableSingleSignOn
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -170,6 +178,7 @@ public class AcrolinxSidebarInitParameter
 
         /**
          * This setting will prevent any connection with an Acrolinx Server except via 'https'.
+         *
          * @param enforceHTTPS
          * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
@@ -181,6 +190,7 @@ public class AcrolinxSidebarInitParameter
 
         /**
          * Builds the AcrolinxInitParameters.
+         *
          * @return Returns the AcrolinxInitParameters.
          */
         public AcrolinxSidebarInitParameter build()

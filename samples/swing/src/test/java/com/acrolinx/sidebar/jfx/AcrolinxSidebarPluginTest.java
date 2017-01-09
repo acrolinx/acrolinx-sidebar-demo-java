@@ -6,7 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AcrolinxSidebarPluginTest
 {
-    @Test public void testInitPluginWithNull()
+    @Test
+    public void testInitPluginWithNull()
     {
         Throwable e = null;
 

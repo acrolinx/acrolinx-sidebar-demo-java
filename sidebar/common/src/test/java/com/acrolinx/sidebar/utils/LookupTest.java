@@ -12,7 +12,8 @@ import static org.junit.Assert.assertEquals;
 
 public class LookupTest
 {
-    @Test public void offsetDiffIsNullForEqualStrings()
+    @Test
+    public void offsetDiffIsNullForEqualStrings()
     {
         String first = "TEST";
         String second = "TEST";
@@ -23,7 +24,8 @@ public class LookupTest
         assertEquals(4, offsetMappingArray.getFirst().getOldPosition());
     }
 
-    @Test public void offsetDiffIsCalculatedProperlyForInsertion()
+    @Test
+    public void offsetDiffIsCalculatedProperlyForInsertion()
     {
         String original = "This is a test.";
         String changed = "This is a manipulated test.";
@@ -38,7 +40,8 @@ public class LookupTest
         assertEquals(15, offsetMappingArray.get(2).getOldPosition());
     }
 
-    @Test public void offsetDiffIsCalculatedProperlyForDeletion()
+    @Test
+    public void offsetDiffIsCalculatedProperlyForDeletion()
     {
         String original = "This is a test.";
         String changed = "This is test.";
@@ -53,7 +56,8 @@ public class LookupTest
         assertEquals(15, offsetMappingArray.get(2).getOldPosition());
     }
 
-    @Test public void getCorrectedMatchTest()
+    @Test
+    public void getCorrectedMatchTest()
     {
         String original = "This is a test.";
         String changed = "The manipulated test.";

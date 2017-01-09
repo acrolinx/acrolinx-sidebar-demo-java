@@ -20,7 +20,8 @@ public class CheckOptions
         this.inputFormat = inputFormat;
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         Gson gson = new Gson();
         return gson.toJson(this);

@@ -1,6 +1,5 @@
 package com.acrolinx.sidebar.jfx;
 
-import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
@@ -88,16 +87,16 @@ class JSToJavaConverter
         return new AcrolinxPluginConfiguration(false);
     }
 
-    static InitResult getAcrolinxInitResultFromJSObject(JSObject o)
+    static Optional<SidebarError> getAcrolinxInitResultFromJSObject(JSObject o)
     {
         final Object hasError = o.getMember("error");
         if (!hasError.getClass().equals(String.class)) {
             final JSObject error = (JSObject) hasError;
             final String code = error.getMember("code").toString();
             final String message = error.getMember("message").toString();
-            return new InitResult(Optional.of(new SidebarError(message, code)));
+            return Optional.of(new SidebarError(message, code));
         } else
-            return new InitResult(Optional.empty());
+            return Optional.empty();
     }
 }
 

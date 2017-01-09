@@ -43,7 +43,8 @@ public class TextAreaAdapter implements InputAdapterInterface
         this.documentReference = documentReference;
     }
 
-    @Override public InputFormat getInputFormat()
+    @Override
+    public InputFormat getInputFormat()
     {
         return inputFormat;
     }
@@ -53,12 +54,14 @@ public class TextAreaAdapter implements InputAdapterInterface
         this.inputFormat = inputFormat;
     }
 
-    @Override public String getContent()
+    @Override
+    public String getContent()
     {
         return textArea.getText();
     }
 
-    @Override public String getDocumentReference()
+    @Override
+    public String getDocumentReference()
     {
         return documentReference;
     }
@@ -68,7 +71,8 @@ public class TextAreaAdapter implements InputAdapterInterface
         this.documentReference = documentReference;
     }
 
-    @Override public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
+    @Override
+    public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
     {
         correctedRange.ifPresent(range -> {
             int minRange = range.getMinimumInteger();
@@ -83,7 +87,8 @@ public class TextAreaAdapter implements InputAdapterInterface
         });
     }
 
-    @Override public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
+    @Override
+    public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
             Optional<IntRange> correctedRange)
     {
         correctedRange.ifPresent(range -> {
