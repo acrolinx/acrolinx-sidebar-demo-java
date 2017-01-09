@@ -39,22 +39,26 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
         setScene(scene);
     }
 
-    @Override public void configure(SidebarConfiguration configuration)
+    @Override
+    public void configure(SidebarConfiguration configuration)
     {
         sidebarJFX.configure(configuration);
     }
 
-    @Override public CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options)
+    @Override
+    public CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options)
     {
         return sidebarJFX.checkGlobal(documentContent, options);
     }
 
-    @Override public void onGlobalCheckRejected()
+    @Override
+    public void onGlobalCheckRejected()
     {
         sidebarJFX.onGlobalCheckRejected();
     }
 
-    @Override public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
+    @Override
+    public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         sidebarJFX.invalidateRanges(invalidCheckedDocumentRanges);
     }

@@ -10,6 +10,7 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.utils.SidebarUtils;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -32,7 +33,8 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
-    @Override public void start(Stage primaryStage)
+    @Override
+    public void start(Stage primaryStage)
     {
 
         final BorderPane borderPane = new BorderPane();
@@ -43,7 +45,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         this.textAreaAdapter = new TextAreaAdapter(this.getTextArea(), InputFormat.TEXT);
 
         formatDropdown.valueProperty().addListener((observable, oldValue, newValue) -> textAreaAdapter.setInputFormat(
-                        InputFormat.valueOf(newValue.toString())));
+                InputFormat.valueOf(newValue.toString())));
         borderPane.setRight(this.createSidebar());
         borderPane.setLeft(textArea);
         borderPane.setTop(formatDropdown);
@@ -83,35 +85,38 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         return newStage;
     }
 
-    @Override public InputAdapterInterface getEditorAdapter()
+    @Override
+    public InputAdapterInterface getEditorAdapter()
     {
         return textAreaAdapter;
     }
 
-    @Override public AcrolinxSidebarInitParameter getInitParameters()
+    @Override
+    public AcrolinxSidebarInitParameter getInitParameters()
     {
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.sample", "Acrolinx Demo Client JFX", "1.0.0.1",
                 SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
-                withShowServerSelector(true).build();
+                withShowServerSelector(true).withSidebarUrl("http://localhost:9001/index.html").build();
     }
 
-    @Override public void onCheckResult(CheckResult checkResult)
+    @Override
+    public void onCheckResult(CheckResult checkResult)
     {
         logger.debug("Got check result for check id: " + checkResult.getCheckedDocumentPart().getCheckId());
         // Do nothing for now;
     }
 
-    @Override public void openWindow(String url)
+    @Override
+    public void openWindow(String url)
     {
-        Stage popupStage = getPopUpStage(url);
-        popupStage.setOnCloseRequest(event -> popupStage.close());
-        popupStage.showAndWait();
+        SidebarUtils.openWebpageInDefaultBrowser(url);
     }
 
-    @Override public void onInitFinished(InitResult initResult)
+    @Override
+    public void onInitFinished(InitResult initResult)
     {
         logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;

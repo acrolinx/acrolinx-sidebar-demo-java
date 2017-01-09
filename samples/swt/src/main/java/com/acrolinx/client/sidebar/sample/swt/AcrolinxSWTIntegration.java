@@ -5,6 +5,7 @@ import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.InitResult;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.utils.SidebarUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,28 +23,33 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
         this.inputAdapterInterface = inputAdapterInterface;
     }
 
-    @Override public InputAdapterInterface getEditorAdapter()
+    @Override
+    public InputAdapterInterface getEditorAdapter()
     {
         return this.inputAdapterInterface;
     }
 
-    @Override public AcrolinxSidebarInitParameter getInitParameters()
+    @Override
+    public AcrolinxSidebarInitParameter getInitParameters()
     {
         return this.initParameters;
     }
 
-    @Override public void onCheckResult(CheckResult checkResult)
+    @Override
+    public void onCheckResult(CheckResult checkResult)
     {
         logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
 
     }
 
-    @Override public void openWindow(String url)
+    @Override
+    public void openWindow(String url)
     {
-        // SidebarUtils.openWebpageInDefaultBrowser(url);
+        SidebarUtils.openWebpageInDefaultBrowser(url);
     }
 
-    @Override public void onInitFinished(InitResult initResult)
+    @Override
+    public void onInitFinished(InitResult initResult)
     {
         logger.debug(initResult.toString());
 

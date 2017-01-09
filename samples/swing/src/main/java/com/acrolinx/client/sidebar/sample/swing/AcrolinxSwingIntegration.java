@@ -54,12 +54,14 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
         frame.setVisible(true);
     }
 
-    @Override public InputAdapterInterface getEditorAdapter()
+    @Override
+    public InputAdapterInterface getEditorAdapter()
     {
         return new TextAreaAdapter(this.textArea);
     }
 
-    @Override public AcrolinxSidebarInitParameter getInitParameters()
+    @Override
+    public AcrolinxSidebarInitParameter getInitParameters()
     {
         logger.debug("Getting InitParams");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
@@ -70,17 +72,20 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
                 withShowServerSelector(true).build();
     }
 
-    @Override public void onCheckResult(CheckResult checkResult)
+    @Override
+    public void onCheckResult(CheckResult checkResult)
     {
         logger.debug("Got check result");
     }
 
-    @Override public void openWindow(String url)
+    @Override
+    public void openWindow(String url)
     {
         SidebarUtils.openWebpageInDefaultBrowser(url);
     }
 
-    @Override public void onInitFinished(InitResult initResult)
+    @Override
+    public void onInitFinished(InitResult initResult)
     {
         logger.debug("Finished init!");
     }

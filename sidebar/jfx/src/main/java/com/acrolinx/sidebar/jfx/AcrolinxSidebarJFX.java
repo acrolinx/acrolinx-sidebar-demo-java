@@ -32,8 +32,8 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
 
     /**
-     * @param integration
-     * @param prefHeight
+     * @param integration The implementation of the Acrolinx Integration.
+     * @param prefHeight The preferred height of the Acrolinx Sidebar.
      */
     public AcrolinxSidebarJFX(AcrolinxIntegration integration, int prefHeight)
     {
@@ -68,41 +68,48 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
         Platform.runLater(() -> webEngine.load(integration.getInitParameters().getSidebarUrl()));
     }
 
-    @Override protected void layoutChildren()
+    @Override
+    protected void layoutChildren()
     {
         double w = getWidth();
         double h = getHeight();
         layoutInArea(browser, 0, 0, w, h, 0, HPos.CENTER, VPos.CENTER);
     }
 
-    @Override protected double computePrefWidth(double height)
+    @Override
+    protected double computePrefWidth(double height)
     {
         return 300;
     }
 
-    @Override protected double computePrefHeight(double width)
+    @Override
+    protected double computePrefHeight(double width)
     {
         return this.prefHeight;
     }
 
-    @Override public void configure(SidebarConfiguration configuration)
+    @Override
+    public void configure(SidebarConfiguration configuration)
     {
         acrolinxSidebarPlugin.configureSidebar(configuration);
 
     }
 
-    @Override public CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options)
+    @Override
+    public CompletableFuture<String> checkGlobal(String documentContent, CheckOptions options)
     {
         return acrolinxSidebarPlugin.checkGlobal(documentContent, options);
     }
 
-    @Override public void onGlobalCheckRejected()
+    @Override
+    public void onGlobalCheckRejected()
     {
 
         acrolinxSidebarPlugin.onGlobalCheckRejected();
     }
 
-    @Override public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
+    @Override
+    public void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         acrolinxSidebarPlugin.invalidateRanges(invalidCheckedDocumentRanges);
 
