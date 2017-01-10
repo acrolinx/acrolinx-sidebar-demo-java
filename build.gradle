@@ -59,7 +59,7 @@ project(':sidebar_demo_swt') {
     apply plugin: 'application'
     apply plugin: 'com.diffplug.gradle.swt.nativedeps'
 
-    mainClassName = "com.acrolinx.client.sidebar.sample.swt.AcrolinxDemoClientSWT"
+    mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
     applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
 
@@ -74,7 +74,7 @@ project(':sidebar_demo_swt') {
 project(':sidebar_demo_swing') {
     apply plugin: 'application'
 
-    mainClassName = "com.acrolinx.client.sidebar.sample.swing.AcrolinxDemoClientSwing"
+    mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 
     applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
 
@@ -86,7 +86,7 @@ project(':sidebar_demo_swing') {
 project(':sidebar_demo_jfx') {
     apply plugin: 'application'
 
-    mainClassName = "com.acrolinx.client.sidebar.sample.jfx.AcrolinxDemoClientJFX"
+    mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
     applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
 
@@ -127,18 +127,27 @@ project(':sidebar_common') {
     }
 }
 
-subprojects.each { subproject -> evaluationDependsOn(subproject.path) }
+subprojects.each { subproject ->
+    evaluationDependsOn(subproject.path)
+}
 
 task createJar(type: Jar, dependsOn: subprojects.tasks['classes']) {
     baseName "acrolinx-java-sdk"
     version "1.0.0-SNAPSHOT-${versionBuild}"
-    manifest {
-
-    }
     from project('sidebar_common').configurations.runtime
     subprojects.each { subproject ->
         from subproject.sourceSets.main.output.classesDir
         from subproject.sourceSets.main.output.resourcesDir
+    }
+}
+
+task buildDist(type: Zip, dependsOn: subprojects.jar) {
+    baseName "acrolinx-java-sdk-sample"
+    version "1.0.0-SNAPSHOT-${versionBuild}"
+    subprojects.each { subproject ->
+        from subproject.configurations.archives.artifacts.files.collect {
+            zipTree(it)
+        }
     }
 }
 
