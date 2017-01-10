@@ -14,6 +14,7 @@ It is designed to show up in their editor or editing environment.
    * [Setup the Project](#setup-the-project)
    * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
    * [How to build your own integration](#how-to-build-your-own-integration)
+   * [Enable CORS](#enable-cors)
    * [License](#license)
 
 
@@ -120,7 +121,7 @@ Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar t
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
-### CORS
+## Enable CORS
 
 If you want to use an Acrolinx Sidebar with an Acrolinx Server that run on different domains, you will have to enable
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). That can be done by setting the following System
@@ -138,6 +139,8 @@ Or you can set the following VM Option when running Java:
 
 Also you'll need have CORS enabled on your Acrolinx Server.
 For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
+
+[Back to top](#acrolinx-java-sidebar-demo)
 
 ## License
 
