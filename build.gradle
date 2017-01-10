@@ -1,6 +1,12 @@
+/*
+ * Copyright (c) 2016-2017 Acrolinx GmbH
+ */
+
 task wrapper(type: Wrapper) {
     gradleVersion = '3.2'
 }
+
+def versionBuild = System.getenv('BUILD_NUMBER')
 
 buildscript {
     repositories {
@@ -24,10 +30,9 @@ allprojects {
 subprojects {
 
     group 'com.acrolinx'
-    version '1.0.0-SNAPSHOT'
 
     apply plugin: 'java'
-    apply plugin: 'idea'
+    // apply plugin: 'idea'
     // apply plugin: 'eclipse'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -64,7 +69,6 @@ project(':sidebar_demo_swt') {
         compile project(':sidebar_swt')
         testCompile project(':sidebar_swt')
     }
-
 }
 
 project(':sidebar_demo_swing') {
@@ -122,3 +126,19 @@ project(':sidebar_common') {
         compile 'org.bitbucket.cowwoc:diff-match-patch:1.1'
     }
 }
+
+subprojects.each { subproject -> evaluationDependsOn(subproject.path) }
+
+task createJar(type: Jar, dependsOn: subprojects.tasks['classes']) {
+    baseName "acrolinx-java-sdk"
+    version "1.0.0-SNAPSHOT-${versionBuild}"
+    manifest {
+
+    }
+    from project('sidebar_common').configurations.runtime
+    subprojects.each { subproject ->
+        from subproject.sourceSets.main.output.classesDir
+        from subproject.sourceSets.main.output.resourcesDir
+    }
+}
+

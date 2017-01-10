@@ -4,13 +4,13 @@ include ":sidebar_common"
 project(":sidebar_common").projectDir = file("./sidebar/common")
 
 include ":sidebar_demo_jfx"
-project(":sidebar_demo_jfx").projectDir = file("./samples/jfx")
+project(":sidebar_demo_jfx").projectDir = file("./demo/jfx")
 
 include ":sidebar_demo_swing"
-project(":sidebar_demo_swing").projectDir = file("./samples/swing")
+project(":sidebar_demo_swing").projectDir = file("./demo/swing")
 
 include ":sidebar_demo_swt"
-project(":sidebar_demo_swt").projectDir = file("./samples/swt")
+project(":sidebar_demo_swt").projectDir = file("./demo/swt")
 
 include ":sidebar_jfx"
 project(":sidebar_jfx").projectDir = file("./sidebar/jfx")

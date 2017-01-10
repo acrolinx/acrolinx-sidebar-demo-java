@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016-2017 Acrolinx GmbH
+ */
+
 package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.pojo.SidebarError;
@@ -65,6 +69,7 @@ class JSToJavaConverter
         return new CheckResult(new CheckedDocumentPart(checkId, range), checkError);
     }
 
+    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     private static CheckError getCheckErrorFromJSString(JSObject checkError)
     {
         if (checkError.getClass().equals(String.class)) {

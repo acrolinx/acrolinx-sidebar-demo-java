@@ -14,6 +14,7 @@ It is designed to show up in their editor or editing environment.
    * [Setup the Project](#setup-the-project)
    * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
    * [How to build your own integration](#how-to-build-your-own-integration)
+   * [License](#license)
 
 
 ## The Acrolinx Sidebar
@@ -37,12 +38,15 @@ For more information on Acrolinx check [www.acrolinx.com](https://www.acrolinx.c
 
 ## Prerequisites
 
-This sample works with a test license on an internal Acrolinx Server. The license is provided
-for developing and demonstrating purposes only. Once you finished your integration you will
-need to get a license for your integration from Acrolinx.
+Please contact Acrolinx SDK support (sdk-support@acrolinx.com) for consulting and getting your integration certified.
+This sample works with a test license on an internal acrolinx server.
+This license is only meant for demonstration and developing purposes.
+Once you finished your integration you'll have to get a license for your integration from Acrolinx.
 
-To work with this sample you will need to have Acrolinx Server Credentials.
-Please contact Acrolinx SDK support (sdk-support@acrolinx.com) to get these credentials.
+Please note that this is a SDK and demo project for Java Applications.
+Acrolinx offers different other SDKs for developing integrations that might suit your purposes better.
+
+Before you start developing your own integration, you might benefit from looking into the samples given within the demo folder.
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
@@ -50,18 +54,11 @@ Please contact Acrolinx SDK support (sdk-support@acrolinx.com) to get these cred
 
 This repository contains a Java API and samples for JFX, Swing and SWT Applications.
 
-This project is implemented with Java 8 and build with Gradle.
-
-By default the project is set up to be used with IntelliJ.
-
-In the `build.gradle` file comment out the lines containing `apply plugin: 'idea'`
-and comment in `apply plugin: 'eclipse'` to build the project with Eclipse.
-
-For gradle support with other IDEs ask Google.
+This project is implemented with Java 8 and build with [Gradle](https://gradle.org/).
 
 The project comes with Gradle Wrapper. So if you don't have Gradle installed, go into the projects root folder and run:
 
-`./ gradlew build`
+`./gradlew build`
 
 on an UNIX system or
 
@@ -120,6 +117,39 @@ To build your own integration with an JFX, Swing or SWT based editor, you'll nee
 Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
 
 ![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
+
+[Back to top](#acrolinx-java-sidebar-demo)
+
+### CORS
+
+If you want to use an Acrolinx Sidebar with an Acrolinx Server that run on different domains, you will have to enable
+[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). That can be done by setting the following System
+property in your Java Code:
+
+    ```
+    System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+    ```
+
+Or you can set the following VM Option when running Java:
+
+     ```
+        "-Dsun.net.http.allowRestrictedHeaders=true"
+     ```
+
+Also you'll need have CORS enabled on your Acrolinx Server.
+For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
+
+## License
+
+Copyright 2015-2016 Acrolinx GmbH
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+For more information visit: [http://www.acrolinx.com](http://www.acrolinx.com)
 
 [Back to top](#acrolinx-java-sidebar-demo)
 

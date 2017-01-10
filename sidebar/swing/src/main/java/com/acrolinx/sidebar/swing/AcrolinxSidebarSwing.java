@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016-2017 Acrolinx GmbH
+ */
+
 package com.acrolinx.sidebar.swing;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016-2017 Acrolinx GmbH
+ */
+
 package com.acrolinx.sidebar.utils;
 
 import org.slf4j.Logger;
@@ -12,19 +16,25 @@ public class SidebarUtils
 
     /**
      * Opens the given URL in the default Browser of the current OS.
+     * Note that this method is likely to cause JVM crashes within swt based applications!
      *
      * @param url
      */
     public static void openWebPageInDefaultBrowser(String url)
     {
+
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-            try {
-                URI uri = new URI(url);
-                desktop.browse(uri);
-            } catch (Exception e) {
-                logger.error(e.getMessage());
-            }
+            new Thread(() -> {
+                try {
+                    URI uri = new URI(url);
+                    Desktop.getDesktop().browse(uri);
+                } catch (Exception e) {
+                    logger.error(e.getMessage());
+                }
+            }).start();
+        } else {
+            logger.error("Desktop is not available to get systems default browser.");
         }
     }
 }
