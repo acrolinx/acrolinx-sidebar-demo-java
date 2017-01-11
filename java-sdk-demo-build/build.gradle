@@ -1,0 +1,15 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+dependencies {
+    compile project(':sidebar_demo_jfx')
+    compile project(':sidebar_demo_swing')
+    compile(project(':sidebar_demo_swt')) {
+        exclude group: 'eclipse-swt-deps'
+    }
+
+}
+
+
+

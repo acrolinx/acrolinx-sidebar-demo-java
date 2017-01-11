@@ -21,3 +21,5 @@ project(":sidebar_swing").projectDir = file("./sidebar/swing")
 include ":sidebar_swt"
 project(":sidebar_swt").projectDir = file("./sidebar/swt")
 
+include ":java-sdk-demo-build"
+
