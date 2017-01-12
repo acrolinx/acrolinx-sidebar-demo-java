@@ -12,6 +12,7 @@ def artifactName = "acrolinx-sidebar-java-sdk"
 def fullVersion = "${version}-${buildVersion}"
 
 distTar.enabled = false
+distZip.enabled = false
 
 dependencies {
     compile project(':sidebar_demo_jfx')
