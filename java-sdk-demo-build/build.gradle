@@ -59,17 +59,17 @@ task zipDist(type: Zip) {
         }
     }
     into(baseDir) {
-        into("demo/bin") {
+        into("bin") {
             from(createStartScriptsJFX)
         }
     }
     into(baseDir) {
-        into("demo/bin") {
+        into("bin") {
             from(createStartScriptsSwing)
         }
     }
     into(baseDir) {
-        into("demo/bin") {
+        into("bin") {
             from(createStartScriptsSWT)
         }
     }
