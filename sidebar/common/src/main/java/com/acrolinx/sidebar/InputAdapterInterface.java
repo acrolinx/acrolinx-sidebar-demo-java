@@ -7,15 +7,12 @@ package com.acrolinx.sidebar;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import org.apache.commons.lang.math.IntRange;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This interface serves to interact with the current editor.
  */
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public interface InputAdapterInterface
 {
 
@@ -44,9 +41,8 @@ public interface InputAdapterInterface
      *
      * @param checkId The current check id.
      * @param matches The ranges to be highlighted as sent by the AcrolinxServer.
-     * @param correctedIntRange The ranges found after lookup in the current text (that might have been changed).
      */
-    void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedIntRange);
+    void selectRanges(String checkId, List<AcrolinxMatch> matches);
 
     /**
      * Is called by the Acrolinx Integration to replace found issues with suggestions from the Acrolinx Sidebar.
@@ -54,8 +50,6 @@ public interface InputAdapterInterface
      *
      * @param checkId The current check id.
      * @param matchesWithReplacement The ranges to be replaced.
-     * @param correctedIntRange The ranges found after lookup in the current text (that might have been changed).
      */
-    void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
-            Optional<IntRange> correctedIntRange);
+    void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement);
 }

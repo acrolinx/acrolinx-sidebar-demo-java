@@ -6,6 +6,7 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
+import com.acrolinx.sidebar.LookupRanges;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.pojo.SidebarError;
@@ -14,6 +15,7 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.utils.LookupRangesDiff;
 import com.acrolinx.sidebar.utils.SidebarUtils;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -31,11 +33,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class AcrolinxDemoClientJFX extends Application
-        implements AcrolinxIntegration
+public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
     private final TextArea textArea = new TextArea();
     private TextAreaAdapter textAreaAdapter;
+    private final LookupRangesDiff lookup = new LookupRangesDiff();
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
@@ -104,10 +106,16 @@ import java.util.Optional;
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(
                 new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX", "1.0",
-                SoftwareComponentCategory.MAIN));
+                        SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
                 withShowServerSelector(true).build();
+    }
+
+    @Override
+    public LookupRanges getLookup()
+    {
+        return lookup;
     }
 
     @Override

@@ -34,6 +34,12 @@ public interface AcrolinxIntegration
     AcrolinxSidebarInitParameter getInitParameters();
 
     /**
+     * Returns the lookup implementation to correct ranges in edited text.
+     * @return
+     */
+    LookupRanges getLookup();
+
+    /**
      * Notifies the Acrolinx Integration about the checks result.
      *
      * @param checkResult

@@ -4,14 +4,13 @@
 
 package com.acrolinx.sidebar.utils;
 
-import org.apache.commons.lang.math.IntRange;
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
 import org.junit.Test;
 
 import java.util.LinkedList;
-import java.util.Optional;
 
-import static com.acrolinx.sidebar.utils.Lookup.*;
+import static com.acrolinx.sidebar.utils.Lookup.createOffsetMappingArray;
+import static com.acrolinx.sidebar.utils.Lookup.getDiffs;
 import static org.junit.Assert.assertEquals;
 
 public class LookupTest
@@ -58,22 +57,5 @@ public class LookupTest
         assertEquals(10, offsetMappingArray.get(1).getOldPosition());
         assertEquals(-2, offsetMappingArray.get(2).getDiffOffset());
         assertEquals(15, offsetMappingArray.get(2).getOldPosition());
-    }
-
-    @Test
-    public void getCorrectedMatchTest()
-    {
-        String original = "This is a test.";
-        String changed = "The manipulated test.";
-        String changed2 = "<strong>This was a good test.</strong>";
-        String changed3 = "The test is great.";
-        assertEquals(Optional.of(new IntRange(0, 2)), getCorrectedMatch(original, changed, 0, 2));
-        assertEquals(Optional.empty(), getCorrectedMatch(original, changed, 0, 3));
-        assertEquals(Optional.empty(), getCorrectedMatch(original, changed, 5, 7));
-        assertEquals(Optional.empty(), getCorrectedMatch(original, changed, 8, 15));
-        assertEquals(Optional.of(new IntRange(15, 21)), getCorrectedMatch(original, changed, 9, 15));
-        assertEquals(Optional.of(new IntRange(8, 12)), getCorrectedMatch(original, changed2, 0, 4));
-        assertEquals(Optional.of(new IntRange(17, 18)), getCorrectedMatch(original, changed2, 8, 9));
-        assertEquals(Optional.empty(), getCorrectedMatch(original, changed3, 8, 9));
     }
 }

@@ -10,7 +10,6 @@ import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
-import com.acrolinx.sidebar.utils.Lookup;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -38,8 +37,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("SameParameterValue")
-public class AcrolinxSidebarSWT implements AcrolinxSidebar
+@SuppressWarnings("SameParameterValue") public class AcrolinxSidebarSWT implements AcrolinxSidebar
 {
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarSWT.class);
 
@@ -185,15 +183,18 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
                     List<AcrolinxMatch> result = match.stream().map(AcrolinxMatchFromJSON::getAsAcrolinxMatch).collect(
                             Collectors.toCollection(ArrayList::new));
-                    Optional<IntRange> range = Lookup.getCorrectedRangeFromAcrolinxMatch(result, lastCheckedText.get(),
-                            client.getEditorAdapter().getContent());
-                    client.getEditorAdapter().selectRanges((String) arguments[0], result, range);
-                    if (!range.isPresent()) {
+                    Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
+                            lastCheckedText.get(), client.getEditorAdapter().getContent(), result);
+
+                    if (!correctedRanges.isPresent()) {
                         invalidateRanges(result.stream().map(
                                 acrolinxMatch -> new CheckedDocumentPart(currentCheckId.get(),
                                         new IntRange(acrolinxMatch.getRange().getMinimumInteger(),
                                                 acrolinxMatch.getRange().getMaximumInteger()))).collect(
                                 Collectors.toList()));
+                    } else {
+                        client.getEditorAdapter().selectRanges(currentCheckId.get(),
+                                (List<AcrolinxMatch>) correctedRanges.get());
                     }
                 } catch (Exception e) {
                     logger.error(e.getMessage());
@@ -214,15 +215,18 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
                     List<AcrolinxMatchWithReplacement> result = match.stream().map(
                             AcrolinxMatchFromJSON::getAsAcrolinxMatchWithReplacement).collect(
                             Collectors.toCollection(ArrayList::new));
-                    Optional<IntRange> range = Lookup.getCorrectedRangeFromAcrolinxMatchWithReplacement(result,
-                            lastCheckedText.get(), client.getEditorAdapter().getContent());
-                    client.getEditorAdapter().replaceRanges((String) arguments[0], result, range);
-                    if (!range.isPresent()) {
+                    Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
+                            lastCheckedText.get(), client.getEditorAdapter().getContent(), result);
+
+                    if (!correctedRanges.isPresent()) {
                         invalidateRanges(result.stream().map(
                                 acrolinxMatchWithReplacement -> new CheckedDocumentPart(currentCheckId.get(),
                                         new IntRange(acrolinxMatchWithReplacement.getRange().getMinimumInteger(),
                                                 acrolinxMatchWithReplacement.getRange().getMaximumInteger()))).collect(
                                 Collectors.toList()));
+                    } else {
+                        client.getEditorAdapter().replaceRanges(currentCheckId.get(),
+                                (List<AcrolinxMatchWithReplacement>) correctedRanges.get());
                     }
                 } catch (Exception e) {
                     logger.debug(e.getMessage());

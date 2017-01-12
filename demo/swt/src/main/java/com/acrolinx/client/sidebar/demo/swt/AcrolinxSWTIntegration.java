@@ -6,23 +6,24 @@ package com.acrolinx.client.sidebar.demo.swt;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
+import com.acrolinx.sidebar.LookupRanges;
 import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.utils.LookupRangesDiff;
 import org.eclipse.swt.program.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "WeakerAccess"}) public class AcrolinxSWTIntegration
-        implements AcrolinxIntegration
+@SuppressWarnings("WeakerAccess") public class AcrolinxSWTIntegration implements AcrolinxIntegration
 {
     final private AcrolinxSidebarInitParameter initParameters;
     final private InputAdapterInterface inputAdapterInterface;
+    final private LookupRangesDiff lookup = new LookupRangesDiff();
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
-
 
     public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParameters,
             InputAdapterInterface inputAdapterInterface)
@@ -44,6 +45,12 @@ import java.util.Optional;
     }
 
     @Override
+    public LookupRanges getLookup()
+    {
+        return lookup;
+    }
+
+    @Override
     public void onCheckResult(CheckResult checkResult)
     {
         logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
@@ -61,6 +68,7 @@ import java.util.Optional;
         }
     }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Override
     public void onInitFinished(Optional<SidebarError> initResult)
     {

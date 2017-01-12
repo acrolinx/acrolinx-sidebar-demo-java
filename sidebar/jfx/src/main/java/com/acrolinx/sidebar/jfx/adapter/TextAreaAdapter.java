@@ -8,15 +8,12 @@ import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import com.google.common.base.Joiner;
+import com.acrolinx.sidebar.utils.MatchComparator;
 import javafx.scene.control.TextArea;
-import org.apache.commons.lang.math.IntRange;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class TextAreaAdapter implements InputAdapterInterface
+public class TextAreaAdapter implements InputAdapterInterface
 {
     private final TextArea textArea;
     private InputFormat inputFormat;
@@ -70,28 +67,18 @@ import java.util.stream.Collectors;
     }
 
     @Override
-    public synchronized void selectRanges(String checkId, List<AcrolinxMatch> matches,
-            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<IntRange> correctedRange)
+    public synchronized void selectRanges(String checkId, List<AcrolinxMatch> matches)
     {
-        correctedRange.ifPresent(range -> {
-            int minRange = range.getMinimumInteger();
-            int maxRange = range.getMaximumInteger();
-            textArea.selectRange(minRange, maxRange);
-        });
+        int minRange = matches.get(0).getRange().getMinimumInteger();
+        int maxRange = matches.get(matches.size() - 1).getRange().getMaximumInteger();
+        textArea.selectRange(minRange, maxRange);
     }
 
     @Override
-    public synchronized void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
-            Optional<IntRange> correctedRange)
+    public synchronized void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matches)
     {
-        correctedRange.ifPresent(range -> {
-            int minRange = range.getMinimumInteger();
-            int maxRange = range.getMaximumInteger();
-
-            String replacement = Joiner.on("").join(
-                    matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
-                            Collectors.toList()));
-            textArea.replaceText(minRange, maxRange, replacement);
-        });
+        matches.stream().sorted(new MatchComparator().reversed()).forEach(
+                match -> textArea.replaceText(match.getRange().getMinimumInteger(),
+                        match.getRange().getMaximumInteger(), match.getReplacement()));
     }
 }

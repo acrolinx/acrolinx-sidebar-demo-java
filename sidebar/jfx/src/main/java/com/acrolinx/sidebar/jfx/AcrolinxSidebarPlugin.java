@@ -14,12 +14,8 @@ package com.acrolinx.sidebar.jfx;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.pojo.SidebarError;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
-import com.acrolinx.sidebar.pojo.document.CheckResult;
-import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
+import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.*;
-import com.acrolinx.sidebar.utils.Lookup;
 import com.google.common.base.Preconditions;
 import javafx.application.Platform;
 import netscape.javascript.JSObject;
@@ -33,8 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("WeakerAccess")
-public class AcrolinxSidebarPlugin
+@SuppressWarnings("WeakerAccess") public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;
     private final JSObject jsobj;
@@ -114,8 +109,8 @@ public class AcrolinxSidebarPlugin
     public synchronized void selectRanges(final String checkID, final JSObject o)
     {
         final List<AcrolinxMatch> matches = JSToJavaConverter.getAcrolinxMatchFromJSObject(o);
-        final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatch(matches,
-                lastCheckedDocument.get(), client.getEditorAdapter().getContent());
+        final Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
+                lastCheckedDocument.get(), client.getEditorAdapter().getContent(), matches);
         if (!correctedRanges.isPresent()) {
             List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
                     (match) -> new CheckedDocumentPart(currentCheckId.get(),
@@ -123,7 +118,7 @@ public class AcrolinxSidebarPlugin
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            client.getEditorAdapter().selectRanges(checkID, matches, correctedRanges);
+            client.getEditorAdapter().selectRanges(checkID, (List<AcrolinxMatch>) correctedRanges.get());
         }
 
     }
@@ -132,8 +127,8 @@ public class AcrolinxSidebarPlugin
     {
         final List<AcrolinxMatchWithReplacement> matches = JSToJavaConverter.getAcrolinxMatchWithReplacementFromJSObject(
                 o);
-        final Optional<IntRange> correctedRanges = Lookup.getCorrectedRangeFromAcrolinxMatchWithReplacement(matches,
-                lastCheckedDocument.get(), client.getEditorAdapter().getContent());
+        final Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
+                lastCheckedDocument.get(), client.getEditorAdapter().getContent(), matches);
         if (!correctedRanges.isPresent()) {
             List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
                     (match) -> new CheckedDocumentPart(currentCheckId.get(),
@@ -141,7 +136,8 @@ public class AcrolinxSidebarPlugin
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            client.getEditorAdapter().replaceRanges(checkID, matches, correctedRanges);
+            client.getEditorAdapter().replaceRanges(checkID,
+                    (List<AcrolinxMatchWithReplacement>) correctedRanges.get());
         }
     }
 

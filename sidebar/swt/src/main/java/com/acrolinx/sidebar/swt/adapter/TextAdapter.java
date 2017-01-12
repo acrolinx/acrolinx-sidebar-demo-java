@@ -8,13 +8,11 @@ import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import com.google.common.base.Joiner;
-import org.apache.commons.lang.math.IntRange;
+import com.acrolinx.sidebar.utils.MatchComparator;
 import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class TextAdapter implements InputAdapterInterface
 {
@@ -71,29 +69,26 @@ import java.util.stream.Collectors;
     }
 
     @Override
-    public void selectRanges(String checkId, List<AcrolinxMatch> matches, Optional<IntRange> correctedRange)
+    public void selectRanges(String checkId, List<AcrolinxMatch> matches)
     {
-        correctedRange.ifPresent(range -> {
-            textWidget.clearSelection();
-            textWidget.setSelection(range.getMinimumInteger(), range.getMaximumInteger());
-        });
+        int minRange = matches.get(0).getRange().getMinimumInteger();
+        int maxRange = matches.get(matches.size() - 1).getRange().getMaximumInteger();
+        textWidget.clearSelection();
+        textWidget.setSelection(minRange, maxRange);
     }
 
     @Override
-    public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement,
-            Optional<IntRange> correctedRange)
+    public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matches)
     {
-        correctedRange.ifPresent(range -> {
-            int minRange = range.getMinimumInteger();
-            int maxRange = range.getMaximumInteger();
-            String replacement = Joiner.on("").join(
-                    matchesWithReplacement.stream().map(AcrolinxMatchWithReplacement::getReplacement).collect(
-                            Collectors.toList()));
-
-            textWidget.clearSelection();
-            String text = textWidget.getText();
-            String replacedText = text.substring(0, minRange) + replacement + text.substring(maxRange);
-            textWidget.setText(replacedText);
+        AtomicReference<String> text = new AtomicReference<>(textWidget.getText());
+        matches.stream().sorted(new MatchComparator().reversed()).forEach(match -> {
+            int minRange = match.getRange().getMinimumInteger();
+            int maxRange = match.getRange().getMaximumInteger();
+            String replacement = match.getReplacement();
+            String t = text.get();
+            text.set(t.substring(0, minRange) + replacement + t.substring(maxRange));
         });
+        textWidget.clearSelection();
+        textWidget.setText(text.get());
     }
 }

@@ -6,11 +6,11 @@ package com.acrolinx.sidebar.pojo.document;
 
 import org.apache.commons.lang.math.IntRange;
 
-public class AcrolinxMatch
+public class AcrolinxMatch extends AbstractMatch
 {
     private final String content;
     private IntRange extractedRange;
-    private final IntRange range;
+    private IntRange range;
 
     public AcrolinxMatch(IntRange range, String content)
     {
@@ -38,5 +38,11 @@ public class AcrolinxMatch
     public IntRange getRange()
     {
         return range;
+    }
+
+    @Override
+    public void setRange(IntRange range)
+    {
+        this.range = range;
     }
 }
