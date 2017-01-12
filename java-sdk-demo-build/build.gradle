@@ -52,6 +52,7 @@ task createStartScriptsSWT(type: CreateStartScripts) {
 
 task zipDist(type: Zip) {
     def baseDir = "${artifactName}-${fullVersion}.zip"
+    archiveName = baseDir
     into(baseDir) {
         into("lib") {
             from(shadowJar)
