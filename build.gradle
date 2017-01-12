@@ -6,8 +6,6 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.2'
 }
 
-def versionBuild = System.getenv('BUILD_NUMBER')
-
 buildscript {
     repositories {
         maven {
@@ -32,8 +30,8 @@ subprojects {
     group 'com.acrolinx'
 
     apply plugin: 'java'
-    // apply plugin: 'idea'
-    // apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -124,30 +122,6 @@ project(':sidebar_common') {
         compile 'com.google.code.gson:gson:2.2.4'
         compile 'commons-lang:commons-lang:2.6'
         compile 'org.bitbucket.cowwoc:diff-match-patch:1.1'
-    }
-}
-
-subprojects.each { subproject ->
-    evaluationDependsOn(subproject.path)
-}
-
-task createJar(type: Jar, dependsOn: subprojects.tasks['classes']) {
-    baseName "acrolinx-java-sdk"
-    version "1.0.0-SNAPSHOT-${versionBuild}"
-    from project('sidebar_common').configurations.runtime
-    subprojects.each { subproject ->
-        from subproject.sourceSets.main.output.classesDir
-        from subproject.sourceSets.main.output.resourcesDir
-    }
-}
-
-task buildDist(type: Zip, dependsOn: subprojects.jar) {
-    baseName "acrolinx-java-sdk-sample"
-    version "1.0.0-SNAPSHOT-${versionBuild}"
-    subprojects.each { subproject ->
-        from subproject.configurations.archives.artifacts.files.collect {
-            zipTree(it)
-        }
     }
 }
 

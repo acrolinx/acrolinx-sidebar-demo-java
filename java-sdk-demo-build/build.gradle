@@ -73,3 +73,5 @@ task zipDist(type: Zip) {
         }
     }
 }
+
+build.dependsOn zipDist
