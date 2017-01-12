@@ -56,8 +56,7 @@ import java.util.ArrayList;
                 new SoftwareComponent("com.acrolinx.client.sidebar.demo.swt", "Acrolinx Demo Client SWT", "1.0",
                 SoftwareComponentCategory.MAIN));
         AcrolinxSidebarInitParameter initParameters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
-                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(
-                true).withServerAddress("https://integration.acrolinx-cloud.com:443").build();
+                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
         TextAdapter textAdapter = new TextAdapter(textArea, InputFormat.TEXT, "samplefilename");
 

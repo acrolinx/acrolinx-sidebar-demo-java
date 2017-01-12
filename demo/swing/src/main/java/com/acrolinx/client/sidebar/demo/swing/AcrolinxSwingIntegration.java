@@ -75,7 +75,7 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
                 SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
-                withShowServerSelector(true).withServerAddress("https://integration.acrolinx-cloud.com:443").build();
+                withShowServerSelector(true).build();
     }
 
     @Override

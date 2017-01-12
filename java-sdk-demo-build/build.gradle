@@ -2,6 +2,17 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
+apply plugin: 'java-library-distribution'
+
+def buildNumber = System.getenv('BUILD_NUMBER');
+
+def buildVersion = buildNumber != null ? buildNumber : 123
+
+def artifactName = "acrolinx-sidebar-java-sdk"
+def fullVersion = "${version}-${buildVersion}"
+
+distTar.enabled = false
+
 dependencies {
     compile project(':sidebar_demo_jfx')
     compile project(':sidebar_demo_swing')
@@ -11,5 +22,54 @@ dependencies {
 
 }
 
+shadowJar {
+    archiveName = "${artifactName}-${fullVersion}.jar"
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    destinationDir = file("${buildDir}/lib")
+}
 
+task createStartScriptsJFX(type: CreateStartScripts) {
+    outputDir = file("${buildDir}/bin/jfx")
+    mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX'
+    applicationName = 'acrolinxDemoClientJFX'
+    classpath = files("${artifactName}-${fullVersion}.jar")
+}
 
+task createStartScriptsSwing(type: CreateStartScripts) {
+    outputDir = file("${buildDir}/bin/swing")
+    mainClassName = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
+    applicationName = 'acrolinxDemoClientSwing'
+    classpath = files("${artifactName}-${fullVersion}.jar")
+}
+
+task createStartScriptsSWT(type: CreateStartScripts) {
+    outputDir = file("${buildDir}/bin/swt")
+    mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
+    applicationName = 'acrolinxDemoClientSWT'
+    classpath = files("${artifactName}-${fullVersion}.jar")
+}
+
+task zipDist(type: Zip) {
+    def baseDir = "${artifactName}-${fullVersion}.zip"
+    into(baseDir) {
+        into("lib") {
+            from(shadowJar)
+        }
+    }
+    into(baseDir) {
+        into("demo/bin") {
+            from(createStartScriptsJFX)
+        }
+    }
+    into(baseDir) {
+        into("demo/bin") {
+            from(createStartScriptsSwing)
+        }
+    }
+    into(baseDir) {
+        into("demo/bin") {
+            from(createStartScriptsSWT)
+        }
+    }
+}
