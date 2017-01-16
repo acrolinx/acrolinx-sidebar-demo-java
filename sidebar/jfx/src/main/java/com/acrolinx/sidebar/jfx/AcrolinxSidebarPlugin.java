@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("WeakerAccess") public class AcrolinxSidebarPlugin
+@SuppressWarnings("WeakerAccess, unchecked") public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;
     private final JSObject jsobj;
