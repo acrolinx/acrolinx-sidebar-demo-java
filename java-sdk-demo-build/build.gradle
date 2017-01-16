@@ -48,7 +48,7 @@ task createStartScriptsSWT(type: CreateStartScripts) {
     outputDir = file("${buildDir}/bin/swt")
     mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
     applicationName = 'acrolinxDemoClientSWT'
-    classpath = files("${artifactName}-${fullVersion}.jar")
+    classpath = files("*")
 }
 
 task zipDist(type: Zip) {

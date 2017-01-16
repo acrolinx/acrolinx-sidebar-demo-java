@@ -27,9 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -174,6 +173,7 @@ import java.util.stream.Collectors;
 
         new BrowserFunction(browser, "selectRangesP")
         {
+            @SuppressWarnings("unchecked")
             @Override
             public Object function(final Object[] arguments)
             {
@@ -205,6 +205,7 @@ import java.util.stream.Collectors;
         };
         new BrowserFunction(browser, "replaceRangesP")
         {
+            @SuppressWarnings("unchecked")
             @Override
             public Object function(final Object[] arguments)
             {
@@ -276,20 +277,18 @@ import java.util.stream.Collectors;
         };
 
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            URL resource = classLoader.getResource("acrolinxPluginScript.js");
-            if (resource != null) {
-                File jsScript = new File(resource.getFile());
-                BufferedReader reader = new BufferedReader(new FileReader(jsScript));
-                String line;
-                StringBuilder sb = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                String script = sb.toString();
-                reader.close();
-                browser.evaluate(script);
+            ClassLoader classLoader = this.getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("acrolinxPluginScript.js");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
             }
+            String script = sb.toString();
+            reader.close();
+            browser.evaluate(script);
+
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
