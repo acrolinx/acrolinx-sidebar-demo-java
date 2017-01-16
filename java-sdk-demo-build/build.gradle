@@ -74,6 +74,9 @@ task zipDist(type: Zip) {
             from(createStartScriptsSWT)
         }
     }
+    into(baseDir) {
+        from("../LICENSE")
+    }
 }
 
 build.dependsOn zipDist
