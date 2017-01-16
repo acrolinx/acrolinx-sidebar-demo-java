@@ -14,7 +14,7 @@ buildscript {
     }
     dependencies {
         classpath "com.diffplug.gradle:goomph:+"
-        classpath "net.researchgate:gradle-release:2.4.0"
+        classpath "net.researchgate:gradle-release:2.5.0"
     }
 }
 
@@ -134,13 +134,9 @@ project(':java-sdk-demo-build'){
         rootProject.release {
             preTagCommitMessage = '[Gradle Release Plugin] - Release tag: '
             newVersionCommitMessage = '[Gradle Release Plugin] - New SNAPSHOT-version: '
+            tagTemplate = 'v${version}'
             scmAdapters = [net.researchgate.release.GitAdapter]
-            git {
-                requireBranch = "release|master"
-            }
         }
-
-        rootProject.afterReleaseBuild.dependsOn uploadArchives
     }
 }
 
