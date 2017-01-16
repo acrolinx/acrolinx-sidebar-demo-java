@@ -79,4 +79,8 @@ task zipDist(type: Zip) {
     }
 }
 
+artifacts {
+    archives zipDist
+}
+
 build.dependsOn zipDist
