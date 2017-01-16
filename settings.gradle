@@ -1,4 +1,4 @@
-rootProject.name = 'acrolinx-sidebar-javasdk'
+rootProject.name = 'acrolinx-sidebar-demo-java'
 
 include ":sidebar_common"
 project(":sidebar_common").projectDir = file("./sidebar/common")
