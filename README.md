@@ -119,6 +119,13 @@ Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar t
 
 ![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
 
+## Lookup
+
+The text in the editor might have been changed after it has been checked. Therefore the ranges for selection and replacing
+as given by the sidebar could appear to not be correct. To make sure the respective part is still present in the document and to
+get its current location the diff-match-patch library is used. If you want to implement another lookup algorithm you'll
+have to implement a class that extends the abstract class LookupRanges.
+
 [Back to top](#acrolinx-java-sidebar-demo)
 
 ## Enable CORS
