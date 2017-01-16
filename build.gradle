@@ -136,6 +136,8 @@ project(':java-sdk-demo-build'){
             newVersionCommitMessage = '[Gradle Release Plugin] - New SNAPSHOT-version: '
             tagTemplate = 'v${version}'
             scmAdapters = [net.researchgate.release.GitAdapter]
+            versionPropertyFile = 'gradle.properties'
+            buildTasks = ['build']
         }
     }
 }
