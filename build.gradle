@@ -136,8 +136,3 @@ project(':sidebar_common') {
 project(':java-sdk-demo-build') {
 
 }
-
-task gitCommitDist {
-    grgit.add(patterns: ['dist'])
-    grgit.commit(message: "ReleaseVersion ${currentVersion}", all: true)
-}
