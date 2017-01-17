@@ -21,13 +21,6 @@ buildscript {
 
 apply plugin: 'pl.allegro.tech.build.axion-release'
 
-scmVersion {
-    hooks {
-        pre 'fileUpdate', [file: 'dist/*.zip']
-        pre 'commit'
-    }
-}
-
 allprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
