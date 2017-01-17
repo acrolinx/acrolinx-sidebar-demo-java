@@ -138,6 +138,12 @@ project(':java-sdk-demo-build'){
             scmAdapters = [net.researchgate.release.GitAdapter]
             versionPropertyFile = 'gradle.properties'
             buildTasks = ['build']
+            git {
+                requireBranch = 'master'
+                pushToRemote = 'origin'
+                pushToBranchPrefix = ''
+                commitVersionFileOnly = false
+            }
         }
     }
 }
