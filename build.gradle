@@ -14,12 +14,11 @@ buildscript {
     }
     dependencies {
         classpath "com.diffplug.gradle:goomph:+"
-        classpath group: 'pl.allegro.tech.build', name: 'axion-release-plugin', version: '1.4.1'
-        classpath 'co.riiid:gradle-github-plugin:0.4.2'
+        classpath 'org.ajoberstar:gradle-git:1.6.0'
     }
 }
 
-apply plugin: 'pl.allegro.tech.build.axion-release'
+apply plugin: 'org.ajoberstar.grgit'
 
 allprojects {
     gradle.projectsEvaluated {
@@ -28,8 +27,7 @@ allprojects {
         }
     }
 
-    apply plugin: 'pl.allegro.tech.build.axion-release'
-    project.version = scmVersion.version
+    project.version = currentVersion
 }
 
 subprojects {
@@ -137,4 +135,9 @@ project(':sidebar_common') {
 
 project(':java-sdk-demo-build') {
 
+}
+
+task gitCommitDist(type: Exec) {
+    grgit.add(patterns: ['dist'])
+    grgit.commit(message: "ReleaseVersion ${currentVersion}", all: true)
 }
