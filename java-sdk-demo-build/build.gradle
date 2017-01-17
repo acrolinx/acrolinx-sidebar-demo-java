@@ -9,7 +9,7 @@ def buildNumber = System.getenv('BUILD_NUMBER');
 def buildVersion = buildNumber != null ? buildNumber : 123
 
 def artifactName = "acrolinx-sidebar-java-sdk"
-def fullVersion = "${version}-${buildVersion}"
+def fullVersion = "${project.version}-${buildVersion}"
 
 distTar.enabled = false
 distZip.enabled = false

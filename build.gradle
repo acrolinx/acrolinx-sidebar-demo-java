@@ -14,7 +14,7 @@ buildscript {
     }
     dependencies {
         classpath "com.diffplug.gradle:goomph:+"
-        classpath "net.researchgate:gradle-release:2.5.0"
+        classpath group: 'pl.allegro.tech.build', name: 'axion-release-plugin', version: '1.4.1'
     }
 }
 
@@ -24,6 +24,9 @@ allprojects {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
     }
+
+    apply plugin: 'pl.allegro.tech.build.axion-release'
+    project.version = scmVersion.version
 }
 
 subprojects {
@@ -126,25 +129,7 @@ project(':sidebar_common') {
     }
 }
 
-project(':java-sdk-demo-build'){
-    afterEvaluate {
-
-        rootProject.apply plugin: 'net.researchgate.release'
-
-        rootProject.release {
-            preTagCommitMessage = '[Gradle Release Plugin] - Release tag: '
-            newVersionCommitMessage = '[Gradle Release Plugin] - New SNAPSHOT-version: '
-            tagTemplate = 'v${version}'
-            scmAdapters = [net.researchgate.release.GitAdapter]
-            versionPropertyFile = 'gradle.properties'
-            buildTasks = ['build']
-            git {
-                requireBranch = 'master'
-                pushToRemote = 'origin'
-                pushToBranchPrefix = ''
-                commitVersionFileOnly = false
-            }
-        }
-    }
+project(':java-sdk-demo-build') {
+    apply plugin: 'pl.allegro.tech.build.axion-release'
 }
 
