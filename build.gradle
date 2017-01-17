@@ -15,6 +15,7 @@ buildscript {
     dependencies {
         classpath "com.diffplug.gradle:goomph:+"
         classpath group: 'pl.allegro.tech.build', name: 'axion-release-plugin', version: '1.4.1'
+        classpath 'co.riiid:gradle-github-plugin:0.4.2'
     }
 }
 
