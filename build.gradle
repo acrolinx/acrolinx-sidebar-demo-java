@@ -40,6 +40,9 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
     repositories {
         mavenCentral()
         jcenter()
@@ -132,4 +135,3 @@ project(':sidebar_common') {
 project(':java-sdk-demo-build') {
 
 }
-
