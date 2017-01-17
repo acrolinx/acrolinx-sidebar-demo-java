@@ -93,7 +93,7 @@ artifacts {
 
 task gitCommitDist {
     def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
-    if (!currentVersion.contains('SNAPSHOT') && hasOldReleaseVersion){
+    if (!currentVersion.contains('SNAPSHOT') && !hasOldReleaseVersion){
         grgit.add(patterns: ['dist'])
         grgit.commit(message: "Release version ${currentVersion}", all: true)
         grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
