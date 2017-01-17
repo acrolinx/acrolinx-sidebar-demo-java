@@ -137,7 +137,7 @@ project(':java-sdk-demo-build') {
 
 }
 
-task gitCommitDist(type: Exec) {
+task gitCommitDist {
     grgit.add(patterns: ['dist'])
     grgit.commit(message: "ReleaseVersion ${currentVersion}", all: true)
 }
