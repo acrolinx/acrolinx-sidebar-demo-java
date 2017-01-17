@@ -44,6 +44,12 @@ task createStartScriptsSwing(type: CreateStartScripts) {
     classpath = files("${artifactName}-${fullVersion}.jar")
 }
 
+task deleteFiles(type: Delete) {
+    delete fileTree('../dist') {
+        include '*.zip'
+    }
+}
+
 task createStartScriptsSWT(type: CreateStartScripts) {
     outputDir = file("${buildDir}/bin/swt")
     mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
@@ -51,9 +57,10 @@ task createStartScriptsSWT(type: CreateStartScripts) {
     classpath = files("*")
 }
 
-task zipDist(type: Zip) {
+task zipDist(type: Zip, dependsOn: deleteFiles) {
     def baseDir = "${artifactName}-${fullVersion}.zip"
     archiveName = baseDir
+
     destinationDir = file('../dist')
     into(baseDir) {
         into("lib") {
@@ -84,4 +91,4 @@ artifacts {
     archives zipDist
 }
 
-build.dependsOn zipDist
+release.dependsOn zipDist
