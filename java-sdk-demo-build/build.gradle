@@ -91,4 +91,4 @@ artifacts {
     archives zipDist
 }
 
-release.dependsOn zipDist
+zipDist.dependsOn release
