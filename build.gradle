@@ -130,6 +130,6 @@ project(':sidebar_common') {
 }
 
 project(':java-sdk-demo-build') {
-    apply plugin: 'pl.allegro.tech.build.axion-release'
+
 }
 
