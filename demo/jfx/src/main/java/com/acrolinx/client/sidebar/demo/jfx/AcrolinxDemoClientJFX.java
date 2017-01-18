@@ -48,7 +48,7 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         final BorderPane borderPane = new BorderPane();
         final TextArea textArea = this.getTextArea();
         final ComboBox<InputFormat> formatDropdown = new ComboBox<>();
-        formatDropdown.getItems().addAll(InputFormat.XML, InputFormat.HTML, InputFormat.TEXT);
+        formatDropdown.getItems().addAll(InputFormat.XML, InputFormat.HTML, InputFormat.TEXT, InputFormat.MARKDOWN);
         formatDropdown.setValue(InputFormat.TEXT);
         this.textAreaAdapter = new TextAreaAdapter(this.getTextArea(), InputFormat.TEXT);
 
