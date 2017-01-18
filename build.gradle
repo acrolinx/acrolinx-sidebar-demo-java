@@ -15,6 +15,7 @@ buildscript {
     dependencies {
         classpath "com.diffplug.gradle:goomph:+"
         classpath 'org.ajoberstar:gradle-git:1.6.0'
+        classpath "com.smokejumperit.gradle.license:Gradle-License-Report:+"
     }
 }
 
@@ -125,6 +126,8 @@ project(':sidebar_swt') {
 }
 
 project(':sidebar_common') {
+
+    apply plugin:'license-report'
 
     dependencies {
         compile 'com.google.code.gson:gson:2.2.4'

@@ -85,13 +85,20 @@ task zipDist(type: Zip) {
     into(baseDir) {
         from("../LICENSE")
     }
+    into(baseDir) {
+        into("dependency-licenses") {
+            from("${buildDir}/dependency-licenses")
+        }
+    }
 }
+
+zipDist.dependsOn(':sidebar_common:generateThirdPartyLibraryReport')
 
 artifacts {
     archives zipDist
 }
 
-task distributeAndRelease(dependsOn: distZip) {
+task distributeAndRelease(dependsOn: zipDist) {
     doLast {
         def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
         if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
