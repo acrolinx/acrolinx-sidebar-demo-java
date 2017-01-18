@@ -7,5 +7,5 @@ Find the build job on Jenkins find project "acrolinx-sidebar-javasdk" und trigge
 
 Once the build finished, you'll should have a new release in Github.
 
-Last increment the version number, put a "SNAPSHOT" behind it and commit and push it.
+Last increment the version number, put a "SNAPSHOT" behind it, commit and push it.
 
