@@ -62,11 +62,11 @@ acrolinx-sidebar-java-sdk jar.
 
 For a windows environment run the .bat files and on a Unix System run the shell scripts.
 
-**To run the acrolinxDemoClientSWT files you'll have to put the Eclipse SWT library into the lib folder. Depending on
+**Important:** To run the acrolinxDemoClientSWT files you'll have to put the **Eclipse SWT library** into the lib folder. Depending on
  your OS download the right jar in the [eclipse download area](http://download.eclipse.org/eclipse/downloads/). Select
  the last stable build, then on the left you'll find the entry for "SWT binary and Source". Then choose the download
  according to you OS. Unzip and  put the included jar file into the "lib" folder next to acrolinx-sidebar-java-sdk jar.
- Run the acrolinxDemoClientSWT start script.**
+ Run the acrolinxDemoClientSWT start script.
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
