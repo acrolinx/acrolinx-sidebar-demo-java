@@ -80,8 +80,16 @@ import java.util.stream.Collectors;
 
     public synchronized void requestGlobalCheck()
     {
-        lastCheckedDocument.set(client.getEditorAdapter().getContent());
         final CheckOptions checkOptions = getCheckSettingsFromClient();
+        if (checkOptions.getInputFormat() == null) {
+            onGlobalCheckRejected();
+        } else
+            runCheck(checkOptions);
+    }
+
+    public synchronized void runCheck(CheckOptions checkOptions)
+    {
+        lastCheckedDocument.set(client.getEditorAdapter().getContent());
         Platform.runLater(() -> {
             jsobj.setMember("checkText", lastCheckedDocument.get());
             jsobj.eval("acrolinxSidebar.checkGlobal(checkText," + checkOptions.toString() + ")");

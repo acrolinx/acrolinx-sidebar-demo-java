@@ -42,6 +42,7 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
         pane.getChildren().addAll(sidebarJFX);
         Scene scene = new Scene(pane, 300, prefHeight);
         setScene(scene);
+        setVisible(true);
     }
 
     @Override

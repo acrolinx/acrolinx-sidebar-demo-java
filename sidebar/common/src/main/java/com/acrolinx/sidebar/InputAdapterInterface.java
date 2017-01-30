@@ -17,7 +17,8 @@ public interface InputAdapterInterface
 {
 
     /**
-     * Receives the current input format.
+     * Receives the current input format. If this method returns null,
+     * the check will be canceled by the sidebar.
      *
      * @return Returns the current input format.
      * @see InputFormat

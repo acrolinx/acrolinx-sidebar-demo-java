@@ -36,8 +36,6 @@ if(window.console && console.log){
   }
 }
 
-console.log("TEST");
-
 
 window.acrolinxPlugin =
 {
@@ -48,9 +46,13 @@ window.acrolinxPlugin =
    onInitFinishedNotificationP(JSON.stringify(finishResult))
   },
   requestGlobalCheck: function(){
-    acrolinxSidebar.checkGlobal(getTextP(),
-      {inputFormat: getInputFormatP(), requestDescription: {documentReference: getDocUrlP()}}
-    );
+    if(!getInputFormatP) {
+        acrolinxSidebar.onGlobalCheckRejected();
+    } else {
+        acrolinxSidebar.checkGlobal(getTextP(),
+        {inputFormat: getInputFormatP(), requestDescription: {documentReference: getDocUrlP()}}
+      );
+    }
   },
   onCheckResult: function(checkResult){
     onCheckResultP(JSON.stringify(checkResult))

@@ -25,6 +25,17 @@ public class CheckOptions
         this.inputFormat = inputFormat;
     }
 
+    public InputFormat getInputFormat()
+    {
+        return inputFormat;
+    }
+
+    public RequestDescription getRequestDescription()
+    {
+        return requestDescription;
+    }
+
+
     @Override
     public String toString()
     {
