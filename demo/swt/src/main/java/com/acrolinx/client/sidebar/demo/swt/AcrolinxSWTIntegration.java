@@ -75,4 +75,10 @@ import java.util.Optional;
         logger.debug(initResult.toString());
 
     }
+
+    @Override
+    public boolean canCheck()
+    {
+        return true;
+    }
 }

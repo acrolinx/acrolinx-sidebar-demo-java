@@ -46,7 +46,7 @@ window.acrolinxPlugin =
    onInitFinishedNotificationP(JSON.stringify(finishResult))
   },
   requestGlobalCheck: function(){
-    if(!getInputFormatP) {
+    if(!canCheck()) {
         acrolinxSidebar.onGlobalCheckRejected();
     } else {
         acrolinxSidebar.checkGlobal(getTextP(),

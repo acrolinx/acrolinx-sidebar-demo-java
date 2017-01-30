@@ -141,6 +141,15 @@ import java.util.stream.Collectors;
             }
         };
 
+        new BrowserFunction(browser, "canCheck")
+        {
+            @Override
+            public Object function(final Object[] arguments)
+            {
+                return client.canCheck();
+            }
+        };
+
         new BrowserFunction(browser, "getInputFormatP")
         {
             @Override
