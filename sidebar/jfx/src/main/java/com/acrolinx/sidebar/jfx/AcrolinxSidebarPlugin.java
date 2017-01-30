@@ -80,15 +80,15 @@ import java.util.stream.Collectors;
 
     public synchronized void requestGlobalCheck()
     {
-        final CheckOptions checkOptions = getCheckSettingsFromClient();
-        if (checkOptions.getInputFormat() == null) {
+        if (client.canCheck()) {
             onGlobalCheckRejected();
         } else
-            runCheck(checkOptions);
+            runCheck();
     }
 
-    public synchronized void runCheck(CheckOptions checkOptions)
+    public synchronized void runCheck()
     {
+        final CheckOptions checkOptions = getCheckSettingsFromClient();
         lastCheckedDocument.set(client.getEditorAdapter().getContent());
         Platform.runLater(() -> {
             jsobj.setMember("checkText", lastCheckedDocument.get());

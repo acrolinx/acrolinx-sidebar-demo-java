@@ -106,4 +106,10 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
         logger.debug("Finished init!");
     }
 
+    @Override
+    public boolean canCheck()
+    {
+        return true;
+    }
+
 }

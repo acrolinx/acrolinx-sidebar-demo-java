@@ -35,6 +35,7 @@ public interface AcrolinxIntegration
 
     /**
      * Returns the lookup implementation to correct ranges in edited text.
+     *
      * @return
      */
     LookupRanges getLookup();
@@ -60,4 +61,12 @@ public interface AcrolinxIntegration
      * @param initResult
      */
     void onInitFinished(@SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<SidebarError> initResult);
+
+    /**
+     * This method will be called from the sidebar, when a check was requested.
+     * If it returns true the check will be done, otherwise it will be canceled.
+     *
+     * @return
+     */
+    boolean canCheck();
 }

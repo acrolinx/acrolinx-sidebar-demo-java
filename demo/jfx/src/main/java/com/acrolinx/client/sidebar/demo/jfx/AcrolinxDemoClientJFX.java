@@ -140,4 +140,10 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
 
     }
 
+    @Override
+    public boolean canCheck()
+    {
+        return true;
+    }
+
 }
