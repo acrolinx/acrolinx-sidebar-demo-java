@@ -9,6 +9,7 @@ import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import com.acrolinx.sidebar.utils.SidebarUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -32,6 +33,7 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
     private final WebEngine webEngine = browser.getEngine();
     private final int prefHeight;
     private AcrolinxSidebarPlugin acrolinxSidebarPlugin;
+    private final AcrolinxIntegration integration;
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarJFX.class);
 
@@ -41,6 +43,7 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
      */
     public AcrolinxSidebarJFX(AcrolinxIntegration integration, int prefHeight)
     {
+        this.integration = integration;
         this.prefHeight = prefHeight;
         logger.debug("Trying to load sidebar url: " + integration.getInitParameters().getSidebarUrl());
         getChildren().add(browser);
@@ -117,5 +120,11 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
     {
         acrolinxSidebarPlugin.invalidateRanges(invalidCheckedDocumentRanges);
 
+    }
+
+    public void loadSidebarFromServer(String serverAddress){
+        integration.getInitParameters().setServerAddress(serverAddress);
+        integration.getInitParameters().setShowServerSelector(false);
+        Platform.runLater(() -> webEngine.load(SidebarUtils.getSidebarUrl(serverAddress)));
     }
 }

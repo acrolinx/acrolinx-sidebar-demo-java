@@ -68,4 +68,9 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
     {
         sidebarJFX.invalidateRanges(invalidCheckedDocumentRanges);
     }
+
+    public void loadSidebarFromServer(String serverAddress) {
+        sidebarJFX.loadSidebarFromServer(serverAddress);
+    }
+
 }
