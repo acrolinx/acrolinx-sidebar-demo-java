@@ -24,8 +24,6 @@ public interface AcrolinxSidebar
      */
     void configure(SidebarConfiguration configuration);
 
-    // TODO(fp) Do we want to offer checkGlobal and on globalCheckRejected??? Is is needed for now?
-
     /**
      * Pushes a check request to the Acrolinx Sidebar.
      *

@@ -81,9 +81,9 @@ import java.util.stream.Collectors;
     public synchronized void requestGlobalCheck()
     {
         if (client.canCheck()) {
-            onGlobalCheckRejected();
-        } else
             runCheck();
+        } else
+            onGlobalCheckRejected();
     }
 
     public synchronized void runCheck()
@@ -126,8 +126,7 @@ import java.util.stream.Collectors;
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            @SuppressWarnings("unchecked")
-            List<AcrolinxMatch> ranges = (List<AcrolinxMatch>) correctedRanges.get();
+            @SuppressWarnings("unchecked") List<AcrolinxMatch> ranges = (List<AcrolinxMatch>) correctedRanges.get();
             client.getEditorAdapter().selectRanges(checkID, ranges);
         }
 
@@ -146,8 +145,7 @@ import java.util.stream.Collectors;
                                     match.getRange().getMaximumInteger()))).collect(Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            @SuppressWarnings("unchecked")
-            List<AcrolinxMatchWithReplacement> ranges = (List<AcrolinxMatchWithReplacement>) correctedRanges.get();
+            @SuppressWarnings("unchecked") List<AcrolinxMatchWithReplacement> ranges = (List<AcrolinxMatchWithReplacement>) correctedRanges.get();
             client.getEditorAdapter().replaceRanges(checkID, ranges);
         }
     }

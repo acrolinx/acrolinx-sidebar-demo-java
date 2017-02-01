@@ -22,6 +22,12 @@ buildscript {
 apply plugin: 'org.ajoberstar.grgit'
 
 allprojects {
+
+    /*tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.memberLevel = JavadocMemberLevel.PUBLIC
+    }*/
+
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
@@ -76,6 +82,8 @@ project(':sidebar_demo_swt') {
         compile project(':sidebar_swt')
         testCompile project(':sidebar_swt')
     }
+
+    javadoc.enabled = false
 }
 
 project(':sidebar_demo_swing') {
@@ -88,6 +96,8 @@ project(':sidebar_demo_swing') {
     dependencies {
         compile project(':sidebar_swing')
     }
+
+    javadoc.enabled = false
 }
 
 project(':sidebar_demo_jfx') {
@@ -100,6 +110,8 @@ project(':sidebar_demo_jfx') {
     dependencies {
         compile project(':sidebar_jfx')
     }
+
+    javadoc.enabled = false
 }
 
 project(':sidebar_jfx') {

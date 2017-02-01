@@ -37,4 +37,10 @@ public class SidebarUtils
             logger.error("Desktop is not available to get systems default browser.");
         }
     }
+
+    public static String getSidebarUrl(String serverAddress)
+    {
+        return serverAddress + (serverAddress.endsWith("/") ? "sidebar/v14/index.html" : "/sidebar/v14/index.html");
+
+    }
 }

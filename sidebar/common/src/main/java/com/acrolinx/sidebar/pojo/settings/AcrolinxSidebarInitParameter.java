@@ -55,6 +55,14 @@ public class AcrolinxSidebarInitParameter
             return SIDEBAR_URL;
     }
 
+    public void setServerAddress(String serverAddress){
+        this.serverAddress = serverAddress;
+    }
+
+    public void setShowServerSelector(boolean showServerSelector){
+        this.showServerSelector = showServerSelector;
+    }
+
     @Override
     public String toString()
     {
@@ -110,7 +118,7 @@ public class AcrolinxSidebarInitParameter
          * If this is not set the publicly available Sidebar will be used by default.
          *
          * @param sidebarUrl
-         * @returnReturns the AcrolinxInitParameterBuilder for chaining.
+         * @return Returns the AcrolinxInitParameterBuilder for chaining.
          */
         public AcrolinxSidebarInitParameterBuilder withSidebarUrl(String sidebarUrl)
         {

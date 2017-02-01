@@ -35,8 +35,7 @@ public interface AcrolinxIntegration
 
     /**
      * Returns the lookup implementation to correct ranges in edited text.
-     *
-     * @return
+     * @return Implementation of LookupRanges class
      */
     LookupRanges getLookup();
 
