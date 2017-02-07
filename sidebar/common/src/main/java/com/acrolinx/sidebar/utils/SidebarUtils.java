@@ -43,4 +43,12 @@ public class SidebarUtils
         return serverAddress + (serverAddress.endsWith("/") ? "sidebar/v14/index.html" : "/sidebar/v14/index.html");
 
     }
+
+    public static String getCurrentSDKImplementationVersion(){
+        return new Object() { }.getClass().getEnclosingClass().getPackage().getImplementationVersion();
+    }
+
+    public static String getCurrentSDKName(){
+        return new Object() { }.getClass().getEnclosingClass().getPackage().getName();
+    }
 }
