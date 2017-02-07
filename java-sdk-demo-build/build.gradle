@@ -3,8 +3,12 @@ plugins {
 }
 
 apply plugin: 'java-library-distribution'
+apply plugin: 'maven'
+apply plugin: 'artifactory-publish'
 
 def buildNumber = System.getenv('BUILD_NUMBER');
+
+def groupId = 'com.acrolinx'
 
 def buildVersion = buildNumber != null ? buildNumber : 123
 
@@ -22,11 +26,25 @@ dependencies {
     }
 }
 
+task createJar(type: Jar) {
+    manifest {
+        attributes(
+                "Implementation-Title": "${artifactName}",
+                "Implementation-Version": "${fullVersion}",
+                "Specification-Title": "${artifactName}",
+                "Specification-Version": project.version
+        )
+    }
+}
+
 shadowJar {
     archiveName = "${artifactName}-${fullVersion}.jar"
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     destinationDir = file("${buildDir}/lib")
+    manifest {
+        inheritFrom project.tasks.createJar.manifest
+    }
 }
 
 task createStartScriptsJFX(type: CreateStartScripts) {
@@ -107,6 +125,28 @@ task distributeAndRelease(dependsOn: zipDist) {
             grgit.push(force: true)
             grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
             grgit.push(tags: true)
+        }
+    }
+}
+
+def repoKeyActual = (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) ? 'libs-release-local' : 'libs-snapshot'
+
+artifactory {
+    contextUrl = System.getenv('ARTIFACTORY_URL');
+    publish {
+        repository {
+            repoKey = repoKeyActual
+            username = System.getenv('ARTIFACTORY_USERNAME');
+            password = System.getenv('ARTIFACTORY_PASSWORD');
+            maven = true
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact file("${buildDir}/lib/${artifactName}-${fullVersion}.jar")
         }
     }
 }
