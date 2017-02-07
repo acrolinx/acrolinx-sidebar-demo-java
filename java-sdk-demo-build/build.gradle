@@ -1,14 +1,13 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id "com.jfrog.artifactory" version "4.4.13"
 }
 
 apply plugin: 'java-library-distribution'
 apply plugin: 'maven'
-apply plugin: 'artifactory-publish'
+apply plugin: 'maven-publish'
 
 def buildNumber = System.getenv('BUILD_NUMBER');
-
-def groupId = 'com.acrolinx'
 
 def buildVersion = buildNumber != null ? buildNumber : 123
 
@@ -133,6 +132,17 @@ task distributeAndRelease(dependsOn: zipDist) {
 
 def repoKeyActual = (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) ? 'libs-release-local' : 'libs-snapshot'
 
+publishing {
+    publications {
+        api(MavenPublication) {
+            groupId 'com.acrolinx'
+            artifactId "${artifactName}"
+
+            artifact shadowJar
+        }
+    }
+}
+
 artifactory {
     contextUrl = System.getenv('ARTIFACTORY_URL');
     publish {
@@ -148,10 +158,3 @@ artifactory {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact file("${buildDir}/lib/${artifactName}-${fullVersion}.jar")
-        }
-    }
-}
