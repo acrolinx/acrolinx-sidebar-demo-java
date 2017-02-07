@@ -130,7 +130,7 @@ task distributeAndRelease(dependsOn: zipDist) {
     }
 }
 
-def repoKeyActual = (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) ? 'libs-release-local' : 'libs-snapshot'
+def repoKeyActual = (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) ? 'libs-release-local' : 'libs-snapshot-local'
 
 publishing {
     publications {
