@@ -137,6 +137,7 @@ publishing {
         api(MavenPublication) {
             groupId 'com.acrolinx'
             artifactId "${artifactName}"
+            archiveName "${artifactName}-${fullVersion}.jar"
 
             artifact shadowJar
         }
