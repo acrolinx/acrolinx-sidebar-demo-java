@@ -153,7 +153,7 @@ artifactory {
             maven = true
         }
         defaults {
-            publications ('mavenJava')
+            publications ('api')
         }
     }
 }
