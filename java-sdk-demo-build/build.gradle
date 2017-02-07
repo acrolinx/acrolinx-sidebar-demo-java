@@ -116,9 +116,11 @@ artifacts {
     archives zipDist
 }
 
+def hasOldReleaseVersion = true;
+
 task distributeAndRelease(dependsOn: zipDist) {
     doLast {
-        def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
+        hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
         if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
             grgit.add(patterns: ['dist'])
             grgit.commit(message: "Release version ${currentVersion}")
@@ -139,6 +141,9 @@ artifactory {
             username = System.getenv('ARTIFACTORY_USERNAME');
             password = System.getenv('ARTIFACTORY_PASSWORD');
             maven = true
+        }
+        defaults {
+            publications ('mavenJava')
         }
     }
 }
