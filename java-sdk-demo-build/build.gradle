@@ -115,11 +115,10 @@ artifacts {
     archives zipDist
 }
 
-def hasOldReleaseVersion = true;
 
 task distributeAndRelease(dependsOn: zipDist) {
     doLast {
-        hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
+        def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
         if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
             grgit.add(patterns: ['dist'])
             grgit.commit(message: "Release version ${currentVersion}")
@@ -130,7 +129,7 @@ task distributeAndRelease(dependsOn: zipDist) {
     }
 }
 
-def repoKeyActual = (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) ? 'libs-release-local' : 'libs-snapshot-local'
+def repoKeyActual = (!fullVersion.contains('SNAPSHOT')) ? 'libs-release-local' : 'libs-snapshot-local'
 
 publishing {
     publications {
