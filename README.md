@@ -153,15 +153,11 @@ If you want to use an Acrolinx Sidebar with an Acrolinx Server that run on diffe
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). That can be done by setting the following System
 property in your Java Code:
 
-    ```
     System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-    ```
 
 Or you can set the following VM Option when running Java:
 
-     ```
         "-Dsun.net.http.allowRestrictedHeaders=true"
-     ```
 
 Also you'll need have CORS enabled on your Acrolinx Server.
 For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
