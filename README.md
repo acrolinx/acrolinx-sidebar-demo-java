@@ -157,7 +157,7 @@ property in your Java Code:
 
 Or you can set the following VM Option when running Java:
 
-        "-Dsun.net.http.allowRestrictedHeaders=true"
+    -Dsun.net.http.allowRestrictedHeaders=true
 
 Also you'll need have CORS enabled on your Acrolinx Server.
 For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
