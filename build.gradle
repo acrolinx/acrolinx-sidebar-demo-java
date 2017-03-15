@@ -61,7 +61,8 @@ subprojects {
 
     dependencies {
         compile 'com.google.guava:guava:19.+'
-        compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.21'
+        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.1'
+        compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.1'
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
         testCompile group: 'junit', name: 'junit', version: '4.+'
     }
@@ -74,7 +75,7 @@ project(':sidebar_demo_swt') {
 
     mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
-    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Dlogback.configurationFile=../../logback.xml"]
 
     sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 
@@ -91,7 +92,7 @@ project(':sidebar_demo_swing') {
 
     mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 
-    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Dlogback.configurationFile=../../logback.xml"]
 
     dependencies {
         compile project(':sidebar_swing')
@@ -105,7 +106,7 @@ project(':sidebar_demo_jfx') {
 
     mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
-    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Djava.util.logging.config.file=logging.properties"]
+    applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true", "-Dlogback.configurationFile=../../logback.xml"]
 
     dependencies {
         compile project(':sidebar_jfx')
@@ -139,7 +140,7 @@ project(':sidebar_swt') {
 
 project(':sidebar_common') {
 
-    apply plugin:'license-report'
+    apply plugin: 'license-report'
 
     dependencies {
         compile 'com.google.code.gson:gson:2.2.4'
