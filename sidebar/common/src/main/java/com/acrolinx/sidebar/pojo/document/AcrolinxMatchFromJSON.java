@@ -30,8 +30,8 @@ import org.apache.commons.lang.math.IntRange;
     public AcrolinxMatchWithReplacement getAsAcrolinxMatchWithReplacement()
     {
         if (replacement != null && extractedRange != null) {
-            return new AcrolinxMatchWithReplacement(new IntRange(extractedRange[0], extractedRange[1]),
-                    new IntRange(range[0], range[1]), content, replacement);
+            return new AcrolinxMatchWithReplacement(new IntRange(range[0], range[1]),
+                    new IntRange(extractedRange[0], extractedRange[1]), content, replacement);
         } else if (replacement != null) {
             return new AcrolinxMatchWithReplacement(content, new IntRange(range[0], range[1]), replacement);
         }
