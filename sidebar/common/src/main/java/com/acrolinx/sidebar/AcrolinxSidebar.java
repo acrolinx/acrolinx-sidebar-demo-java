@@ -45,4 +45,10 @@ public interface AcrolinxSidebar
      * @param invalidCheckedDocumentRanges
      */
     void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges);
+
+    /**
+     * Load the sidebar from a different server address
+     * @param serverAddress
+     */
+    void loadSidebarFromServerLocation(String serverAddress);
 }

@@ -52,7 +52,8 @@ import java.util.stream.Collectors;
     {
         Preconditions.checkNotNull(parent, "Compsoite parent should not be null");
         Preconditions.checkNotNull(client, "AcrolinxIntegration client should not be null");
-        Preconditions.checkNotNull(client.getEditorAdapter(), "EditorAdapter client.getEditorAdapter should return null");
+        Preconditions.checkNotNull(client.getEditorAdapter(),
+                "EditorAdapter client.getEditorAdapter should return null");
 
         this.client = client;
         this.browser = new Browser(parent, SWT.BORDER);
@@ -64,7 +65,8 @@ import java.util.stream.Collectors;
     {
         Preconditions.checkNotNull(parent, "Shell parent should not be null");
         Preconditions.checkNotNull(client, "AcrolinxIntegration client should not be null");
-        Preconditions.checkNotNull(client.getEditorAdapter(), "EditorAdapter client.getEditorAdapter should return null");
+        Preconditions.checkNotNull(client.getEditorAdapter(),
+                "EditorAdapter client.getEditorAdapter should return null");
 
         this.client = client;
         this.browser = new Browser(parent, SWT.BORDER);
@@ -341,5 +343,13 @@ import java.util.stream.Collectors;
     {
         String js = buildStringOfCheckedDocumentRanges(invalidDocumentParts);
         browser.execute("window.acrolinxSidebar.invalidateRanges([" + js + "]);");
+    }
+
+    @Override
+    public void loadSidebarFromServerLocation(String serverAddress)
+    {
+        this.client.getInitParameters().setServerAddress(serverAddress);
+        this.client.getInitParameters().setShowServerSelector(false);
+        this.initBrowser();
     }
 }

@@ -122,7 +122,8 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
 
     }
 
-    public void loadSidebarFromServer(String serverAddress){
+    @Override
+    public void loadSidebarFromServerLocation(String serverAddress){
         integration.getInitParameters().setServerAddress(serverAddress);
         integration.getInitParameters().setShowServerSelector(false);
         Platform.runLater(() -> webEngine.load(SidebarUtils.getSidebarUrl(serverAddress)));
