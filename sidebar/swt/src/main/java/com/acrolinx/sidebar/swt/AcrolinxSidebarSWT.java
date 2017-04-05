@@ -10,6 +10,7 @@ import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.*;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -49,6 +50,10 @@ import java.util.stream.Collectors;
     @SuppressWarnings("WeakerAccess")
     public AcrolinxSidebarSWT(Composite parent, int prefHeight, AcrolinxIntegration client)
     {
+        Preconditions.checkNotNull(parent, "Compsoite parent should not be null");
+        Preconditions.checkNotNull(client, "AcrolinxIntegration client should not be null");
+        Preconditions.checkNotNull(client.getEditorAdapter(), "EditorAdapter client.getEditorAdapter should return null");
+
         this.client = client;
         this.browser = new Browser(parent, SWT.BORDER);
         this.prefHeight = prefHeight;
@@ -57,6 +62,10 @@ import java.util.stream.Collectors;
 
     public AcrolinxSidebarSWT(Shell parent, int prefHeight, AcrolinxIntegration client)
     {
+        Preconditions.checkNotNull(parent, "Shell parent should not be null");
+        Preconditions.checkNotNull(client, "AcrolinxIntegration client should not be null");
+        Preconditions.checkNotNull(client.getEditorAdapter(), "EditorAdapter client.getEditorAdapter should return null");
+
         this.client = client;
         this.browser = new Browser(parent, SWT.BORDER);
         this.prefHeight = prefHeight;
@@ -72,7 +81,6 @@ import java.util.stream.Collectors;
             @Override
             public void completed(ProgressEvent event)
             {
-                logger.debug("URL loaded");
                 initSidebar();
             }
 
@@ -114,7 +122,6 @@ import java.util.stream.Collectors;
                 if (Strings.isNullOrEmpty(requestText)) {
                     return "<unsupported/>";
                 }
-                logger.debug("REQUESTTEXT: " + requestText);
                 return requestText;
             }
 
@@ -128,8 +135,6 @@ import java.util.stream.Collectors;
                 String result = arguments[0].toString();
                 JsonParser parser = new JsonParser();
                 JsonObject json = (JsonObject) parser.parse(result);
-                logger.debug("Init Finished!");
-                logger.debug("Init result: " + result);
                 JsonObject error = json.getAsJsonObject("error");
                 if (error != null) {
                     SidebarError sidebarError = new Gson().fromJson(error, SidebarError.class);
@@ -156,7 +161,6 @@ import java.util.stream.Collectors;
             public Object function(final Object[] arguments)
             {
                 final String inputFormat = client.getEditorAdapter().getInputFormat().toString();
-                logger.debug("INPUTFORMAT: " + inputFormat);
                 return inputFormat;
             }
         };
@@ -167,7 +171,6 @@ import java.util.stream.Collectors;
             public Object function(final Object[] arguments)
             {
                 String checkResult = arguments[0].toString();
-                logger.debug("CheckResult: " + checkResult);
                 try {
                     CheckResultFromJSON checkResultObj = new Gson().fromJson(checkResult, CheckResultFromJSON.class);
                     CheckResult result = checkResultObj.getAsCheckResult();
@@ -186,7 +189,6 @@ import java.util.stream.Collectors;
             @Override
             public Object function(final Object[] arguments)
             {
-                logger.debug(arguments[0] + " " + arguments[1]);
                 try {
                     List<AcrolinxMatchFromJSON> match = new Gson().fromJson((String) arguments[1],
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
@@ -218,7 +220,6 @@ import java.util.stream.Collectors;
             @Override
             public Object function(final Object[] arguments)
             {
-                logger.debug(arguments[0] + " " + arguments[1]);
                 try {
                     List<AcrolinxMatchFromJSON> match = new Gson().fromJson((String) arguments[1],
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
