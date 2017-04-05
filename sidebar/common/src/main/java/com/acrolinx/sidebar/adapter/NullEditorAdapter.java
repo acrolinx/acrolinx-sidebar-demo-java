@@ -2,7 +2,7 @@
  * Copyright (c) 2016-2017 Acrolinx GmbH
  */
 
-package com.acrolinx.sidebar.utils;
+package com.acrolinx.sidebar.adapter;
 
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
@@ -35,12 +35,12 @@ public class NullEditorAdapter implements InputAdapterInterface
     @Override
     public void selectRanges(String s, List<AcrolinxMatch> list)
     {
-
+        //
     }
 
     @Override
     public void replaceRanges(String s, List<AcrolinxMatchWithReplacement> list)
     {
-
+        //
     }
 }
