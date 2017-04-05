@@ -20,6 +20,7 @@ public interface AcrolinxIntegration
     /**
      * Adapter to extract the text to be checked. It needs to be an implementation of InputAdapterInterface
      *
+     *
      * @return implementation of InputAdapterInterface
      * @see InputAdapterInterface
      */

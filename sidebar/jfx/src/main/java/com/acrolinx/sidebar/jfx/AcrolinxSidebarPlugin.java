@@ -43,8 +43,9 @@ import java.util.stream.Collectors;
 
     public AcrolinxSidebarPlugin(final AcrolinxIntegration client, final JSObject jsobj)
     {
-        Preconditions.checkNotNull(jsobj, "jsobj should not be null");
-        Preconditions.checkNotNull(client, "workspace should not be null");
+        Preconditions.checkNotNull(jsobj, "JsObject should not be null");
+        Preconditions.checkNotNull(client, "Workspace should not be null");
+        Preconditions.checkNotNull(client.getEditorAdapter(), "EditorAdapter should not be null");
 
         this.client = client;
         this.jsobj = jsobj;
@@ -175,7 +176,6 @@ import java.util.stream.Collectors;
     protected void invalidateRanges(List<CheckedDocumentPart> invalidCheckedDocumentRanges)
     {
         String js = buildStringOfCheckedDocumentRanges(invalidCheckedDocumentRanges);
-        logger.debug(js);
         Platform.runLater(() -> jsobj.eval("acrolinxSidebar.invalidateRanges([" + js + "])"));
     }
 }
