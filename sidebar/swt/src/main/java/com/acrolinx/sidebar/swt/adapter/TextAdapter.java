@@ -15,7 +15,7 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.utils.MatchComparator;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "unused"})
 public class TextAdapter implements InputAdapterInterface
 {
     final private Text textWidget;
@@ -34,7 +34,7 @@ public class TextAdapter implements InputAdapterInterface
         this.inputFormat = inputFormat;
     }
 
-    public TextAdapter(Text textWidget, InputFormat inputFormat, String documentReference)
+    public TextAdapter(Text textWidget, @SuppressWarnings("SameParameterValue") InputFormat inputFormat, @SuppressWarnings("SameParameterValue") String documentReference)
     {
 
         this.textWidget = textWidget;

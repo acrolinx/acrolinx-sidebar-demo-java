@@ -31,7 +31,7 @@ import com.google.common.base.Preconditions;
 
 import netscape.javascript.JSObject;
 
-@SuppressWarnings("WeakerAccess, unchecked")
+@SuppressWarnings({"WeakerAccess, unchecked"})
 public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;

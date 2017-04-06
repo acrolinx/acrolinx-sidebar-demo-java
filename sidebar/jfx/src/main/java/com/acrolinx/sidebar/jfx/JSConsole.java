@@ -7,7 +7,7 @@ package com.acrolinx.sidebar.jfx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class JSConsole
 {
     private final Logger logger = LoggerFactory.getLogger(JSConsole.class);

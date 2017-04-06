@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-@SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
+@SuppressWarnings({"FieldCanBeLocal", "CanBeFinal", "unused"})
 public class AcrolinxSidebarInitParameter
 {
     private static final String SIDEBAR_URL = "https://sidebar-classic.acrolinx-cloud.com/v14/prod/index.html";

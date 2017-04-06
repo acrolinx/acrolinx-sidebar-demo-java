@@ -10,7 +10,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class ChildShell
+@SuppressWarnings({"WeakerAccess", "unused"}) public class ChildShell
 {
     @SuppressWarnings("WeakerAccess")
     final Shell child;

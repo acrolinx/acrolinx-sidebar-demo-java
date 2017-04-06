@@ -6,7 +6,7 @@ package com.acrolinx.sidebar.pojo.settings;
 
 import com.google.gson.Gson;
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class RequestDescription
 {
     private final String documentReference;

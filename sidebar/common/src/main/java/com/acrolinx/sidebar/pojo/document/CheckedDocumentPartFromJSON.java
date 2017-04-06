@@ -6,7 +6,7 @@ package com.acrolinx.sidebar.pojo.document;
 
 import org.apache.commons.lang.math.IntRange;
 
-@SuppressWarnings({"WeakerAccess", "MismatchedReadAndWriteOfArray"})
+@SuppressWarnings({"WeakerAccess", "MismatchedReadAndWriteOfArray", "unused"})
 public class CheckedDocumentPartFromJSON
 {
     private String checkId;

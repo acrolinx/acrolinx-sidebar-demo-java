@@ -19,7 +19,7 @@ import com.google.common.collect.Lists;
 
 import netscape.javascript.JSObject;
 
-class JSToJavaConverter
+@SuppressWarnings("unused") class JSToJavaConverter
 {
     final Logger logger = LoggerFactory.getLogger(JSToJavaConverter.class);
 
