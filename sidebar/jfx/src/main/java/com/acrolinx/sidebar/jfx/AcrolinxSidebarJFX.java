@@ -4,12 +4,8 @@
 
 package com.acrolinx.sidebar.jfx;
 
-import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.AcrolinxSidebar;
-import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
-import com.acrolinx.sidebar.pojo.settings.CheckOptions;
-import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
-import com.acrolinx.sidebar.utils.SidebarUtils;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -20,12 +16,18 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
-import netscape.javascript.JSObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import com.acrolinx.sidebar.AcrolinxIntegration;
+import com.acrolinx.sidebar.AcrolinxSidebar;
+import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
+import com.acrolinx.sidebar.pojo.settings.CheckOptions;
+import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import com.acrolinx.sidebar.utils.SidebarUtils;
+
+import netscape.javascript.JSObject;
 
 public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
 {
@@ -54,7 +56,8 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
         webEngine.setOnAlert((final WebEvent<String> arg0) -> logger.debug("Alert: " + arg0.getData()));
 
         webEngine.getLoadWorker().stateProperty().addListener(
-                (final ObservableValue<? extends Worker.State> observedValue, final Worker.State oldState, final Worker.State newState) -> {
+                (final ObservableValue<? extends Worker.State> observedValue, final Worker.State oldState,
+                        final Worker.State newState) -> {
                     if (newState == Worker.State.SUCCEEDED) {
                         logger.debug("Sidebar loaded from " + webEngine.getLocation());
                         final JSObject jsobj = (JSObject) webEngine.executeScript("window");
@@ -123,7 +126,8 @@ public class AcrolinxSidebarJFX extends Region implements AcrolinxSidebar
     }
 
     @Override
-    public void loadSidebarFromServerLocation(String serverAddress){
+    public void loadSidebarFromServerLocation(String serverAddress)
+    {
         integration.getInitParameters().setServerAddress(serverAddress);
         integration.getInitParameters().setShowServerSelector(false);
         Platform.runLater(() -> webEngine.load(SidebarUtils.getSidebarUrl(serverAddress)));

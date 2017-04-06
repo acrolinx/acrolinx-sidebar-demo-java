@@ -4,12 +4,8 @@
 
 package com.acrolinx.client.sidebar.demo.swt;
 
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
-import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
-import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
-import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
-import com.acrolinx.sidebar.swt.adapter.TextAdapter;
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -18,9 +14,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import java.util.ArrayList;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
+import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 
-@SuppressWarnings("WeakerAccess") public class AcrolinxDemoClientSWT
+@SuppressWarnings("WeakerAccess")
+public class AcrolinxDemoClientSWT
 {
 
     final Display display = new Display();
@@ -52,9 +54,8 @@ import java.util.ArrayList;
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(
-                new SoftwareComponent("com.acrolinx.client.sidebar.demo.swt", "Acrolinx Demo Client SWT", "1.0",
-                SoftwareComponentCategory.MAIN));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swt", "Acrolinx Demo Client SWT",
+                "1.0", SoftwareComponentCategory.MAIN));
         AcrolinxSidebarInitParameter initParameters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
 
@@ -86,4 +87,3 @@ import java.util.ArrayList;
         new AcrolinxDemoClientSWT();
     }
 }
-

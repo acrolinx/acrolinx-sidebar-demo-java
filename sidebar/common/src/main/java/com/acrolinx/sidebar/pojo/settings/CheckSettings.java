@@ -4,6 +4,8 @@
 
 package com.acrolinx.sidebar.pojo.settings;
 
+import org.apache.commons.lang.SerializationUtils;
+
 import com.google.gson.Gson;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -41,14 +43,14 @@ public class CheckSettings
     {
         this.language = language;
         this.ruleSetName = ruleSetName;
-        this.termSets = termSets;
+        this.termSets = (String[]) SerializationUtils.clone(termSets);
         this.checkSpelling = checkSpelling;
         this.checkGrammar = checkGrammar;
         this.checkStyle = checkStyle;
         this.checkReuse = checkReuse;
         this.harvestTerms = harvestTerms;
         this.checkSeo = checkSeo;
-        this.termStatuses = termStatuses;
+        this.termStatuses = (String[]) SerializationUtils.clone(termStatuses);
     }
 
     @Override

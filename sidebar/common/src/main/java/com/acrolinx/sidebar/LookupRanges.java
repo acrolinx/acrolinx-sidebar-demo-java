@@ -4,10 +4,10 @@
 
 package com.acrolinx.sidebar;
 
-import com.acrolinx.sidebar.pojo.document.AbstractMatch;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.acrolinx.sidebar.pojo.document.AbstractMatch;
 
 public abstract class LookupRanges
 {

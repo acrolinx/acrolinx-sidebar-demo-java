@@ -4,6 +4,22 @@
 
 package com.acrolinx.client.sidebar.demo.jfx;
 
+import java.util.ArrayList;
+import java.util.Optional;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.LookupRanges;
@@ -17,21 +33,6 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LookupRangesDiff;
 import com.acrolinx.sidebar.utils.SidebarUtils;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
@@ -52,8 +53,8 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
         formatDropdown.setValue(InputFormat.TEXT);
         this.textAreaAdapter = new TextAreaAdapter(this.getTextArea(), InputFormat.TEXT);
 
-        formatDropdown.valueProperty().addListener((observable, oldValue, newValue) -> textAreaAdapter.setInputFormat(
-                InputFormat.valueOf(newValue.toString())));
+        formatDropdown.valueProperty().addListener((observable, oldValue,
+                newValue) -> textAreaAdapter.setInputFormat(InputFormat.valueOf(newValue.toString())));
         borderPane.setRight(this.createSidebar());
         borderPane.setLeft(textArea);
         borderPane.setTop(formatDropdown);
@@ -104,12 +105,10 @@ public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegr
     {
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(
-                new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX", "1.0",
-                        SoftwareComponentCategory.MAIN));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX",
+                "1.0", SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
-                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
-                withShowServerSelector(true).build();
+                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
     }
 
     @Override

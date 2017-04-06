@@ -35,7 +35,6 @@ public class CheckOptions
         return requestDescription;
     }
 
-
     @Override
     public String toString()
     {

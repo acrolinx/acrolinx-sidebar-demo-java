@@ -4,6 +4,27 @@
 
 package com.acrolinx.sidebar.swt;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang.math.IntRange;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.ProgressEvent;
+import org.eclipse.swt.browser.ProgressListener;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.pojo.SidebarError;
@@ -16,28 +37,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import org.apache.commons.lang.math.IntRange;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.BrowserFunction;
-import org.eclipse.swt.browser.ProgressEvent;
-import org.eclipse.swt.browser.ProgressListener;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
-
-@SuppressWarnings("SameParameterValue") public class AcrolinxSidebarSWT implements AcrolinxSidebar
+@SuppressWarnings("SameParameterValue")
+public class AcrolinxSidebarSWT implements AcrolinxSidebar
 {
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSidebarSWT.class);
 
@@ -78,8 +80,7 @@ import java.util.stream.Collectors;
     {
         this.browser.setSize(300, prefHeight);
         browser.setUrl(client.getInitParameters().getSidebarUrl());
-        browser.addProgressListener(new ProgressListener()
-        {
+        browser.addProgressListener(new ProgressListener() {
             @Override
             public void completed(ProgressEvent event)
             {
@@ -95,8 +96,7 @@ import java.util.stream.Collectors;
 
     private void initSidebar()
     {
-        new BrowserFunction(browser, "overwriteJSLoggingP")
-        {
+        new BrowserFunction(browser, "overwriteJSLoggingP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -105,8 +105,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "getInitParamsP")
-        {
+        new BrowserFunction(browser, "getInitParamsP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -114,8 +113,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "getTextP")
-        {
+        new BrowserFunction(browser, "getTextP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -129,8 +127,7 @@ import java.util.stream.Collectors;
 
         };
 
-        new BrowserFunction(browser, "onInitFinishedNotificationP")
-        {
+        new BrowserFunction(browser, "onInitFinishedNotificationP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -148,8 +145,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "canCheck")
-        {
+        new BrowserFunction(browser, "canCheck") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -157,8 +153,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "getInputFormatP")
-        {
+        new BrowserFunction(browser, "getInputFormatP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -167,8 +162,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "onCheckResultP")
-        {
+        new BrowserFunction(browser, "onCheckResultP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -185,8 +179,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "selectRangesP")
-        {
+        new BrowserFunction(browser, "selectRangesP") {
             @SuppressWarnings("unchecked")
             @Override
             public Object function(final Object[] arguments)
@@ -200,11 +193,11 @@ import java.util.stream.Collectors;
                             lastCheckedText.get(), client.getEditorAdapter().getContent(), result);
 
                     if (!correctedRanges.isPresent()) {
-                        invalidateRanges(result.stream().map(
-                                acrolinxMatch -> new CheckedDocumentPart(currentCheckId.get(),
+                        invalidateRanges(
+                                result.stream().map(acrolinxMatch -> new CheckedDocumentPart(currentCheckId.get(),
                                         new IntRange(acrolinxMatch.getRange().getMinimumInteger(),
                                                 acrolinxMatch.getRange().getMaximumInteger()))).collect(
-                                Collectors.toList()));
+                                                        Collectors.toList()));
                     } else {
                         client.getEditorAdapter().selectRanges(currentCheckId.get(),
                                 (List<AcrolinxMatch>) correctedRanges.get());
@@ -216,8 +209,7 @@ import java.util.stream.Collectors;
             }
 
         };
-        new BrowserFunction(browser, "replaceRangesP")
-        {
+        new BrowserFunction(browser, "replaceRangesP") {
             @SuppressWarnings("unchecked")
             @Override
             public Object function(final Object[] arguments)
@@ -227,7 +219,7 @@ import java.util.stream.Collectors;
                             new TypeToken<List<AcrolinxMatchFromJSON>>() {}.getType());
                     List<AcrolinxMatchWithReplacement> result = match.stream().map(
                             AcrolinxMatchFromJSON::getAsAcrolinxMatchWithReplacement).collect(
-                            Collectors.toCollection(ArrayList::new));
+                                    Collectors.toCollection(ArrayList::new));
                     Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
                             lastCheckedText.get(), client.getEditorAdapter().getContent(), result);
 
@@ -236,7 +228,7 @@ import java.util.stream.Collectors;
                                 acrolinxMatchWithReplacement -> new CheckedDocumentPart(currentCheckId.get(),
                                         new IntRange(acrolinxMatchWithReplacement.getRange().getMinimumInteger(),
                                                 acrolinxMatchWithReplacement.getRange().getMaximumInteger()))).collect(
-                                Collectors.toList()));
+                                                        Collectors.toList()));
                     } else {
                         client.getEditorAdapter().replaceRanges(currentCheckId.get(),
                                 (List<AcrolinxMatchWithReplacement>) correctedRanges.get());
@@ -248,8 +240,7 @@ import java.util.stream.Collectors;
             }
 
         };
-        new BrowserFunction(browser, "getDocUrlP")
-        {
+        new BrowserFunction(browser, "getDocUrlP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -258,8 +249,7 @@ import java.util.stream.Collectors;
 
         };
 
-        new BrowserFunction(browser, "notifyAboutSidebarConfigurationP")
-        {
+        new BrowserFunction(browser, "notifyAboutSidebarConfigurationP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -267,8 +257,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "downloadP")
-        {
+        new BrowserFunction(browser, "downloadP") {
             @Override
             public Object function(final Object[] arguments)
             {
@@ -276,8 +265,7 @@ import java.util.stream.Collectors;
             }
         };
 
-        new BrowserFunction(browser, "openWindowP")
-        {
+        new BrowserFunction(browser, "openWindowP") {
             @Override
             public Object function(final Object[] arguments)
             {

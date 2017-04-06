@@ -4,14 +4,14 @@
 
 package com.acrolinx.sidebar.jfx.adapter;
 
+import java.util.List;
+import javafx.scene.control.TextArea;
+
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.utils.MatchComparator;
-import javafx.scene.control.TextArea;
-
-import java.util.List;
 
 public class TextAreaAdapter implements InputAdapterInterface
 {
@@ -77,8 +77,7 @@ public class TextAreaAdapter implements InputAdapterInterface
     @Override
     public synchronized void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matches)
     {
-        matches.stream().sorted(new MatchComparator().reversed()).forEach(
-                match -> textArea.replaceText(match.getRange().getMinimumInteger(),
-                        match.getRange().getMaximumInteger(), match.getReplacement()));
+        matches.stream().sorted(new MatchComparator().reversed()).forEach(match -> textArea.replaceText(
+                match.getRange().getMinimumInteger(), match.getRange().getMaximumInteger(), match.getReplacement()));
     }
 }

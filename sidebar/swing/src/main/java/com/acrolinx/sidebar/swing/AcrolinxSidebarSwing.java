@@ -4,20 +4,20 @@
 
 package com.acrolinx.sidebar.swing;
 
-import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.AcrolinxSidebar;
-import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
-import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
-import com.acrolinx.sidebar.pojo.settings.CheckOptions;
-import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import com.acrolinx.sidebar.AcrolinxIntegration;
+import com.acrolinx.sidebar.AcrolinxSidebar;
+import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
+import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
+import com.acrolinx.sidebar.pojo.settings.CheckOptions;
+import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
 
 @SuppressWarnings("SameParameterValue")
 public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
@@ -70,7 +70,8 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
     }
 
     @Override
-    public void loadSidebarFromServerLocation(String serverAddress) {
+    public void loadSidebarFromServerLocation(String serverAddress)
+    {
         sidebarJFX.loadSidebarFromServerLocation(serverAddress);
     }
 

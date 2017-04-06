@@ -4,6 +4,16 @@
 
 package com.acrolinx.client.sidebar.demo.swing;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Optional;
+import javafx.embed.swing.JFXPanel;
+
+import javax.swing.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.LookupRanges;
@@ -16,14 +26,6 @@ import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
 import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.utils.LookupRangesDiff;
 import com.acrolinx.sidebar.utils.SidebarUtils;
-import javafx.embed.swing.JFXPanel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Optional;
 
 class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
@@ -73,12 +75,10 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     {
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(
-                new SoftwareComponent("com.acrolinx.client.sidebar.demo.swing", "Acrolinx Demo Client Swing", "1.0",
-                SoftwareComponentCategory.MAIN));
+        softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swing",
+                "Acrolinx Demo Client Swing", "1.0", SoftwareComponentCategory.MAIN));
         return new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
-                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).
-                withShowServerSelector(true).build();
+                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(true).build();
     }
 
     @Override

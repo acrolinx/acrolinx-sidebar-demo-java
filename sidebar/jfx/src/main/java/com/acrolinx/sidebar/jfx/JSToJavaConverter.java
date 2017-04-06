@@ -4,18 +4,20 @@
 
 package com.acrolinx.sidebar.jfx;
 
-import com.acrolinx.sidebar.pojo.SidebarError;
-import com.acrolinx.sidebar.pojo.document.*;
-import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
-import com.google.common.collect.Lists;
-import netscape.javascript.JSObject;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.apache.commons.lang.math.IntRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import com.acrolinx.sidebar.pojo.SidebarError;
+import com.acrolinx.sidebar.pojo.document.*;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxPluginConfiguration;
+import com.google.common.collect.Lists;
+
+import netscape.javascript.JSObject;
 
 class JSToJavaConverter
 {
@@ -104,7 +106,3 @@ class JSToJavaConverter
             return Optional.empty();
     }
 }
-
-
-
-

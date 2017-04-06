@@ -4,10 +4,10 @@
 
 package com.acrolinx.sidebar.pojo.document;
 
+import static org.junit.Assert.assertEquals;
+
 import org.apache.commons.lang.math.IntRange;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class CheckedDocumentPartTest
 {
