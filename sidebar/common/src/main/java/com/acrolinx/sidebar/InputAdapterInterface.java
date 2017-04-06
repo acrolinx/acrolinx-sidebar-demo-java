@@ -43,6 +43,7 @@ public interface InputAdapterInterface
      * @param checkId The current check id.
      * @param matches The ranges to be highlighted as sent by the AcrolinxServer.
      */
+    @SuppressWarnings("UnusedParameters")
     void selectRanges(String checkId, List<AcrolinxMatch> matches);
 
     /**
@@ -52,5 +53,6 @@ public interface InputAdapterInterface
      * @param checkId The current check id.
      * @param matchesWithReplacement The ranges to be replaced.
      */
+    @SuppressWarnings("UnusedParameters")
     void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matchesWithReplacement);
 }

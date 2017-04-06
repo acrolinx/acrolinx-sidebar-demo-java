@@ -6,7 +6,7 @@ package com.acrolinx.sidebar.pojo.document;
 
 import org.apache.commons.lang.math.IntRange;
 
-@SuppressWarnings("MismatchedReadAndWriteOfArray")
+@SuppressWarnings({"MismatchedReadAndWriteOfArray", "unused"})
 public class AcrolinxMatchFromJSON
 {
     private String content;

@@ -34,7 +34,7 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LookupRangesDiff;
 import com.acrolinx.sidebar.utils.SidebarUtils;
 
-public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
+@SuppressWarnings("unused") public class AcrolinxDemoClientJFX extends Application implements AcrolinxIntegration
 {
     private final TextArea textArea = new TextArea();
     private TextAreaAdapter textAreaAdapter;

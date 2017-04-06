@@ -10,7 +10,7 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SidebarUtils
+@SuppressWarnings("unused") public class SidebarUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(SidebarUtils.class);
 

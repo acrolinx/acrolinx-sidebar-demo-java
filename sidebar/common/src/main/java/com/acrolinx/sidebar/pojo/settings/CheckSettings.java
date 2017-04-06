@@ -8,7 +8,7 @@ import org.apache.commons.lang.SerializationUtils;
 
 import com.google.gson.Gson;
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class CheckSettings
 {
     private final String language;

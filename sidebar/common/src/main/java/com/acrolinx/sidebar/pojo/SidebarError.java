@@ -7,7 +7,7 @@ package com.acrolinx.sidebar.pojo;
 /**
  * Error Object returned if an error occurred within the Acrolinx Sidebar.
  */
-public class SidebarError extends Error
+@SuppressWarnings("unused") public class SidebarError extends Error
 {
     private final String code;
 

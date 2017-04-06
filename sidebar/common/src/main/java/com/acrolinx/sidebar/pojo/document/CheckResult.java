@@ -6,7 +6,7 @@ package com.acrolinx.sidebar.pojo.document;
 
 import java.util.Optional;
 
-public class CheckResult
+@SuppressWarnings("unused") public class CheckResult
 {
     private final CheckedDocumentPart checkedDocumentPart;
     private CheckError checkError;
@@ -16,6 +16,7 @@ public class CheckResult
         this.checkedDocumentPart = checkedDocumentPart;
     }
 
+    @SuppressWarnings("UnusedParameters")
     public CheckResult(CheckedDocumentPart checkedDocumentPart, CheckError checkError)
     {
         this.checkedDocumentPart = checkedDocumentPart;

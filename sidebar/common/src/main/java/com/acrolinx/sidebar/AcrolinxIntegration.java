@@ -68,5 +68,6 @@ public interface AcrolinxIntegration
      *
      * @return
      */
+    @SuppressWarnings("SameReturnValue")
     boolean canCheck();
 }
