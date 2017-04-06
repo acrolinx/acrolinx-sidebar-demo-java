@@ -1,19 +1,18 @@
 task generateThirdPartyLibraryReport(type: Copy, dependsOn: dependencyLicenseReport) {
 
-    doFirst {
-        String contents = new File("${buildDir}/reports/dependency-license/index.html").getText('UTF-8')
-        contents = contents.replaceAll('sidebar_common', 'acrolinx-sidebar-java-sdk')
-        delete("${buildDir}/reports/dependency-license/index.html")
-        new File("${buildDir}/reports/dependency-license/index.html").write(contents, 'UTF-8')
-    }
+	doFirst {
+		String contents = new File("${buildDir}/reports/dependency-license/index.html").getText('UTF-8')
+		contents = contents.replaceAll('sidebar_common', 'acrolinx-sidebar-java-sdk')
+		delete("${buildDir}/reports/dependency-license/index.html")
+		new File("${buildDir}/reports/dependency-license/index.html").write(contents, 'UTF-8')
+	}
 
-    def folder = new File('../../java-sdk-demo-build/build/dependency-licenses')
-    if (!folder.exists()) {
-        folder.mkdirs()
-    }
-    from('build/reports/dependency-license') {
-        include '*.html'
-    }
-    into('../../java-sdk-demo-build/build/dependency-licenses')
+	def folder = new File('../../java-sdk-demo-build/build/dependency-licenses')
+	if (!folder.exists()) {
+		folder.mkdirs()
+	}
+	from('build/reports/dependency-license') {
+		include '*.html'
+	}
+	into('../../java-sdk-demo-build/build/dependency-licenses')
 }
-

@@ -12,24 +12,27 @@
 
 package com.acrolinx.sidebar.jfx;
 
-import com.acrolinx.sidebar.AcrolinxIntegration;
-import com.acrolinx.sidebar.pojo.SidebarError;
-import com.acrolinx.sidebar.pojo.document.*;
-import com.acrolinx.sidebar.pojo.settings.*;
-import com.google.common.base.Preconditions;
-import javafx.application.Platform;
-import netscape.javascript.JSObject;
-import org.apache.commons.lang.math.IntRange;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+import javafx.application.Platform;
 
-@SuppressWarnings("WeakerAccess, unchecked") public class AcrolinxSidebarPlugin
+import org.apache.commons.lang.math.IntRange;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acrolinx.sidebar.AcrolinxIntegration;
+import com.acrolinx.sidebar.pojo.SidebarError;
+import com.acrolinx.sidebar.pojo.document.*;
+import com.acrolinx.sidebar.pojo.settings.*;
+import com.google.common.base.Preconditions;
+
+import netscape.javascript.JSObject;
+
+@SuppressWarnings("WeakerAccess, unchecked")
+public class AcrolinxSidebarPlugin
 {
     private final AcrolinxIntegration client;
     private final JSObject jsobj;
@@ -121,13 +124,14 @@ import java.util.stream.Collectors;
         final Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
                 lastCheckedDocument.get(), client.getEditorAdapter().getContent(), matches);
         if (!correctedRanges.isPresent()) {
-            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
-                    (match) -> new CheckedDocumentPart(currentCheckId.get(),
-                            new IntRange(match.getRange().getMinimumNumber(),
-                                    match.getRange().getMaximumInteger()))).collect(Collectors.toList());
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> new CheckedDocumentPart(
+                    currentCheckId.get(),
+                    new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()))).collect(
+                            Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            @SuppressWarnings("unchecked") List<AcrolinxMatch> ranges = (List<AcrolinxMatch>) correctedRanges.get();
+            @SuppressWarnings("unchecked")
+            List<AcrolinxMatch> ranges = (List<AcrolinxMatch>) correctedRanges.get();
             client.getEditorAdapter().selectRanges(checkID, ranges);
         }
 
@@ -140,13 +144,14 @@ import java.util.stream.Collectors;
         final Optional<List<? extends AbstractMatch>> correctedRanges = client.getLookup().getMatchesWithCorrectedRanges(
                 lastCheckedDocument.get(), client.getEditorAdapter().getContent(), matches);
         if (!correctedRanges.isPresent()) {
-            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map(
-                    (match) -> new CheckedDocumentPart(currentCheckId.get(),
-                            new IntRange(match.getRange().getMinimumNumber(),
-                                    match.getRange().getMaximumInteger()))).collect(Collectors.toList());
+            List<CheckedDocumentPart> invalidDocumentParts = matches.stream().map((match) -> new CheckedDocumentPart(
+                    currentCheckId.get(),
+                    new IntRange(match.getRange().getMinimumNumber(), match.getRange().getMaximumInteger()))).collect(
+                            Collectors.toList());
             invalidateRanges(invalidDocumentParts);
         } else {
-            @SuppressWarnings("unchecked") List<AcrolinxMatchWithReplacement> ranges = (List<AcrolinxMatchWithReplacement>) correctedRanges.get();
+            @SuppressWarnings("unchecked")
+            List<AcrolinxMatchWithReplacement> ranges = (List<AcrolinxMatchWithReplacement>) correctedRanges.get();
             client.getEditorAdapter().replaceRanges(checkID, ranges);
         }
     }

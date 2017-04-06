@@ -4,11 +4,11 @@
 
 package com.acrolinx.sidebar.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 import java.net.URI;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SidebarUtils
 {
@@ -44,11 +44,13 @@ public class SidebarUtils
 
     }
 
-    public static String getCurrentSDKImplementationVersion(){
-        return new Object() { }.getClass().getEnclosingClass().getPackage().getImplementationVersion();
+    public static String getCurrentSDKImplementationVersion()
+    {
+        return SidebarUtils.class.getPackage().getImplementationVersion();
     }
 
-    public static String getCurrentSDKName(){
-        return new Object() { }.getClass().getEnclosingClass().getPackage().getName();
+    public static String getCurrentSDKName()
+    {
+        return SidebarUtils.class.getPackage().getName();
     }
 }

@@ -4,8 +4,9 @@
 
 package com.acrolinx.sidebar.pojo.document;
 
-import com.google.gson.Gson;
 import org.apache.commons.lang.math.IntRange;
+
+import com.google.gson.Gson;
 
 public class CheckedDocumentPart
 {
@@ -37,9 +38,7 @@ public class CheckedDocumentPart
 
     public String getAsJS()
     {
-        return "{checkId: \"" + checkId +
-                "\", range:[" + range.getMinimumInteger() +
-                "," + range.getMaximumInteger() +
-                "]}";
+        return "{checkId: \"" + checkId + "\", range:[" + range.getMinimumInteger() + "," + range.getMaximumInteger()
+                + "]}";
     }
 }

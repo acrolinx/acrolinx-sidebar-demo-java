@@ -4,9 +4,9 @@
 
 package com.acrolinx.sidebar.pojo.settings;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
+
+import com.google.gson.Gson;
 
 @SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
 public class AcrolinxSidebarInitParameter
@@ -55,11 +55,13 @@ public class AcrolinxSidebarInitParameter
             return SIDEBAR_URL;
     }
 
-    public void setServerAddress(String serverAddress){
+    public void setServerAddress(String serverAddress)
+    {
         this.serverAddress = serverAddress;
     }
 
-    public void setShowServerSelector(boolean showServerSelector){
+    public void setShowServerSelector(boolean showServerSelector)
+    {
         this.showServerSelector = showServerSelector;
     }
 
@@ -213,5 +215,3 @@ public class AcrolinxSidebarInitParameter
         }
     }
 }
-
-

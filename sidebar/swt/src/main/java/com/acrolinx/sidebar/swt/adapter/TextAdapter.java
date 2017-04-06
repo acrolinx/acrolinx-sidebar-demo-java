@@ -4,17 +4,19 @@
 
 package com.acrolinx.sidebar.swt.adapter;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.eclipse.swt.widgets.Text;
+
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.utils.MatchComparator;
-import org.eclipse.swt.widgets.Text;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType") public class TextAdapter implements InputAdapterInterface
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+public class TextAdapter implements InputAdapterInterface
 {
     final private Text textWidget;
     private String documentReference;

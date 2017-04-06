@@ -4,12 +4,12 @@
 
 package com.acrolinx.sidebar;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import com.acrolinx.sidebar.pojo.document.CheckedDocumentPart;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * These commands are available to interact with the Acrolinx Sidebar.

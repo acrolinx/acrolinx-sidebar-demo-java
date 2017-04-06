@@ -4,14 +4,15 @@
 
 package com.acrolinx.sidebar.utils;
 
-import com.acrolinx.sidebar.LookupRanges;
-import com.acrolinx.sidebar.pojo.document.AbstractMatch;
-import org.apache.commons.lang.math.IntRange;
-import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.commons.lang.math.IntRange;
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
+
+import com.acrolinx.sidebar.LookupRanges;
+import com.acrolinx.sidebar.pojo.document.AbstractMatch;
 
 public class LookupRangesDiff extends LookupRanges
 {

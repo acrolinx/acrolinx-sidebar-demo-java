@@ -4,14 +4,14 @@
 
 package com.acrolinx.sidebar.utils;
 
-import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
-import org.junit.Test;
-
-import java.util.LinkedList;
-
 import static com.acrolinx.sidebar.utils.Lookup.createOffsetMappingArray;
 import static com.acrolinx.sidebar.utils.Lookup.getDiffs;
 import static org.junit.Assert.assertEquals;
+
+import java.util.LinkedList;
+
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
+import org.junit.Test;
 
 public class LookupTest
 {

@@ -4,21 +4,24 @@
 
 package com.acrolinx.sidebar.swing.adapter;
 
-import com.acrolinx.sidebar.InputAdapterInterface;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
-import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
-import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import com.acrolinx.sidebar.utils.MatchComparator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import java.util.List;
 
-@SuppressWarnings("WeakerAccess") public class TextAreaAdapter implements InputAdapterInterface
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acrolinx.sidebar.InputAdapterInterface;
+import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
+import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import com.acrolinx.sidebar.utils.MatchComparator;
+
+@SuppressWarnings("WeakerAccess")
+public class TextAreaAdapter implements InputAdapterInterface
 {
     private final JTextArea textArea;
     private InputFormat inputFormat;

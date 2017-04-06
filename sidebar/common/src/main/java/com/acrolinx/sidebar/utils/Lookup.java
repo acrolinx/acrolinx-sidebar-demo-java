@@ -4,14 +4,15 @@
 
 package com.acrolinx.sidebar.utils;
 
-import org.apache.commons.lang.math.IntRange;
-import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
-
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@SuppressWarnings("WeakerAccess") public class Lookup
+import org.apache.commons.lang.math.IntRange;
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
+
+@SuppressWarnings("WeakerAccess")
+public class Lookup
 {
     protected static LinkedList<OffsetAlign> createOffsetMappingArray(LinkedList<DiffMatchPatch.Diff> diffs)
     {
@@ -40,8 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
     }
 
     protected static Optional<IntRange> getCorrectedMatch(LinkedList<DiffMatchPatch.Diff> diffs,
-            LinkedList<OffsetAlign> aligns, int offsetStart,
-            int offsetEnd)
+            LinkedList<OffsetAlign> aligns, int offsetStart, int offsetEnd)
     {
         Optional<OffsetAlign> first = aligns.stream().filter((a) -> a.getOldPosition() >= offsetEnd).findFirst();
         if (first.isPresent()) {

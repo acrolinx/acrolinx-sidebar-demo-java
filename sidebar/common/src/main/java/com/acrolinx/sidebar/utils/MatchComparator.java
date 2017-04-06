@@ -4,11 +4,12 @@
 
 package com.acrolinx.sidebar.utils;
 
-import com.acrolinx.sidebar.pojo.document.AbstractMatch;
-
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class MatchComparator implements Comparator<AbstractMatch>
+import com.acrolinx.sidebar.pojo.document.AbstractMatch;
+
+public class MatchComparator implements Comparator<AbstractMatch>, Serializable
 {
     @Override
     public int compare(AbstractMatch o1, AbstractMatch o2)

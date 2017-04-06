@@ -4,12 +4,12 @@
 
 package com.acrolinx.sidebar.adapter;
 
+import java.util.List;
+
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
-
-import java.util.List;
 
 public class NullEditorAdapter implements InputAdapterInterface
 {
