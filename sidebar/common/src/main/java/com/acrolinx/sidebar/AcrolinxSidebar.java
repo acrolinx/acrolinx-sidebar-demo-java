@@ -14,7 +14,8 @@ import com.acrolinx.sidebar.pojo.settings.SidebarConfiguration;
 /**
  * These commands are available to interact with the Acrolinx Sidebar.
  */
-@SuppressWarnings("unused") public interface AcrolinxSidebar
+@SuppressWarnings("unused")
+public interface AcrolinxSidebar
 {
     /**
      * Pushed the configuration to the Acrolinx Sidebar.

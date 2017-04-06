@@ -4,7 +4,8 @@
 
 package com.acrolinx.sidebar.pojo.settings;
 
-@SuppressWarnings("unused") public enum SoftwareComponentCategory
+@SuppressWarnings("unused")
+public enum SoftwareComponentCategory
 {
     /**
      * There should be exactly one MAIN component.

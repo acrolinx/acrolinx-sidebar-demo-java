@@ -6,7 +6,8 @@ package com.acrolinx.sidebar.pojo.document;
 
 import org.apache.commons.lang.math.IntRange;
 
-@SuppressWarnings("unused") public class AcrolinxMatch extends AbstractMatch
+@SuppressWarnings("unused")
+public class AcrolinxMatch extends AbstractMatch
 {
     private final String content;
     private IntRange extractedRange;

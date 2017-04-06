@@ -157,7 +157,7 @@ public class AcrolinxSidebarSWT implements AcrolinxSidebar
             @Override
             public Object function(final Object[] arguments)
             {
-               return client.getEditorAdapter().getInputFormat().toString();
+                return client.getEditorAdapter().getInputFormat().toString();
             }
         };
 

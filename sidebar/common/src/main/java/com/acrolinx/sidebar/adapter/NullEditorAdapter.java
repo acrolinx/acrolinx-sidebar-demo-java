@@ -11,7 +11,8 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 
-@SuppressWarnings("unused") public class NullEditorAdapter implements InputAdapterInterface
+@SuppressWarnings("unused")
+public class NullEditorAdapter implements InputAdapterInterface
 {
 
     @Override

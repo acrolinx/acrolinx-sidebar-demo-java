@@ -13,7 +13,8 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.utils.MatchComparator;
 
-@SuppressWarnings("unused") public class TextAreaAdapter implements InputAdapterInterface
+@SuppressWarnings("unused")
+public class TextAreaAdapter implements InputAdapterInterface
 {
     private final TextArea textArea;
     private InputFormat inputFormat;
