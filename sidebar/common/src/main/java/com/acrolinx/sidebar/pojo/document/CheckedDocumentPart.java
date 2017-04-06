@@ -8,7 +8,8 @@ import org.apache.commons.lang.math.IntRange;
 
 import com.google.gson.Gson;
 
-@SuppressWarnings("unused") public class CheckedDocumentPart
+@SuppressWarnings("unused")
+public class CheckedDocumentPart
 {
     private final String checkId;
     private final IntRange range;

@@ -34,7 +34,8 @@ public class TextAdapter implements InputAdapterInterface
         this.inputFormat = inputFormat;
     }
 
-    public TextAdapter(Text textWidget, @SuppressWarnings("SameParameterValue") InputFormat inputFormat, @SuppressWarnings("SameParameterValue") String documentReference)
+    public TextAdapter(Text textWidget, @SuppressWarnings("SameParameterValue") InputFormat inputFormat,
+            @SuppressWarnings("SameParameterValue") String documentReference)
     {
 
         this.textWidget = textWidget;

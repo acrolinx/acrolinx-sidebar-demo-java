@@ -4,7 +4,8 @@
 
 package com.acrolinx.sidebar.pojo.document;
 
-@SuppressWarnings("unused") public class CheckResultFromJSON
+@SuppressWarnings("unused")
+public class CheckResultFromJSON
 {
     private CheckedDocumentPartFromJSON checkedPart;
     private CheckError error;

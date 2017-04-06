@@ -4,7 +4,8 @@
 
 package com.acrolinx.sidebar.pojo.settings;
 
-@SuppressWarnings("unused") public class AcrolinxPluginConfiguration
+@SuppressWarnings("unused")
+public class AcrolinxPluginConfiguration
 {
 
     private final boolean base64EncodedGzippedDocumentContent;
