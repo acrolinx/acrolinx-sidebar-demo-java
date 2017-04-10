@@ -8,15 +8,15 @@ It is designed to show up in their editor or editing environment.
 
 ## Table of contents
 
-   * [Table of contents](#table-of-contents)
-   * [The Acrolinx Sidebar](#the-acrolinx-sidebar)
-   * [Prerequisites](#prerequisites)
-   * [Quickstart](#quickstart)
-   * [Setup the Project](#setup-the-project)
-   * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
-   * [How to build your own integration](#how-to-build-your-own-integration)
-   * [Enable CORS](#enable-cors)
-   * [License](#license)
+* [Table of contents](#table-of-contents)
+* [The Acrolinx Sidebar](#the-acrolinx-sidebar)
+* [Prerequisites](#prerequisites)
+* [Quickstart](#quickstart)
+* [Setup the Project](#setup-the-project)
+* [Running the Acrolinx Samples](#running-the-acrolinx-samples)
+* [How to build your own integration](#how-to-build-your-own-integration)
+* [Enable CORS](#enable-cors)
+* [License](#license)
 
 
 ## The Acrolinx Sidebar
@@ -63,10 +63,10 @@ acrolinx-sidebar-java-sdk jar.
 For a windows environment run the .bat files and on a Unix System run the shell scripts.
 
 **Important:** To run the acrolinxDemoClientSWT files you'll have to put the **Eclipse SWT library** into the lib folder. Depending on
- your OS download the right jar in the [eclipse download area](http://download.eclipse.org/eclipse/downloads/). Select
- the last stable build, then on the left you'll find the entry for "SWT binary and Source". Then choose the download
- according to you OS. Unzip and  put the included jar file into the "lib" folder next to acrolinx-sidebar-java-sdk jar.
- Run the acrolinxDemoClientSWT start script.
+your OS download the right jar in the [eclipse download area](http://download.eclipse.org/eclipse/downloads/). Select
+the last stable build, then on the left you'll find the entry for "SWT binary and Source". Then choose the download
+according to you OS. Unzip and  put the included jar file into the "lib" folder next to acrolinx-sidebar-java-sdk jar.
+Run the acrolinxDemoClientSWT start script.
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
@@ -153,11 +153,11 @@ If you want to use an Acrolinx Sidebar with an Acrolinx Server that run on diffe
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). That can be done by setting the following System
 property in your Java Code:
 
-    System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+	System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
 Or you can set the following VM Option when running Java:
 
-    -Dsun.net.http.allowRestrictedHeaders=true
+	-Dsun.net.http.allowRestrictedHeaders=true
 
 Also you'll need have CORS enabled on your Acrolinx Server.
 For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
@@ -177,6 +177,3 @@ Unless required by applicable law or agreed to in writing, software distributed 
 For more information visit: [http://www.acrolinx.com](http://www.acrolinx.com)
 
 [Back to top](#acrolinx-java-sidebar-demo)
-
-
-
