@@ -6,6 +6,7 @@ plugins {
 apply plugin: 'java-library-distribution'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'org.ajoberstar.grgit'
 
 def buildNumber = System.getenv('BUILD_NUMBER');
 
@@ -20,9 +21,9 @@ distZip.enabled = false
 dependencies {
 	compile project(':sidebar_demo_jfx')
 	compile project(':sidebar_demo_swing')
-	compile(project(':sidebar_demo_swt')) {
+	/*compile(project(':sidebar_demo_swt')) {
 		exclude group: 'eclipse-swt-deps'
-	}
+	}*/
 }
 
 task createJar(type: Jar) {
