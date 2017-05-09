@@ -43,6 +43,7 @@ public class AcrolinxSidebarSwing extends JFXPanel implements AcrolinxSidebar
         Scene scene = new Scene(pane, 300, prefHeight);
         setScene(scene);
         setVisible(true);
+        Platform.setImplicitExit(false);
     }
 
     @Override
