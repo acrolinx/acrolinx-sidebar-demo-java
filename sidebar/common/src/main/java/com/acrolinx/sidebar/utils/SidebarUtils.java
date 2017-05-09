@@ -4,14 +4,17 @@
 
 package com.acrolinx.sidebar.utils;
 
-import java.awt.*;
-import java.net.URI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("unused")
-public class SidebarUtils
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+
+@SuppressWarnings("unused") public class SidebarUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(SidebarUtils.class);
 
@@ -53,5 +56,24 @@ public class SidebarUtils
     public static String getCurrentSDKName()
     {
         return SidebarUtils.class.getPackage().getName();
+    }
+
+    /**
+     * Test if a sidebar is available for the given server address
+     * @param serverAddress
+     * @return true if sidebar is available
+     */
+    public static boolean isValidServerAddress(String serverAddress)
+    {
+        try {
+            URL url = new URL(getSidebarUrl(serverAddress));
+            URLConnection conn = url.openConnection();
+            conn.connect();
+        } catch (Exception e) {
+            logger.error("Invalid Server URL!");
+            logger.error(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
