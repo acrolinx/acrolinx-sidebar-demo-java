@@ -4,9 +4,6 @@
 
 package com.acrolinx.sidebar.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,7 +11,11 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
-@SuppressWarnings("unused") public class SidebarUtils
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@SuppressWarnings("unused")
+public class SidebarUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(SidebarUtils.class);
 
