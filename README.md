@@ -104,7 +104,11 @@ On the start you'll the a text box next to the Acrolinx Sidebar.
 Enter a Acrolinx Server address along with your credentials.
 Note that you'll have to provide a server address starting with 'https'.
 
+![Java FX Acrolinx Sidebar Sample: Server Address](/doc/img/ServerAddress.png)
+
 ![Java FX Acrolinx Sidebar Sample: Login](/doc/img/LoginScreen.png)
+
+![Java FX Acrolinx Sidebar Sample: Loged in](/doc/img/LoggedIn.png)
 
 Once you successfully logged in you'll see:
 
