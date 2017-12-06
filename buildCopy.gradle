@@ -21,9 +21,6 @@ buildscript {
 
 apply plugin: 'org.ajoberstar.grgit'
 
-def username = System.getenv('ARTIFACTORY_USERNAME');
-def password = System.getenv('ARTIFACTORY_PASSWORD');
-
 allprojects {
 
 	/*tasks.withType(Javadoc) {
@@ -57,13 +54,9 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
-		configurations.all {
-			resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-		}
 		maven {
 			url "http://maven-eclipse.github.io/maven"
-		// TODO (fp) remove private repository and add public
-			}
+		}
 		maven {
 			credentials {
 				username "build"
@@ -75,7 +68,6 @@ subprojects {
 
 	dependencies {
 		compile 'com.google.guava:guava:19.+'
-		compile "com.acrolinx:sidebar-java-sdk:${JAVA_SDK_VERSION}"
 		testCompile group: 'junit', name: 'junit', version: '4.+'
 	}
 
@@ -106,7 +98,14 @@ project(':sidebar_demo_swt') {
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
+	applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true"]
+
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
+
+	dependencies {
+		compile project(':sidebar_swt')
+		testCompile project(':sidebar_swt')
+	}
 
 	javadoc.enabled = false
 }
@@ -116,6 +115,12 @@ project(':sidebar_demo_swing') {
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 
+	applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true"]
+
+	dependencies {
+		compile project(':sidebar_swing')
+	}
+
 	javadoc.enabled = false
 }
 
@@ -124,7 +129,64 @@ project(':sidebar_demo_jfx') {
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
+	applicationDefaultJvmArgs = ["-Dsun.net.http.allowRestrictedHeaders=true"]
+
+	dependencies {
+		compile project(':sidebar_jfx')
+	}
+
 	javadoc.enabled = false
+}
+
+project(':sidebar_jfx') {
+
+	dependencies {
+		compile project(':sidebar_common')
+	}
+}
+
+project(':sidebar_swing') {
+
+	dependencies {
+		compile project(':sidebar_jfx')
+	}
+}
+
+project(':sidebar_swt') {
+
+	apply plugin: 'com.diffplug.gradle.swt.nativedeps'
+
+	dependencies {
+		compile project(':sidebar_common')
+	}
+}
+
+project(':sidebar_common') {
+
+	configurations {
+		jsLibs
+	}
+
+	apply plugin: 'license-report'
+
+	dependencies {
+		compile 'com.google.code.gson:gson:2.2.4'
+		compile 'commons-lang:commons-lang:2.6'
+		compile 'org.bitbucket.cowwoc:diff-match-patch:1.1'
+		compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.1'
+		compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.1'
+		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+		jsLibs group: 'com.acrolinx.sidebar', name: 'acrolinx-server-selector', version:'1.0.1-SNAPSHOT', ext: 'zip'
+	}
+
+	task extractServerSelector(type: Copy) {
+		from {
+			configurations.jsLibs.collect {zipTree(it)}
+		}
+		into "jsLibs"
+	}
+
+	compileJava.dependsOn(extractServerSelector)
 }
 
 project(':java-sdk-demo-build') {

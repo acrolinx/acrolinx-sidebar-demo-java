@@ -4,6 +4,8 @@
 
 package com.acrolinx.client.sidebar.demo.swt;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -20,6 +22,9 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
+import com.acrolinx.sidebar.utils.LoggingUtils;
+
+import ch.qos.logback.core.joran.spi.JoranException;
 
 @SuppressWarnings("WeakerAccess")
 public class AcrolinxDemoClientSWT
@@ -29,6 +34,12 @@ public class AcrolinxDemoClientSWT
 
     AcrolinxDemoClientSWT()
     {
+        try {
+            LoggingUtils.setupLogging("AcrolinxDemoClientSWT");
+        } catch (IOException | JoranException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setSize(930, 620);
         shell.setText("Acrolinx Demo Client SWT");
@@ -51,8 +62,6 @@ public class AcrolinxDemoClientSWT
         right.heightHint = 600;
         right.grabExcessVerticalSpace = true;
 
-        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-
         ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swt", "Acrolinx Demo Client SWT",
                 "1.0", SoftwareComponentCategory.MAIN));
@@ -63,7 +72,7 @@ public class AcrolinxDemoClientSWT
 
         AcrolinxSWTIntegration client = new AcrolinxSWTIntegration(initParameters, textAdapter);
 
-        AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(shell, 600, client);
+        AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(shell, client);
         sidebarSWT.getSidebarBrowser().setLayoutData(right);
 
         /*
