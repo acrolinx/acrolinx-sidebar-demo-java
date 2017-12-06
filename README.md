@@ -137,19 +137,37 @@ This project provides you ready build UI-Elements to display the Acrolinx Sideba
 You will need to provide a mechanism, that allows the Acrolinx Sidebar to retrieve the text to be checked and to select
 and replace specific parts of the text in the editor.
 
+Please make yourself familiar with the [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance).
+
 To build your own integration with an JFX, Swing or SWT based editor, you'll need to implement the AcrolinxIntegration
 Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
 
 ![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
 
-## Lookup
+### Java SDK
+
+The Java SDK for the Acrolinx sidebar is also available on [GitHub](https://github.com/acrolinx/sidebar-sdk-java).
+Find the documentation for the current Java SDK [here](https://cdn.rawgit.com/acrolinx/sidebar-sdk-java/c87a57f6/docs/index.html).
+
+### Logging
+
+On start of the integration call:
+
+```
+LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
+```
+
+This will setup the logging according to the [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/logging.md)
+
+### Lookup
 
 The text in the editor might have been changed after it has been checked. Therefore the ranges for selection and replacing
-as given by the sidebar could appear to not be correct. To make sure the respective part is still present in the document and to
-get its current location the diff-match-patch library is used. If you want to implement another lookup algorithm you'll
-have to implement a class that extends the abstract class LookupRanges.
+as given by the sidebar could appear to not be correct. One approach to recalculate those offsets is implemented within the JAVA SDK,
+which uses the diff-match-patch library.
 
-[Back to top](#acrolinx-java-sidebar-demo)
+Refer to class ``LookupRangesDiff``.
+
+More information about how to implement a good lookup algorithm can be found in [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/text-lookup.md).
 
 ## Enable CORS
 

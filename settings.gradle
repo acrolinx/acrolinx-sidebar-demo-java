@@ -2,9 +2,6 @@ rootProject.name = 'acrolinx-sidebar-demo-java'
 
 include 'spotless'
 
-include ":sidebar_common"
-project(":sidebar_common").projectDir = file("./sidebar/common")
-
 include ":sidebar_demo_jfx"
 project(":sidebar_demo_jfx").projectDir = file("./demo/jfx")
 
@@ -13,14 +10,5 @@ project(":sidebar_demo_swing").projectDir = file("./demo/swing")
 
 include ":sidebar_demo_swt"
 project(":sidebar_demo_swt").projectDir = file("./demo/swt")
-
-include ":sidebar_jfx"
-project(":sidebar_jfx").projectDir = file("./sidebar/jfx")
-
-include ":sidebar_swing"
-project(":sidebar_swing").projectDir = file("./sidebar/swing")
-
-include ":sidebar_swt"
-project(":sidebar_swt").projectDir = file("./sidebar/swt")
 
 include 'java-sdk-demo-build'
