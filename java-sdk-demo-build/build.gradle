@@ -12,7 +12,7 @@ def buildNumber = System.getenv('BUILD_NUMBER');
 
 def buildVersion = buildNumber != null ? buildNumber : 123
 
-def artifactName = "acrolinx-sidebar-java-sdk"
+def artifactName = "acrolinx-sidebar-java-demo"
 def fullVersion = "${project.version}-${buildVersion}"
 
 distTar.enabled = false
@@ -119,33 +119,6 @@ task distributeAndRelease(dependsOn: zipDist) {
 			grgit.push(force: true)
 			grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
 			grgit.push(tags: true)
-		}
-	}
-}
-
-def repoKeyActual = (!fullVersion.contains('SNAPSHOT')) ? 'libs-release-local' : 'libs-snapshot-local'
-
-publishing {
-	publications {
-		api(MavenPublication) {
-			groupId 'com.acrolinx'
-			artifactId "${artifactName}"
-			artifact shadowJar
-		}
-	}
-}
-
-artifactory {
-	contextUrl = System.getenv('ARTIFACTORY_URL');
-	publish {
-		repository {
-			repoKey = repoKeyActual
-			username = System.getenv('ARTIFACTORY_USERNAME');
-			password = System.getenv('ARTIFACTORY_PASSWORD');
-			maven = true
-		}
-		defaults {
-			publications ('api')
 		}
 	}
 }

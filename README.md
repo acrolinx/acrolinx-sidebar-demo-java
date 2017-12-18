@@ -45,7 +45,7 @@ This sample works with a test license on an internal acrolinx server.
 This license is only meant for demonstration and developing purposes.
 Once you finished your integration you'll have to get a license for your integration from Acrolinx.
 
-Please note that this is a SDK and demo project for Java Applications.
+Please note that this is a demo project for Java Applications using the Sidebar Java SDK.
 Acrolinx offers different other SDKs for developing integrations that might suit your purposes better.
 
 Before you start developing your own integration, you might benefit from looking into the samples given within the demo folder.
@@ -54,8 +54,8 @@ Before you start developing your own integration, you might benefit from looking
 
 ## Quickstart
 
-Within the dist folder you will find a zipped version of the acrolinx-sidebar-java-sdk. This includes a fat jar to use
-within your project and startup scripts to run the java ui demos.
+Within the dist folder you will find a zipped version of the acrolinx-sidebar-java-sdk. This includes a fat jar and
+startup scripts to run the java ui demos.
 
 Download this zip file and unpack it. Within the bin folder you'll find the start scripts and within the lib folder the
 acrolinx-sidebar-java-sdk jar.
@@ -88,7 +88,7 @@ on a Windows machine.
 
 All dependencies needed will be downloaded and the samples are ready to be run.
 
-You'll find three runnable main classes inside the 'samples' folder.
+You'll find three runnable main classes inside the 'demo' folder.
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
@@ -146,7 +146,7 @@ Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar t
 
 ### Java SDK
 
-The Java SDK for the Acrolinx sidebar is also available on [GitHub](https://github.com/acrolinx/sidebar-sdk-java).
+The Java SDK for the Acrolinx sidebar is available on [GitHub](https://github.com/acrolinx/sidebar-sdk-java).
 Find the documentation for the current Java SDK [here](https://cdn.rawgit.com/acrolinx/sidebar-sdk-java/c87a57f6/docs/index.html).
 
 ### Logging
