@@ -21,9 +21,6 @@ buildscript {
 
 apply plugin: 'org.ajoberstar.grgit'
 
-def username = System.getenv('ARTIFACTORY_USERNAME');
-def password = System.getenv('ARTIFACTORY_PASSWORD');
-
 allprojects {
 
 	/*tasks.withType(Javadoc) {
@@ -57,25 +54,16 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
-		configurations.all {
-			resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-		}
 		maven {
 			url "http://maven-eclipse.github.io/maven"
-		// TODO (fp) remove private repository and add public
-			}
-		maven {
-			credentials {
-				username "build"
-				password "kug2.1."
-			}
-			url "http://artifactory.dune.acrolinx.local/artifactory/libs-snapshot-local/"
+		}
+		maven(){
+			url "https://oss.sonatype.org/content/groups/public/"
 		}
 	}
 
 	dependencies {
-		compile 'com.google.guava:guava:19.+'
-		compile "com.acrolinx:sidebar-java-sdk:${JAVA_SDK_VERSION}"
+		compile "com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}"
 		testCompile group: 'junit', name: 'junit', version: '4.+'
 	}
 
