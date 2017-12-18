@@ -54,10 +54,12 @@ Before you start developing your own integration, you might benefit from looking
 
 ## Quickstart
 
-Within the dist folder you will find a zipped version of the acrolinx-sidebar-java-sdk. This includes a fat jar and
+1. Select the latest release version from tags.
+
+2. Within the dist folder you will find a zipped version of the acrolinx-sidebar-java-sdk. This includes a fat jar and
 startup scripts to run the java ui demos.
 
-Download this zip file and unpack it. Within the bin folder you'll find the start scripts.
+3. Download this zip file and unpack it. Within the bin folder you'll find the start scripts.
 For a windows environment run the .bat files and on a Unix System run the shell scripts.
 
 **Important:** To run the acrolinxDemoClientSWT files you'll have to put the **Eclipse SWT library** into the lib folder. Depending on
