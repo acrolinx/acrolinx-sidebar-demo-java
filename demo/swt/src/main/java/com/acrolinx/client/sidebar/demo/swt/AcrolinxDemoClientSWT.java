@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -75,6 +77,11 @@ public class AcrolinxDemoClientSWT
         AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(shell, client);
         sidebarSWT.getSidebarBrowser().setLayoutData(right);
 
+        MessageBox warning = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+        warning.setText("Warning");
+        warning.setMessage(
+                "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo.");
+
         /*
         Floating Sidebar is here:
         ChildShell childShell = new ChildShell(shell, display);
@@ -83,12 +90,14 @@ public class AcrolinxDemoClientSWT
 
         shell.layout();
         shell.open();
+        warning.open();
 
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
         display.dispose();
+
     }
 
     public static void main(String[] args)
