@@ -61,6 +61,13 @@ class AcrolinxDemoClientSwing
 
             frame.pack();
             frame.setVisible(true);
+
+            JOptionPane optionPane = new JOptionPane(
+                    "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo",
+                    JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Warning!");
+            dialog.setAlwaysOnTop(true); // to show top of all other application
+            dialog.setVisible(true); // to visible the dialog
         });
     }
 }
