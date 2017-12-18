@@ -1,6 +1,6 @@
 # Acrolinx Java Sidebar Demo
 
-This repository contains libraries and examples to integrate the Acrolinx Sidebar with
+This repository contains examples to integrate the Acrolinx Sidebar with
 different Java UI Frameworks.
 
 The Acrolinx Sidebar helps authors to review, correct and analyze their content.
@@ -57,9 +57,7 @@ Before you start developing your own integration, you might benefit from looking
 Within the dist folder you will find a zipped version of the acrolinx-sidebar-java-sdk. This includes a fat jar and
 startup scripts to run the java ui demos.
 
-Download this zip file and unpack it. Within the bin folder you'll find the start scripts and within the lib folder the
-acrolinx-sidebar-java-sdk jar.
-
+Download this zip file and unpack it. Within the bin folder you'll find the start scripts.
 For a windows environment run the .bat files and on a Unix System run the shell scripts.
 
 **Important:** To run the acrolinxDemoClientSWT files you'll have to put the **Eclipse SWT library** into the lib folder. Depending on
