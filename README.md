@@ -149,7 +149,7 @@ Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar t
 The Java SDK for the Acrolinx sidebar is available on [GitHub](https://github.com/acrolinx/sidebar-sdk-java).
 Find the documentation for the current Java SDK [here](https://cdn.rawgit.com/acrolinx/sidebar-sdk-java/c87a57f6/docs/index.html).
 
-![Java SDK parts overview](/doc/img/JavaSDKComponents.png)
+![Java SDK parts overview](/doc/img/SketchJavaSDKComponents.png)
 
 ### Logging
 
