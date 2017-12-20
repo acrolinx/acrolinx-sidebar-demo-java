@@ -14,7 +14,6 @@ It is designed to show up in their editor or editing environment.
 * [Quickstart](#quickstart)
 * [Setup the Project](#setup-the-project)
 * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
-* [How to build your own integration](#how-to-build-your-own-integration)
 * [Enable CORS](#enable-cors)
 * [License](#license)
 
@@ -127,64 +126,6 @@ The card will disappear from the issue list in the sidebar and the text will be 
 The Acrolinx Sidebar will then automatically select the next issue in line.
 
 ![Java FX Acrolinx Sidebar Sample: Issue replaced](/doc/img/IssueReplaced.png)
-
-[Back to top](#acrolinx-java-sidebar-demo)
-
-## How to build your own integration
-
-This project provides you ready build UI-Elements to display the Acrolinx Sidebar.
-
-You will need to provide a mechanism, that allows the Acrolinx Sidebar to retrieve the text to be checked and to select
-and replace specific parts of the text in the editor.
-
-Please make yourself familiar with the [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance).
-
-To build your own integration with an JFX, Swing or SWT based editor, you'll need to implement the AcrolinxIntegration
-Interface and the InputAdapterInterface. This will enable the Acrolinx Sidebar to interact with your editor.
-
-![Acrolinx Integration interacting with Acrolinx Sidebar and Acrolinx Server](/doc/img/ArchitectureInterfaces.png)
-
-### Java SDK
-
-The Java SDK for the Acrolinx sidebar is available on [GitHub](https://github.com/acrolinx/sidebar-sdk-java).
-Find the documentation for the current Java SDK [here](https://cdn.rawgit.com/acrolinx/sidebar-sdk-java/c87a57f6/docs/index.html).
-
-![Java SDK parts overview](/doc/img/SketchJavaSDKComponents.png)
-
-### Logging
-
-On start of the integration call:
-
-```
-LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
-```
-
-This will setup the logging according to the [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/logging.md)
-
-### Lookup
-
-The text in the editor might have been changed after it has been checked. Therefore the ranges for selection and replacing
-as given by the sidebar could appear to not be correct. One approach to recalculate those offsets is implemented within the JAVA SDK,
-which uses the diff-match-patch library.
-
-Refer to class ``LookupRangesDiff``.
-
-More information about how to implement a good lookup algorithm can be found in [acrolinx coding guidance](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/text-lookup.md).
-
-## Enable CORS
-
-If you want to use an Acrolinx Sidebar with an Acrolinx Server that run on different domains, you will have to enable
-[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). That can be done by setting the following System
-property in your Java Code:
-
-	System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-
-Or you can set the following VM Option when running Java:
-
-	-Dsun.net.http.allowRestrictedHeaders=true
-
-Also you'll need have CORS enabled on your Acrolinx Server.
-For help check the Acrolinx Support on [how to enable CORS](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv).
 
 [Back to top](#acrolinx-java-sidebar-demo)
 
