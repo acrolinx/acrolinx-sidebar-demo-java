@@ -57,6 +57,9 @@ subprojects {
 		maven {
 			url "http://maven-eclipse.github.io/maven"
 		}
+		/*maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots"
+		}*/
 	}
 
 	dependencies {

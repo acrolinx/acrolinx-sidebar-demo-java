@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -24,6 +23,7 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
+import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
 import ch.qos.logback.core.joran.spi.JoranException;
@@ -48,7 +48,7 @@ public class AcrolinxDemoClientSWT
 
         GridLayout gridLayout = new GridLayout(2, true);
         shell.setLayout(gridLayout);
-        Image small = new Image(display, getClass().getClassLoader().getResourceAsStream("iconAcrolinx.png"));
+        Image small = new Image(display, IconUtils.getAcrolinxIcon_16_16_AsStream());
         shell.setImage(small);
 
         Text textArea = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP);
