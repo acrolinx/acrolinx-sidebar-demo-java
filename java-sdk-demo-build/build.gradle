@@ -1,12 +1,11 @@
 plugins {
 	id 'com.github.johnrengelman.shadow' version '1.2.4'
-	id "com.jfrog.artifactory" version "4.4.13"
 }
 
 apply plugin: 'java-library-distribution'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'org.ajoberstar.grgit'
+// apply plugin: 'org.ajoberstar.grgit'
 
 def buildNumber = System.getenv('BUILD_NUMBER');
 
@@ -74,7 +73,7 @@ task zipDist(type: Zip) {
 		include '*.zip'
 	}
 
-	grgit.remove(patterns: ['dist'])
+	// grgit.remove(patterns: ['dist'])
 
 	def baseDir = "${artifactName}-${fullVersion}.zip"
 	archiveName = baseDir
@@ -110,7 +109,7 @@ artifacts {
 }
 
 
-task distributeAndRelease(dependsOn: zipDist) {
+/*task distributeAndRelease(dependsOn: zipDist) {
 	doLast {
 		def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
 		if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
@@ -121,4 +120,4 @@ task distributeAndRelease(dependsOn: zipDist) {
 			grgit.push(tags: true)
 		}
 	}
-}
+}*/
