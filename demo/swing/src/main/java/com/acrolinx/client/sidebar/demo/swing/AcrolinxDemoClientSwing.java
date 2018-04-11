@@ -5,8 +5,6 @@
 package com.acrolinx.client.sidebar.demo.swing;
 
 import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -17,15 +15,13 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-import ch.qos.logback.core.joran.spi.JoranException;
-
 class AcrolinxDemoClientSwing
 {
     public static void main(String[] args)
     {
         try {
             LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
-        } catch (IOException | JoranException | URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
