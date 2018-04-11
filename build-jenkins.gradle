@@ -1,0 +1,120 @@
+/*
+* Copyright (c) 2016-2017 Acrolinx GmbH
+*/
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.diffplug.gradle:goomph:${VER_GOOMPH}"
+        classpath "org.ajoberstar:gradle-git:${VER_GRADLE_GIT}"
+        classpath "com.smokejumperit.gradle.license:Gradle-License-Report:+"
+    }
+}
+
+ apply plugin: 'org.ajoberstar.grgit'
+
+allprojects {
+
+    /*tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.memberLevel = JavadocMemberLevel.PUBLIC
+    }*/
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
+    project.version = currentVersion
+}
+
+subprojects {
+
+    group 'com.acrolinx'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "http://maven-eclipse.github.io/maven"
+        }
+        /*maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }*/
+    }
+
+    dependencies {
+        compile "com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}"
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+    }
+
+    apply plugin: 'findbugs'
+    findbugs {
+        toolVersion = VER_FINDBUGS
+        sourceSets = [sourceSets.main]    // don't check the test code
+        ignoreFailures = false    // bug free or it doesn't ship!
+        reportsDir = file('build/findbugs')
+        effort = 'max'            // min|default|max
+        reportLevel = 'medium'        // low|medium|high (low = sensitive to even minor mistakes)
+        excludeFilter = file("$rootProject.projectDir/findbugs/excludeFilter.xml")
+        omitVisitors = []        // bugs that we want to ignore
+    }
+
+    tasks.withType(FindBugs) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+}
+
+project(':sidebar_demo_swt') {
+
+    apply plugin: 'application'
+    apply plugin: 'com.diffplug.gradle.swt.nativedeps'
+
+    mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
+
+    sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
+
+    javadoc.enabled = false
+}
+
+project(':sidebar_demo_swing') {
+    apply plugin: 'application'
+
+    mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
+
+    javadoc.enabled = false
+}
+
+project(':sidebar_demo_jfx') {
+    apply plugin: 'application'
+
+    mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
+
+    javadoc.enabled = false
+}
+
+project(':java-sdk-demo-build') {
+
+}
