@@ -3,243 +3,242 @@
 */
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
+	gradleVersion = '3.4.1'
 }
 
 buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "com.diffplug.gradle:goomph:${VER_GOOMPH}"
-        classpath "org.ajoberstar:gradle-git:${VER_GRADLE_GIT}"
-        classpath "com.smokejumperit.gradle.license:Gradle-License-Report:+"
-    }
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "com.diffplug.gradle:goomph:${VER_GOOMPH}"
+		classpath "org.ajoberstar:gradle-git:${VER_GRADLE_GIT}"
+		classpath "com.smokejumperit.gradle.license:Gradle-License-Report:+"
+		classpath "com.github.jengelman.gradle.plugins:shadow:2.0.3"
+	}
 }
 
- apply plugin: 'org.ajoberstar.grgit'
+apply plugin: 'org.ajoberstar.grgit'
 
 allprojects {
 
-    /*tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.memberLevel = JavadocMemberLevel.PUBLIC
-    }*/
+	/*tasks.withType(Javadoc) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+		options.memberLevel = JavadocMemberLevel.PUBLIC
+	}*/
 
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
+	gradle.projectsEvaluated {
+		tasks.withType(JavaCompile) {
+			options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+		}
+	}
 
-    project.version = currentVersion
+	project.version = currentVersion
 }
 
 subprojects {
 
-    group 'com.acrolinx'
+	group 'com.acrolinx'
 
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'eclipse'
+	apply plugin: 'java'
+	apply plugin: 'idea'
+	apply plugin: 'eclipse'
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 
-    compileJava.options.encoding = 'UTF-8'
-    compileTestJava.options.encoding = 'UTF-8'
+	compileJava.options.encoding = 'UTF-8'
+	compileTestJava.options.encoding = 'UTF-8'
 
-    repositories {
-        mavenCentral()
-        jcenter()
-        maven {
-            url "http://maven-eclipse.github.io/maven"
-        }
-        /*maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
-        }*/
-    }
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven {
+			url "http://maven-eclipse.github.io/maven"
+		}
+		/*maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots"
+		}*/
+	}
 
-    dependencies {
-        compile "com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}"
-        testCompile group: 'junit', name: 'junit', version: '4.+'
-    }
+	dependencies {
+		compile "com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}"
+		testCompile group: 'junit', name: 'junit', version: '4.+'
+	}
 
-    apply plugin: 'findbugs'
-    findbugs {
-        toolVersion = VER_FINDBUGS
-        sourceSets = [sourceSets.main]    // don't check the test code
-        ignoreFailures = false    // bug free or it doesn't ship!
-        reportsDir = file('build/findbugs')
-        effort = 'max'            // min|default|max
-        reportLevel = 'medium'        // low|medium|high (low = sensitive to even minor mistakes)
-        excludeFilter = file("$rootProject.projectDir/findbugs/excludeFilter.xml")
-        omitVisitors = []        // bugs that we want to ignore
-    }
+	apply plugin: 'findbugs'
+	findbugs {
+		toolVersion = VER_FINDBUGS
+		sourceSets = [sourceSets.main]    // don't check the test code
+		ignoreFailures = false    // bug free or it doesn't ship!
+		reportsDir = file('build/findbugs')
+		effort = 'max'            // min|default|max
+		reportLevel = 'medium'        // low|medium|high (low = sensitive to even minor mistakes)
+		excludeFilter = file("$rootProject.projectDir/findbugs/excludeFilter.xml")
+		omitVisitors = []        // bugs that we want to ignore
+	}
 
-    tasks.withType(FindBugs) {
-        reports {
-            xml.enabled = false
-            html.enabled = true
-        }
-    }
+	tasks.withType(FindBugs) {
+		reports {
+			xml.enabled = false
+			html.enabled = true
+		}
+	}
 }
 
 project(':sidebar_demo_swt') {
 
-    apply plugin: 'application'
-    apply plugin: 'com.diffplug.gradle.swt.nativedeps'
+	apply plugin: 'application'
+	apply plugin: 'com.diffplug.gradle.swt.nativedeps'
 
-    mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
+	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
-    sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
+	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 
-    javadoc.enabled = false
+	javadoc.enabled = false
 }
 
 project(':sidebar_demo_swing') {
-    apply plugin: 'application'
+	apply plugin: 'application'
 
-    mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
+	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 
-    javadoc.enabled = false
+	javadoc.enabled = false
 }
 
 project(':sidebar_demo_jfx') {
-    apply plugin: 'application'
+	apply plugin: 'application'
 
-    mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
+	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
-    javadoc.enabled = false
+	javadoc.enabled = false
 }
 
 project(':java-sdk-demo-build') {
 
-    plugins {
-        id 'com.github.johnrengelman.shadow' version '1.2.4'
-    }
+	apply plugin: 'java-library-distribution'
 
-    apply plugin: 'java-library-distribution'
+	apply plugin: 'org.ajoberstar.grgit'
 
-    apply plugin: 'org.ajoberstar.grgit'
+	apply plugin: 'com.github.johnrengelman.shadow'
 
-    def buildNumber = System.getenv('BUILD_NUMBER');
+	def buildNumber = System.getenv('BUILD_NUMBER');
 
-    def buildVersion = buildNumber != null ? buildNumber : 123
+	def buildVersion = buildNumber != null ? buildNumber : 123
 
-    def artifactName = "acrolinx-sidebar-java-demo"
-    def fullVersion = "${project.version}-${buildVersion}"
+	def artifactName = "acrolinx-sidebar-java-demo"
+	def fullVersion = "${project.version}-${buildVersion}"
 
-    distTar.enabled = false
-    distZip.enabled = false
+	distTar.enabled = false
+	distZip.enabled = false
 
-    dependencies {
-        compile project(':sidebar_demo_jfx')
-        compile project(':sidebar_demo_swing')
-        compile(project(':sidebar_demo_swt')) {
-            exclude group: 'eclipse-swt-deps'
-        }
-    }
+	dependencies {
+		compile project(':sidebar_demo_jfx')
+		compile project(':sidebar_demo_swing')
+		compile(project(':sidebar_demo_swt')) {
+			exclude group: 'eclipse-swt-deps'
+		}
+	}
 
-    task createJar(type: Jar) {
-        manifest {
-            attributes(
-                    "Implementation-Title": "${artifactName}",
-                    "Implementation-Version": "${fullVersion}",
-                    "Specification-Title": "${artifactName}",
-                    "Specification-Version": project.version
-            )
-        }
-    }
+	task createJar(type: Jar) {
+		manifest {
+			attributes(
+					"Implementation-Title": "${artifactName}",
+					"Implementation-Version": "${fullVersion}",
+					"Specification-Title": "${artifactName}",
+					"Specification-Version": project.version
+			)
+		}
+	}
 
-    shadowJar {
-        archiveName = "${artifactName}-${fullVersion}.jar"
-        exclude 'META-INF/*.DSA'
-        exclude 'META-INF/*.RSA'
-        destinationDir = file("${buildDir}/lib")
-        manifest {
-            inheritFrom project.tasks.createJar.manifest
-        }
-    }
+	shadowJar {
+		archiveName = "${artifactName}-${fullVersion}.jar"
+		exclude 'META-INF/*.DSA'
+		exclude 'META-INF/*.RSA'
+		destinationDir = file("${buildDir}/lib")
+		manifest {
+			inheritFrom project.tasks.createJar.manifest
+		}
+	}
 
-    task createStartScriptsJFX(type: CreateStartScripts) {
-        outputDir = file("${buildDir}/bin/jfx")
-        mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX'
-        applicationName = 'acrolinxDemoClientJFX'
-        classpath = files("${artifactName}-${fullVersion}.jar")
-    }
+	task createStartScriptsJFX(type: CreateStartScripts) {
+		outputDir = file("${buildDir}/bin/jfx")
+		mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX'
+		applicationName = 'acrolinxDemoClientJFX'
+		classpath = files("${artifactName}-${fullVersion}.jar")
+	}
 
-    task createStartScriptsSwing(type: CreateStartScripts) {
-        outputDir = file("${buildDir}/bin/swing")
-        mainClassName = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
-        applicationName = 'acrolinxDemoClientSwing'
-        classpath = files("${artifactName}-${fullVersion}.jar")
-    }
+	task createStartScriptsSwing(type: CreateStartScripts) {
+		outputDir = file("${buildDir}/bin/swing")
+		mainClassName = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
+		applicationName = 'acrolinxDemoClientSwing'
+		classpath = files("${artifactName}-${fullVersion}.jar")
+	}
 
-    task createStartScriptsSWT(type: CreateStartScripts) {
-        outputDir = file("${buildDir}/bin/swt")
-        mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
-        applicationName = 'acrolinxDemoClientSWT'
-        classpath = files("*")
-    }
+	task createStartScriptsSWT(type: CreateStartScripts) {
+		outputDir = file("${buildDir}/bin/swt")
+		mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
+		applicationName = 'acrolinxDemoClientSWT'
+		classpath = files("*")
+	}
 
-    task zipDist(type: Zip) {
+	task zipDist(type: Zip) {
 
-        delete fileTree('../dist') {
-            include '*.zip'
-        }
+		delete fileTree('../dist') {
+			include '*.zip'
+		}
 
-        grgit.remove(patterns: ['dist'])
+		grgit.remove(patterns: ['dist'])
 
-        def baseDir = "${artifactName}-${fullVersion}.zip"
-        archiveName = baseDir
+		def baseDir = "${artifactName}-${fullVersion}.zip"
+		archiveName = baseDir
 
-        destinationDir = file('../dist')
-        into(baseDir) {
-            into("lib") {
-                from(shadowJar)
-            }
-        }
-        into(baseDir) {
-            into("bin") {
-                from(createStartScriptsJFX)
-            }
-        }
-        into(baseDir) {
-            into("bin") {
-                from(createStartScriptsSwing)
-            }
-        }
-        into(baseDir) {
-            into("bin") {
-                from(createStartScriptsSWT)
-            }
-        }
-        into(baseDir) {
-            from("../LICENSE")
-        }
-    }
+		destinationDir = file('../dist')
+		into(baseDir) {
+			into("lib") {
+				from(shadowJar)
+			}
+		}
+		into(baseDir) {
+			into("bin") {
+				from(createStartScriptsJFX)
+			}
+		}
+		into(baseDir) {
+			into("bin") {
+				from(createStartScriptsSwing)
+			}
+		}
+		into(baseDir) {
+			into("bin") {
+				from(createStartScriptsSWT)
+			}
+		}
+		into(baseDir) {
+			from("../LICENSE")
+		}
+	}
 
-    artifacts {
-        archives zipDist
-    }
+	artifacts {
+		archives zipDist
+	}
 
 
-    task distributeAndRelease(dependsOn: zipDist) {
-        doLast {
-            def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
-            if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
-                grgit.add(patterns: ['dist'])
-                grgit.commit(message: "Release version ${currentVersion}")
-                grgit.push(force: true)
-                grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
-                grgit.push(tags: true)
-            } else {
-                grgit.add(patterns: ['dist'])
-                grgit.commit(message: "Demo version ${currentVersion}")
-            }
-        }
-    }
+	task distributeAndRelease(dependsOn: zipDist) {
+		doLast {
+			def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
+			if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
+				grgit.add(patterns: ['dist'])
+				grgit.commit(message: "Release version ${currentVersion}")
+				grgit.push(force: true)
+				grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
+				grgit.push(tags: true)
+			} else {
+				grgit.add(patterns: ['dist'])
+				grgit.commit(message: "Demo version ${currentVersion}")
+			}
+		}
+	}
 }

@@ -1,10 +1,5 @@
 rootProject.name = 'acrolinx-sidebar-demo-java'
 
-if (System.getenv('JENKINS_HOME') != null) {
-    rootProject.buildFileName = 'build-jenkins.gradle'
-}
-
-
 include 'spotless'
 
 include ":sidebar_demo_jfx"
@@ -17,3 +12,8 @@ include ":sidebar_demo_swt"
 project(":sidebar_demo_swt").projectDir = file("./demo/swt")
 
 include 'java-sdk-demo-build'
+
+if (System.getenv('JENKINS_HOME') != null) {
+	rootProject.buildFileName = 'build-jenkins.gradle'
+	project(":java-sdk-demo-build").buildFileName = 'build-jenkins.gradle'
+}
