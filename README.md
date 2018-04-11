@@ -75,6 +75,10 @@ This repository contains a Java API and samples for JFX, Swing and SWT Applicati
 
 This project is implemented with Java 8 and build with [Gradle](https://gradle.org/).
 
+You need to have a JDK 8 installed on your system in order to run the sample with Gradle.
+If you just interested to see the demo application in action please refer to the instructions below
+[Quickstart](#quickstart).
+
 The project comes with Gradle Wrapper. So if you don't have Gradle installed, go into the projects root folder and run:
 
 `./gradlew build`
