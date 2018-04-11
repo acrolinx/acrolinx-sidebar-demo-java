@@ -238,6 +238,7 @@ project(':java-sdk-demo-build') {
 			} else {
 				grgit.add(patterns: ['dist'])
 				grgit.commit(message: "Demo version ${currentVersion}")
+                grgit.push(force: true)
 			}
 		}
 	}
