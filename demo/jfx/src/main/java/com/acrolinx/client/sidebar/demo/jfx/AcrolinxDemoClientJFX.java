@@ -4,8 +4,6 @@
 
 package com.acrolinx.client.sidebar.demo.jfx;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Application;
@@ -27,8 +25,6 @@ import com.acrolinx.sidebar.lookup.LookupRangesDiff;
 import com.acrolinx.sidebar.pojo.settings.*;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-import ch.qos.logback.core.joran.spi.JoranException;
-
 @SuppressWarnings("unused")
 public class AcrolinxDemoClientJFX extends Application
 {
@@ -46,7 +42,7 @@ public class AcrolinxDemoClientJFX extends Application
     {
         try {
             LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
-        } catch (IOException | JoranException | URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

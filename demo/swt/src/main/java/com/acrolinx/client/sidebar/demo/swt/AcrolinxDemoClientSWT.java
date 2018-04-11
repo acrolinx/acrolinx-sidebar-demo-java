@@ -4,8 +4,6 @@
 
 package com.acrolinx.client.sidebar.demo.swt;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -17,16 +15,11 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
-import com.acrolinx.sidebar.pojo.settings.InputFormat;
-import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
-import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.pojo.settings.*;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
-
-import ch.qos.logback.core.joran.spi.JoranException;
 
 @SuppressWarnings("WeakerAccess")
 public class AcrolinxDemoClientSWT
@@ -38,7 +31,7 @@ public class AcrolinxDemoClientSWT
     {
         try {
             LoggingUtils.setupLogging("AcrolinxDemoClientSWT");
-        } catch (IOException | JoranException | URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
