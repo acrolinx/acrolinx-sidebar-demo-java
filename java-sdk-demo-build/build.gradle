@@ -3,8 +3,7 @@ plugins {
 }
 
 apply plugin: 'java-library-distribution'
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
+
 // apply plugin: 'org.ajoberstar.grgit'
 
 def buildNumber = System.getenv('BUILD_NUMBER');
