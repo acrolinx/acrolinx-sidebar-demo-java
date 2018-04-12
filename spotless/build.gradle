@@ -1,12 +1,17 @@
 
 plugins {
-	id 'com.diffplug.gradle.spotless' version '1.3.3'
+	id 'com.diffplug.gradle.spotless' version '3.10.0'
 }
 
 ////////////////
 // FORMATTING //
 ////////////////
 spotless {
+	if (System.getenv('JENKINS_HOME') != null && System.getenv('BUILD_IS_ON_JENKINS') != null) {
+		enforceCheck true
+	} else {
+		enforceCheck false
+	}
 	java {
 		target rootProject.fileTree('.') {
 			include '**/*.java'
@@ -14,7 +19,7 @@ spotless {
 		}
 		// licenseHeaderFile	rootProject.file('spotless/spotless.license.java')			// License header file
 		importOrderFile		rootProject.file('spotless/spotless.importorder')			// An import ordering file, exported from Eclipse
-		eclipseFormatFile	rootProject.file('spotless/spotless.eclipseformat.xml')		// XML file dumped out by the Eclipse formatter
+		eclipse().configFile rootProject.file('spotless/spotless.eclipseformat.xml')		// XML file dumped out by the Eclipse formatter
 		custom 'Lambda fix', { it.replace('} )', '})').replace('} ,', '},') }
 	}
 	format 'misc', {

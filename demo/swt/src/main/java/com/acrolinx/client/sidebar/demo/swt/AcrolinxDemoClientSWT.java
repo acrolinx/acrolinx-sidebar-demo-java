@@ -76,10 +76,10 @@ public class AcrolinxDemoClientSWT
                 "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo.");
 
         /*
-        Floating Sidebar is here:
-        ChildShell childShell = new ChildShell(shell, display);
-        AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(childShell.getShell(), 600);
-        childShell.getShell().open();*/
+         * Floating Sidebar is here: ChildShell childShell = new ChildShell(shell, display);
+         * AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(childShell.getShell(), 600);
+         * childShell.getShell().open();
+         */
 
         shell.layout();
         shell.open();
