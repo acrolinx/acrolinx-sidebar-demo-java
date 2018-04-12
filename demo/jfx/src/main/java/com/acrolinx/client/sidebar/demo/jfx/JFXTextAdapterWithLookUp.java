@@ -12,10 +12,11 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 
-public class JFXTextAdapterWithLookUp extends TextAreaAdapter
+@SuppressWarnings("unchecked")
+class JFXTextAdapterWithLookUp extends TextAreaAdapter
 {
 
-    public JFXTextAdapterWithLookUp(TextArea textArea, InputFormat inputFormat, String documentReference)
+    JFXTextAdapterWithLookUp(TextArea textArea, InputFormat inputFormat, String documentReference)
     {
         super(textArea, inputFormat, documentReference);
     }

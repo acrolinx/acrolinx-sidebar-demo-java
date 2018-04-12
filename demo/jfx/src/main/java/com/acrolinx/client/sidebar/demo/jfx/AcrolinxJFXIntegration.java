@@ -13,14 +13,14 @@ import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
-public class AcrolinxJFXIntegration implements AcrolinxIntegration
+class AcrolinxJFXIntegration implements AcrolinxIntegration
 {
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxJFXIntegration.class);
     private final TextArea textArea;
     private final AcrolinxSidebarInitParameter initParameter;
 
-    public AcrolinxJFXIntegration(TextArea textArea, AcrolinxSidebarInitParameter initParameter)
+    AcrolinxJFXIntegration(TextArea textArea, AcrolinxSidebarInitParameter initParameter)
     {
         this.textArea = textArea;
         this.initParameter = initParameter;
