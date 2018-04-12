@@ -225,20 +225,24 @@ project(':java-sdk-demo-build') {
 		archives zipDist
 	}
 
-
 	task distributeAndRelease(dependsOn: zipDist) {
 		doLast {
 			def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
-			if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
-				grgit.add(patterns: ['dist'])
-				grgit.commit(message: "Release version ${currentVersion}")
-				grgit.push(force: true)
-				grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
-				grgit.push(tags: true)
+			def lastCommitAuthorIsJenkins = grgit.log(maxCommits: 1).get(0).author.name.contains("jenkins");
+			if (lastCommitAuthorIsJenkins) {
+				println("Last commit made by Jenkins, not pushing new dist version to Github")
 			} else {
-				grgit.add(patterns: ['dist'])
-				grgit.commit(message: "Demo version ${currentVersion}")
-				grgit.push(force: true)
+				if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
+					grgit.add(patterns: ['dist'])
+					grgit.commit(message: "Release version ${currentVersion}")
+					grgit.push(force: true)
+					grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
+					grgit.push(tags: true)
+				} else {
+					grgit.add(patterns: ['dist'])
+					grgit.commit(message: "Demo version ${currentVersion}")
+					grgit.push(force: true)
+				}
 			}
 		}
 	}
