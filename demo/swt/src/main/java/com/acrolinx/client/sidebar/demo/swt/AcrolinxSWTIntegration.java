@@ -23,8 +23,8 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
 
     private final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
 
-    public AcrolinxSWTIntegration(AcrolinxSidebarInitParameter initParameters,
-            InputAdapterInterface inputAdapterInterface)
+    public AcrolinxSWTIntegration(final AcrolinxSidebarInitParameter initParameters,
+            final InputAdapterInterface inputAdapterInterface)
     {
         this.initParameters = initParameters;
         this.inputAdapterInterface = inputAdapterInterface;
@@ -43,7 +43,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onCheckResult(CheckResult checkResult)
+    public void onCheckResult(final CheckResult checkResult)
     {
         logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
 
@@ -51,7 +51,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Override
-    public void onInitFinished(Optional<SidebarError> initResult)
+    public void onInitFinished(final Optional<SidebarError> initResult)
     {
         logger.debug(initResult.toString());
 

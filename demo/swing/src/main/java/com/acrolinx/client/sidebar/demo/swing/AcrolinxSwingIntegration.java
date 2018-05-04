@@ -6,7 +6,7 @@ package com.acrolinx.client.sidebar.demo.swing;
 
 import java.util.Optional;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     private final JTextArea textArea;
     private final AcrolinxSidebarInitParameter initParameter;
 
-    AcrolinxSwingIntegration(AcrolinxSidebarInitParameter initParameter, JTextArea textArea)
+    AcrolinxSwingIntegration(final AcrolinxSidebarInitParameter initParameter, final JTextArea textArea)
     {
         this.initParameter = initParameter;
         this.textArea = textArea;
@@ -44,14 +44,14 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onCheckResult(CheckResult checkResult)
+    public void onCheckResult(final CheckResult checkResult)
     {
         logger.debug("Got check result");
     }
 
     @Override
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public void onInitFinished(Optional<SidebarError> initResult)
+    public void onInitFinished(final Optional<SidebarError> initResult)
     {
         logger.debug("Finished init!");
     }
