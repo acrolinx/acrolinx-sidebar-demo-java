@@ -3,7 +3,6 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.List;
 import java.util.Optional;
-import javafx.scene.control.TextArea;
 
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.lookup.LookupRangesDiff;
@@ -12,20 +11,22 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 
+import javafx.scene.control.TextArea;
+
 @SuppressWarnings("unchecked")
 class JFXTextAdapterWithLookUp extends TextAreaAdapter
 {
 
-    JFXTextAdapterWithLookUp(TextArea textArea, InputFormat inputFormat, String documentReference)
+    JFXTextAdapterWithLookUp(final TextArea textArea, final InputFormat inputFormat, final String documentReference)
     {
         super(textArea, inputFormat, documentReference);
     }
 
-    private List<? extends AbstractMatch> lookupRanges(List<? extends AbstractMatch> matches)
+    private List<? extends AbstractMatch> lookupRanges(final List<? extends AbstractMatch> matches)
     {
-        String lastCheckedDocument = AcrolinxDemoClientJFX.sidebar.get().getLastCheckedDocument();
-        LookupRangesDiff lookup = new LookupRangesDiff();
-        Optional<List<? extends AbstractMatch>> correctedRanges = lookup.getMatchesWithCorrectedRanges(
+        final String lastCheckedDocument = AcrolinxDemoClientJFX.sidebar.get().getLastCheckedDocument();
+        final LookupRangesDiff lookup = new LookupRangesDiff();
+        final Optional<List<? extends AbstractMatch>> correctedRanges = lookup.getMatchesWithCorrectedRanges(
                 lastCheckedDocument, this.getContent(), matches);
         if (correctedRanges.isPresent()) {
             return correctedRanges.get();
@@ -35,17 +36,20 @@ class JFXTextAdapterWithLookUp extends TextAreaAdapter
         }
     }
 
-    public void selectRanges(String checkId, List<AcrolinxMatch> matches)
+    @Override
+    public void selectRanges(final String checkId, final List<AcrolinxMatch> matches)
     {
-        List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
-        if (correctedMatches != null)
+        final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
+        if (correctedMatches != null) {
             super.selectRanges(checkId, (List<AcrolinxMatch>) correctedMatches);
+        }
 
     }
 
-    public void replaceRanges(String checkId, List<AcrolinxMatchWithReplacement> matches)
+    @Override
+    public void replaceRanges(final String checkId, final List<AcrolinxMatchWithReplacement> matches)
     {
-        List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
+        final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
         if (correctedMatches != null) {
             super.replaceRanges(checkId, (List<AcrolinxMatchWithReplacement>) correctedMatches);
         }

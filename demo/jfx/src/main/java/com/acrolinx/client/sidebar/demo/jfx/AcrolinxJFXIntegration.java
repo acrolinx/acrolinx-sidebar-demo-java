@@ -2,7 +2,6 @@
 package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.Optional;
-import javafx.scene.control.TextArea;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,8 @@ import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 
+import javafx.scene.control.TextArea;
+
 class AcrolinxJFXIntegration implements AcrolinxIntegration
 {
 
@@ -20,7 +21,7 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
     private final TextArea textArea;
     private final AcrolinxSidebarInitParameter initParameter;
 
-    AcrolinxJFXIntegration(TextArea textArea, AcrolinxSidebarInitParameter initParameter)
+    AcrolinxJFXIntegration(final TextArea textArea, final AcrolinxSidebarInitParameter initParameter)
     {
         this.textArea = textArea;
         this.initParameter = initParameter;
@@ -39,7 +40,7 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onCheckResult(CheckResult checkResult)
+    public void onCheckResult(final CheckResult checkResult)
     {
         logger.debug("Got check result for check id: " + checkResult.getCheckedDocumentPart().getCheckId());
         // Do nothing for now;
@@ -47,7 +48,7 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
 
     @Override
     public void onInitFinished(
-            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<SidebarError> initResult)
+            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") final Optional<SidebarError> initResult)
     {
         logger.debug("Sidebar init done: " + initResult.toString());
         // Do nothing for now;

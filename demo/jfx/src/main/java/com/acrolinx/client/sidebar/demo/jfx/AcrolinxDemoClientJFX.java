@@ -6,6 +6,20 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acrolinx.sidebar.AcrolinxSidebar;
+import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
+import com.acrolinx.sidebar.lookup.LookupRangesDiff;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
+import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
+import com.acrolinx.sidebar.utils.LoggingUtils;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -15,15 +29,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.acrolinx.sidebar.AcrolinxSidebar;
-import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
-import com.acrolinx.sidebar.lookup.LookupRangesDiff;
-import com.acrolinx.sidebar.pojo.settings.*;
-import com.acrolinx.sidebar.utils.LoggingUtils;
 
 @SuppressWarnings("unused")
 public class AcrolinxDemoClientJFX extends Application
@@ -38,18 +43,18 @@ public class AcrolinxDemoClientJFX extends Application
     private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
     @Override
-    public void start(Stage primaryStage)
+    public void start(final Stage primaryStage)
     {
         try {
             LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
 
-        ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
+        final ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX",
                 "1.0", SoftwareComponentCategory.MAIN));
-        AcrolinxSidebarInitParameter initParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
+        final AcrolinxSidebarInitParameter initParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withPluginSupportedParameters(
                         new PluginSupportedParameters(true)).withShowServerSelector(true).build();
 
@@ -63,18 +68,18 @@ public class AcrolinxDemoClientJFX extends Application
         formatDropdown.valueProperty().addListener(
                 (observable, oldValue, newValue) -> inputFormat.set(InputFormat.valueOf(newValue.toString())));
 
-        AcrolinxJFXIntegration integration = new AcrolinxJFXIntegration(this.textArea, initParameter);
+        final AcrolinxJFXIntegration integration = new AcrolinxJFXIntegration(this.textArea, initParameter);
         sidebar.set(new AcrolinxSidebarJFX(integration));
         borderPane.setRight(((AcrolinxSidebarJFX) sidebar.get()).getWebView());
         borderPane.setLeft(textArea);
         borderPane.setTop(formatDropdown);
-        Scene scene = new Scene(borderPane, 900, 600);
+        final Scene scene = new Scene(borderPane, 900, 600);
         primaryStage.setTitle("Acrolinx Demo JFX");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
         launch(args);
     }
@@ -86,13 +91,13 @@ public class AcrolinxDemoClientJFX extends Application
         return textArea;
     }
 
-    private Stage getPopUpStage(String url)
+    private static Stage getPopUpStage(final String url)
     {
-        WebView browser = new WebView();
-        WebEngine webEngine = browser.getEngine();
+        final WebView browser = new WebView();
+        final WebEngine webEngine = browser.getEngine();
         webEngine.load(url);
-        Scene scene = new Scene(browser, 900, 600);
-        Stage newStage = new Stage();
+        final Scene scene = new Scene(browser, 900, 600);
+        final Stage newStage = new Stage();
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.setTitle("Acrolinx Demo Client JFX");
