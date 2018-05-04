@@ -7,6 +7,16 @@ package com.acrolinx.client.sidebar.demo.jfx;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,16 +29,6 @@ import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
 public class AcrolinxDemoClientJFX extends Application

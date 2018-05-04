@@ -3,6 +3,8 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.Optional;
 
+import javafx.scene.control.TextArea;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,8 +13,6 @@ import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.SidebarError;
 import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
-
-import javafx.scene.control.TextArea;
 
 class AcrolinxJFXIntegration implements AcrolinxIntegration
 {

@@ -4,14 +4,14 @@ package com.acrolinx.client.sidebar.demo.jfx;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.scene.control.TextArea;
+
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.lookup.LookupRangesDiff;
 import com.acrolinx.sidebar.pojo.document.AbstractMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
-
-import javafx.scene.control.TextArea;
 
 @SuppressWarnings("unchecked")
 class JFXTextAdapterWithLookUp extends TextAreaAdapter
