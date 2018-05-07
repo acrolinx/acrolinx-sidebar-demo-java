@@ -70,6 +70,7 @@ public class AcrolinxDemoClientJFX extends Application
 
         final AcrolinxJFXIntegration integration = new AcrolinxJFXIntegration(this.textArea, initParameter);
         sidebar.set(new AcrolinxSidebarJFX(integration));
+        ((AcrolinxSidebarJFX) sidebar.get()).getWebView().setPrefWidth(300);
         borderPane.setRight(((AcrolinxSidebarJFX) sidebar.get()).getWebView());
         borderPane.setLeft(textArea);
         borderPane.setTop(formatDropdown);
