@@ -3,6 +3,7 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.List;
 import java.util.Optional;
+
 import javafx.scene.control.TextArea;
 
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;

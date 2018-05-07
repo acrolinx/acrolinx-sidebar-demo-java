@@ -6,6 +6,7 @@ package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;

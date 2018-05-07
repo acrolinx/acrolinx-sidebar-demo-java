@@ -2,6 +2,7 @@
 package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.Optional;
+
 import javafx.scene.control.TextArea;
 
 import org.slf4j.Logger;
