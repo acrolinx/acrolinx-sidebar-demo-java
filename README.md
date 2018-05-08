@@ -14,7 +14,6 @@ It is designed to show up in their editor or editing environment.
 * [Quickstart](#quickstart)
 * [Setup the Project](#setup-the-project)
 * [Running the Acrolinx Samples](#running-the-acrolinx-samples)
-* [Enable CORS](#enable-cors)
 * [License](#license)
 
 
