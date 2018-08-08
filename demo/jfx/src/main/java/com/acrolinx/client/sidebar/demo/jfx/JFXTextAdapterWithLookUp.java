@@ -1,3 +1,5 @@
+/* Copyright (c) 2017-2018 Acrolinx GmbH */
+
 
 package com.acrolinx.client.sidebar.demo.jfx;
 
