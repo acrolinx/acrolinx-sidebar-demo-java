@@ -26,6 +26,11 @@ allprojects {
 	}
 
 	project.version = currentVersion
+
+	configurations.all {
+		// Check for updates every build
+		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	}
 }
 
 subprojects {
@@ -45,6 +50,9 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots"
+		}
 		maven {
 			url "http://maven-eclipse.github.io/maven"
 		}
