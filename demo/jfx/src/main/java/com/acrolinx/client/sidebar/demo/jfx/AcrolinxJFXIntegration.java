@@ -1,6 +1,5 @@
 /* Copyright (c) 2017-present Acrolinx GmbH */
 
-
 package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.Optional;
