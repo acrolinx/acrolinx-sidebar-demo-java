@@ -7,7 +7,7 @@ See: [Getting Started with Custom Integrations](https://support.acrolinx.com/hc/
 
 ## Live Demo
 
-1. Select the latest release version from tags.
+1. Select the latest [release version](releases) from tags.
 2. Within the `dist`-folder, you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
 3. Download this zip file and unpack it.
@@ -57,7 +57,7 @@ Before you start developing your own integration, you might benefit from looking
     on an UNIX system, or
 
     ```batch
-    ./gradlew.bat build
+    gradlew build
     ```
 
     on a Windows computer.
@@ -97,9 +97,57 @@ As prerequisite for the SWT sample:
 ./gradlew sidebar_demo_swt:run
 ```
 
+## Using the SDK
+
+1. Just reference the Maven artifact `com.acrolinx.client:sidebar-sdk` that is available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.acrolinx.client%22%20a%3A%22sidebar-sdk%22%20).
+   Have a look at the [`build.gradle`](build.gradle) file if you use Gradle.
+2. Implement:
+    + `AcrolinxIntegrationInterface`, and the
+    + `InputAdapterInterface`.
+    + The `AcrolinxSidebarInitParameterBuilder` helps you initialize the Acrolinx Sidebar.
+3. Check out the [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/) for more details.
+
+![Architecture and Interfaces](https://raw.githubusercontent.com/acrolinx/sidebar-sdk-java/master/img/ArchitectureInterfaces.png)
+
+### CORS
+
+To be able to connect to Acrolinx, you might have to enable [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+on the Java VM:
+
+```bash
+java -Dsun.net.http.allowRestrictedHeaders=true ...
+```
+
+Or via code:
+
+```java
+System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+```
+
+On the Acrolinx Platform [Cross-Origin Resource Sharing](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv),
+must be enabled as well.
+
+## SDK Features
+
+1. Support for UI-frameworks:
+    + JavaFx
+    + Swing
+    + SWT
+2. `LookupRangesDiff` - Provides [lookup](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/text-lookup.md)
+  functionality.
+3. **Start page**: Provides interactive way to sign in to Acrolinx with built-in error handling.
+4. Provides [logging](https://github.com/acrolinx/sidebar-sdk-dotnet/blob/master/Acrolinx.Sidebar/Util/Logging/Logger.cs).
+   Logging can be activated via:
+    ```java
+    LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
+    ```
+5. Provides an `AcrolinxStorage` that can be used to persist Sidebar settings in the data store of the host editors.
+   If not set, the SDK will default to the browsers LocalStorage.
+
 ## References
 
 * This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
+* [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 * The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-sdk-js/).
 
 ## License
