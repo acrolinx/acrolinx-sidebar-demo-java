@@ -7,7 +7,7 @@ See: [Getting Started with Custom Integrations](https://support.acrolinx.com/hc/
 
 ## Live Demo
 
-1. Select the latest [release version](releases) from tags.
+1. Select the latest [release version](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases) from tags.
 2. Within the `dist`-folder, you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
 3. Download this zip file and unpack it.
