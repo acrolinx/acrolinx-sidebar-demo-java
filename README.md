@@ -124,7 +124,7 @@ Or via code:
 System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 ```
 
-On the Acrolinx Platform [Cross-Origin Resource Sharing](https://support.acrolinx.com/hc/en-us/articles/203851132#task_izv_qn4_fv),
+On the Acrolinx Platform [Cross-Origin Resource Sharing](https://docs.acrolinx.com/coreplatform/latest/en/advanced/sidebar-configurations/enable-cross-origin-resource-sharing-cors),
 must be enabled as well.
 
 ## SDK Features
