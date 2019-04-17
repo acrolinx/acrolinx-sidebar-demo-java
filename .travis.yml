@@ -17,11 +17,12 @@ script:
   - ./gradlew build --scan -s
   - ./gradlew zipDist -b build-jenkins.gradle
 deploy:
-  - provider: releases
-      api_key: $GITHUB_TOKEN
-      file_glob: true
-      file: dist/*.zip
-      on:
-        tag: true
-        branch: master
-    skip_cleanup: true
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: dist/*.zip
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
+  
