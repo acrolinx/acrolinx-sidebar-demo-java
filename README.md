@@ -150,7 +150,7 @@ must be enabled as well.
 * [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 * The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-sdk-js/).
 
-### How to release a new version of the Live Demo
+## How to release a new version of the Live Demo
 
 Increment `currentVersion` in the gradle.properties file, commit and push on master branch.
 This will trigger a build on Jenkins, which will automatically create a tag. Creating the tag will trigger a build on Travis,
