@@ -235,18 +235,13 @@ project(':java-sdk-demo-build') {
 			def hasOldReleaseVersion = grgit.tag.list().find { it.getName() == "release-${currentVersion}" }
 			def lastCommitAuthorIsJenkins = grgit.log(maxCommits: 1).get(0).author.name.contains("jenkins");
 			if (lastCommitAuthorIsJenkins) {
-				println("Last commit made by Jenkins, not pushing new dist version to Github")
+				println("Last commit made by Jenkins, not pushing new release version to Github")
 			} else {
 				if (!fullVersion.contains('SNAPSHOT') && !hasOldReleaseVersion) {
-					grgit.add(patterns: ['dist'])
 					grgit.commit(message: "Release version ${currentVersion}")
 					grgit.push(force: true)
 					grgit.tag.add(name: "release-${currentVersion}", message: "Releasing ${currentVersion}")
 					grgit.push(tags: true)
-				} else {
-					grgit.add(patterns: ['dist'])
-					grgit.commit(message: "Demo version ${currentVersion}")
-					grgit.push(force: true)
 				}
 			}
 		}
