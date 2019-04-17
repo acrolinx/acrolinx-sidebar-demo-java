@@ -129,7 +129,7 @@ project(':java-sdk-demo-build') {
 
 	apply plugin: 'com.github.johnrengelman.shadow'
 
-	def buildNumber = System.getenv('BUILD_NUMBER');
+	def buildNumber = System.getenv('BUILD_NUMBER') || System.getenv('TRAVIS_BUILD_NUMBER')
 
 	def buildVersion = buildNumber != null ? buildNumber : 123
 

@@ -7,8 +7,8 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 
 ## Live Demo
 
-1. Select the latest [release version](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases) from tags.
-2. Within the `dist`-folder, you'll find a zipped version of the acrolinx-sidebar-java-demo.
+1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
+2. Within the assets for the latest release you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
 3. Download this zip file and unpack it.
    Within the `bin`-folder, you'll find the start scripts.
@@ -149,6 +149,12 @@ must be enabled as well.
 * This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
 * [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 * The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-sdk-js/).
+
+### How to release a new version of the Live Demo
+
+Increment `currentVersion` in the gradle.properties file, commit and push on master branch.
+This will trigger a build on Jenkins, which will automatically create a tag. Creating the tag will trigger a build on Travis,
+which will upload the 'Live Sample' to the release assets.
 
 ## License
 
