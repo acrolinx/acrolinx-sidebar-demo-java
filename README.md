@@ -154,7 +154,7 @@ must be enabled as well.
 
 Increment `currentVersion` in the gradle.properties file, commit and push on master branch.
 This will trigger a build on Jenkins, which will automatically create a tag. Creating the tag will trigger a build on Travis,
-which will upload the 'Live Sample' to the release assets.
+which will upload the compiled, bundled and ready to run acrolinx-sidebar-demo-java.zip to the release assets.
 
 ## License
 
