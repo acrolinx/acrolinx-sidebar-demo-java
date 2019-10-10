@@ -148,7 +148,7 @@ must be enabled as well.
 
 * This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
 * [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
-* The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-sdk-js/).
+* The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
 
 ## How to release a new version of the Live Demo
 
