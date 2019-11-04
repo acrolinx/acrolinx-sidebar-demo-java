@@ -47,7 +47,7 @@ Before you start developing your own integration, you might benefit from looking
 
 ### Build the Project
 
-1. You need to have a JDK 8 installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
+1. You need to have an ORACLE JDK 8 installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
 2. The project comes with Gradle Wrapper. So if you don't have Gradle installed, go into the projects root folder and run:
 
    ```bash
