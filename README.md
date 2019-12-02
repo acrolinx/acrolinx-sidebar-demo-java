@@ -138,9 +138,11 @@ must be enabled as well.
 3. **Start page**: Provides interactive way to sign in to Acrolinx with built-in error handling.
 4. Provides [logging](https://github.com/acrolinx/sidebar-sdk-dotnet/blob/master/Acrolinx.Sidebar/Util/Logging/Logger.cs).
    Logging can be activated via:
+
     ```java
     LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
     ```
+
 5. Provides an `AcrolinxStorage` that can be used to persist Sidebar settings in the data store of the host editors.
    If not set, the SDK will default to the browsers LocalStorage.
 
@@ -150,11 +152,11 @@ must be enabled as well.
 * [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 * The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
 
-## How to release a new version of the Live Demo
+## Release a New Live Demo Version
 
-Increment `currentVersion` in the gradle.properties file, commit and push on master branch.
-This will trigger a build on Jenkins, which will automatically create a tag. Creating the tag will trigger a build on Travis,
-which will upload the compiled, bundled and ready to run acrolinx-sidebar-demo-java.zip to the release assets.
+Increment `currentVersion` in the gradle.properties file, commit, and push on master branch.
+This will start a build on Jenkins, which will automatically create a tag. Creating the tag will start a build on Travis.
+The compiled, bundled, and ready to run `acrolinx-sidebar-demo-java.zip` will be uploaded to the release assets.
 
 ## License
 
