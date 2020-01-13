@@ -13,6 +13,6 @@ project(":sidebar_demo_swt").projectDir = file("./demo/swt")
 
 include 'java-sdk-demo-build'
 
-if (System.getenv('BUILD_IS_ON_JENKINS') != null) {
+/*if (System.getenv('BUILD_IS_ON_JENKINS') != null) {
 	rootProject.buildFileName = 'build-jenkins.gradle'
-}
+}*/
