@@ -1,10 +1,15 @@
-## Releasing a new version of the acrolinx-sidebar-java-sdk
+# Releasing a New Version of the `acrolinx-sidebar-java-sdk`
 
 In the gradle.properties file, remove "SNAPSHOT" from the version number.
 Commit the updated file.
 
-Find the build job on Jenkins find project "acrolinx-sidebar-javasdk" und trigger a build (or wait for its automated triggering).
+Find the build job on Jenkins find project `acrolinx-sidebar-javasdk` and start a build (or wait for its automated started).
 
-Once the build finished, you'll should have a new release in Github.
+Once the build finished, you have a new release in GitHub.
 
-Last increment the version number, put a "SNAPSHOT" behind it, commit and push it.
+Afterwards:
+
+* increment the version number,
+* add `SNAPSHOT`,
+* commit, and
+* push it.
