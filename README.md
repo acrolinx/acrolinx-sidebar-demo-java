@@ -7,6 +7,11 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 
 ## Live Demo
 
+Supported Java Versions: 
+
+Oracle Java Version >= 8
+Open JDK Version >= 11  
+
 1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
 2. Within the assets for the latest release you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
@@ -47,7 +52,7 @@ Before you start developing your own integration, you might benefit from looking
 
 ### Build the Project
 
-1. You need to have an ORACLE JDK 8 installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
+1. You need to have **Java 11** installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
 2. The project comes with Gradle Wrapper. So if you don't have Gradle installed, go into the projects root folder and run:
 
    ```bash
@@ -109,6 +114,12 @@ As prerequisite for the SWT sample:
 
 ![Architecture and Interfaces](https://raw.githubusercontent.com/acrolinx/sidebar-sdk-java/master/img/ArchitectureInterfaces.png)
 
+### Building Integrations based on Swing or JFX
+
+Since Java 11 JavaFX is not part of the JDK anymore. Therefore we extended this project using [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
+Depending on what you want to achieve there a multiple options available on how to bundle your application.
+Please have a look into the build.gradle file as well as the [openjdk documentation](https://openjfx.io/openjfx-docs/).
+
 ### CORS
 
 To be able to connect to Acrolinx, you might have to enable [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -155,7 +166,7 @@ must be enabled as well.
 ## Release a New Live Demo Version
 
 Increment `currentVersion` in the gradle.properties file, commit, and push on master branch.
-This will start a build on Jenkins, which will automatically create a tag. Creating the tag will start a build on Travis.
+This will start a build on Jenkins, which will automatically create a tag. Creating the tag will trigger another build on Travis.
 The compiled, bundled, and ready to run `acrolinx-sidebar-demo-java.zip` will be uploaded to the release assets.
 
 ## License

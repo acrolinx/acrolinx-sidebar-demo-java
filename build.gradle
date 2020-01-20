@@ -14,13 +14,14 @@ plugins {
 }
 
 apply plugin: 'org.ajoberstar.grgit'
+ext.grgit = grgit.open(currentDir: rootDir)
 
 allprojects {
 
 	/*tasks.withType(Javadoc) {
-		options.addStringOption('Xdoclint:none', '-quiet')
-		options.memberLevel = JavadocMemberLevel.PUBLIC
-	}*/
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.memberLevel = JavadocMemberLevel.PUBLIC
+    }*/
 
 	gradle.projectsEvaluated {
 		tasks.withType(JavaCompile) {
@@ -186,9 +187,6 @@ project(':sidebar_demo_jfx') {
 project(':java-sdk-demo-build') {
 
 	apply plugin: 'java-library-distribution'
-
-	apply plugin: 'org.ajoberstar.grgit'
-
 	apply plugin: 'com.github.johnrengelman.shadow'
 
 	def buildNumber = System.getenv('BUILD_NUMBER') || System.getenv('TRAVIS_BUILD_NUMBER')
