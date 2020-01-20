@@ -8,10 +8,10 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 ## Live Demo
 
 Supported Java Versions: 
++ Oracle Java Version >= 8
++ Open JDK Version >= 11  
 
-Oracle Java Version >= 8
-Open JDK Version >= 11  
-
+Steps to set up:
 1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
 2. Within the assets for the latest release you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
