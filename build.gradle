@@ -1,3 +1,5 @@
+import org.gradle.internal.jvm.Jvm
+
 /*
 * Copyright (c) 2016-2017 Acrolinx GmbH
 */
@@ -5,7 +7,7 @@
 plugins {
 	id "com.github.spotbugs" version "2.0.0"
 	id "com.diffplug.gradle.swt.nativedeps" version "3.18.1"
-	id "org.openjfx.javafxplugin" version "0.0.8"
+	id "org.openjfx.javafxplugin" version "0.0.8" apply false
 	id "com.github.jk1.dependency-license-report" version "1.12"
 	id "com.github.johnrengelman.shadow" version "5.2.0"
 	id "org.ajoberstar.grgit" version "4.0.1"
@@ -26,6 +28,8 @@ allprojects {
 		}
 	}
 
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 	project.version = currentVersion
 }
 
@@ -37,15 +41,20 @@ subprojects {
 	apply plugin: 'idea'
 	apply plugin: 'eclipse'
 
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
-
 	compileJava.options.encoding = 'UTF-8'
 	compileTestJava.options.encoding = 'UTF-8'
 
 	configurations.all {
 		// Check for updates every build
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	}
+
+	configurations {
+		compileSuperFatJar
+
+		// Disable this setting if you don't want to have the JFX dependencies for ALL platforms in a fat jar.
+		// By disabling only the dependencies for your current (build hosting) platform will be included.
+		compile.extendsFrom(compileSuperFatJar)
 	}
 
 	repositories {
@@ -88,7 +97,15 @@ project(':sidebar_demo_swt') {
 
 project(':sidebar_demo_swing') {
 	apply plugin: 'application'
-	apply plugin: 'org.openjfx.javafxplugin'
+
+	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+		apply plugin: 'org.openjfx.javafxplugin'
+
+		javafx {
+			version = "${JFX_VERSION}"
+			modules = ["javafx.web", "javafx.swing"]
+		}
+	}
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 	jar {
@@ -100,53 +117,69 @@ project(':sidebar_demo_swing') {
 		}
 	}
 
-	javadoc.enabled = false
-
 	dependencies {
-		compile "org.openjfx:javafx-graphics:$javafx.version:win"
-		compile "org.openjfx:javafx-graphics:$javafx.version:linux"
-		compile "org.openjfx:javafx-graphics:$javafx.version:mac"
-		compile "org.openjfx:javafx-web:$javafx.version:win"
-		compile "org.openjfx:javafx-web:$javafx.version:linux"
-		compile "org.openjfx:javafx-web:$javafx.version:mac"
-		compile "org.openjfx:javafx-swing:$javafx.version:win"
-		compile "org.openjfx:javafx-swing:$javafx.version:linux"
-		compile "org.openjfx:javafx-swing:$javafx.version:mac"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-swing:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-swing:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-swing:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:mac"
 	}
 
-	javafx {
-		modules = ["javafx.graphics", "javafx.web", "javafx.swing"]
-	}
+	javadoc.enabled = false
 }
 
 project(':sidebar_demo_jfx') {
 	apply plugin: 'application'
-	apply plugin: 'org.openjfx.javafxplugin'
 
+	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+		apply plugin: 'org.openjfx.javafxplugin'
+		javafx {
+			version = "${JFX_VERSION}"
+			modules = ["javafx.web"]
+		}
+	}
 	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
 	javadoc.enabled = false
 
 	jar {
 		manifest {
-			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
+			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.jfx.Launcher"
 		}
 		from {
 			configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 		}
 	}
 
-	javafx {
-		modules = ["javafx.controls", "javafx.graphics", "javafx.web", "javafx.swing"]
-	}
-
 	dependencies {
-		compile "org.openjfx:javafx-graphics:$javafx.version:win"
-		compile "org.openjfx:javafx-graphics:$javafx.version:linux"
-		compile "org.openjfx:javafx-graphics:$javafx.version:mac"
-		compile "org.openjfx:javafx-web:$javafx.version:win"
-		compile "org.openjfx:javafx-web:$javafx.version:linux"
-		compile "org.openjfx:javafx-web:$javafx.version:mac"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-base:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-web:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-graphics:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-controls:${JFX_VERSION}:mac"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:win"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:linux"
+		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:mac"
 	}
 }
 
@@ -200,7 +233,7 @@ project(':java-sdk-demo-build') {
 
 	task createStartScriptsJFX(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/jfx")
-		mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX'
+		mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.Launcher'
 		applicationName = 'acrolinxDemoClientJFX'
 		classpath = files("${artifactName}-${fullVersion}.jar")
 	}
@@ -225,7 +258,12 @@ project(':java-sdk-demo-build') {
 			include '*.zip'
 		}
 
-		// grgit.remove(patterns: ['dist'])
+		try {
+			grgit.remove(patterns: ['dist'])
+		} catch (Exception e) {
+			// DO nothing
+		}
+
 
 		def baseDir = "${artifactName}-${fullVersion}.zip"
 		archiveFileName = baseDir
