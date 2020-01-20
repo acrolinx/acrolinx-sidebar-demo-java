@@ -19,9 +19,9 @@ ext.grgit = grgit.open(currentDir: rootDir)
 allprojects {
 
 	/*tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.memberLevel = JavadocMemberLevel.PUBLIC
-    }*/
+		options.addStringOption('Xdoclint:none', '-quiet')
+		options.memberLevel = JavadocMemberLevel.PUBLIC
+	}*/
 
 	gradle.projectsEvaluated {
 		tasks.withType(JavaCompile) {
