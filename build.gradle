@@ -193,7 +193,7 @@ project(':java-sdk-demo-build') {
 
 	def buildNumber = System.getenv('BUILD_NUMBER') || System.getenv('TRAVIS_BUILD_NUMBER')
 
-	def buildVersion = buildNumber != null ? buildNumber : 123
+	def buildVersion = (buildNumber != null) ? buildNumber : 123
 
 	def artifactName = "acrolinx-sidebar-java-demo"
 	def fullVersion = "${project.version}-${buildVersion}"
