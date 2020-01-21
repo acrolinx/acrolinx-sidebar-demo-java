@@ -70,7 +70,7 @@ Before you start developing your own integration, you might benefit from looking
 3. All dependencies needed will be downloaded and the samples are ready to be run.
 4. You'll find three runnable main classes inside the `demo`-folder.
 5. Keep in mind, that this sample creates a fat jar, that includes the JFX dependencies for all platforms. 
-   Depending on your needs you might want to use a different project configuration with less dependencies.
+   Depending on your needs you might want to use a different project configuration with fewer dependencies.
    Check below for more information.
    
 ### Run the Samples
@@ -119,7 +119,7 @@ As prerequisite for the SWT sample:
 
 ### Building Integrations based on Swing or JFX
 
-Since Java 11 JavaFX is not part of the JDK anymore. Therefore this project uses [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
+Since Java 11 JavaFX isn't part of the JDK anymore. Therefore this project uses [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
 Depending on what you want to achieve there are multiple options available on how to bundle your application.
 Please have a look into the build.gradle file as well as the [OpenJFX documentation](https://openjfx.io/openjfx-docs/).
 
