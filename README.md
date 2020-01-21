@@ -52,7 +52,7 @@ Before you start developing your own integration, you might benefit from looking
 
 ### Build the Project
 
-1. You need to have **Java 11** installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
+1. You need to have Java Version >= 8 installed on your system, in order to run the sample with [Gradle](https://gradle.org/).
 2. The project comes with Gradle Wrapper. So if you don't have Gradle installed, go into the projects root folder and run:
 
    ```bash
@@ -69,7 +69,10 @@ Before you start developing your own integration, you might benefit from looking
 
 3. All dependencies needed will be downloaded and the samples are ready to be run.
 4. You'll find three runnable main classes inside the `demo`-folder.
-
+5. Keep in mind, that this sample creates a fat jar, that includes the JFX dependencies for all platforms. 
+   Depending on your needs you might want to use a different project configuration with less dependencies.
+   Check below for more information.
+   
 ### Run the Samples
 
 Build the project first, then run:
