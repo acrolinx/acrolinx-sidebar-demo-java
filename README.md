@@ -9,7 +9,7 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 
 Supported Java Versions: 
 + Oracle Java Version >= 8
-+ Open JDK Version >= 11  
++ OpenJDK Version >= 11  
 
 Steps to set up:
 1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
@@ -119,9 +119,9 @@ As prerequisite for the SWT sample:
 
 ### Building Integrations based on Swing or JFX
 
-Since Java 11 JavaFX is not part of the JDK anymore. Therefore we extended this project using [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
+Since Java 11 JavaFX is not part of the JDK anymore. Therefore this project uses [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
 Depending on what you want to achieve there are multiple options available on how to bundle your application.
-Please have a look into the build.gradle file as well as the [openjdk documentation](https://openjfx.io/openjfx-docs/).
+Please have a look into the build.gradle file as well as the [OpenJFX documentation](https://openjfx.io/openjfx-docs/).
 
 ### CORS
 
@@ -169,7 +169,7 @@ must be enabled as well.
 ## Release a New Live Demo Version
 
 Increment `currentVersion` in the gradle.properties file, commit, and push on master branch.
-This will start a build on Jenkins, which will automatically create a tag. Creating the tag will trigger another build on Travis.
+This will start a build on Jenkins, which will automatically create a tag. Creating the tag will start another build on Travis.
 The compiled, bundled, and ready to run `acrolinx-sidebar-demo-java.zip` will be uploaded to the release assets.
 
 ## License
