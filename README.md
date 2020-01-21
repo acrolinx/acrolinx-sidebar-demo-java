@@ -108,7 +108,7 @@ As prerequisite for the SWT sample:
 ## Using the SDK
 
 1. Just reference the Maven artifact `com.acrolinx.client:sidebar-sdk` that is available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.acrolinx.client%22%20a%3A%22sidebar-sdk%22%20).
-   Have a look at the [`build.gradle`](save-build.gradle) file if you use Gradle.
+   Have a look at the [`build.gradle`](build.gradle) file if you use Gradle.
 2. Implement:
     + `AcrolinxIntegrationInterface`, and the
     + `InputAdapterInterface`.
