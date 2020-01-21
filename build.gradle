@@ -101,14 +101,14 @@ project(':sidebar_demo_swt') {
 project(':sidebar_demo_swing') {
 	apply plugin: 'application'
 
-	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+	/*if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
 		apply plugin: 'org.openjfx.javafxplugin'
 
 		javafx {
 			version = "${JFX_VERSION}"
 			modules = ["javafx.web", "javafx.swing"]
 		}
-	}
+	}*/
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 	jar {
@@ -147,13 +147,13 @@ project(':sidebar_demo_swing') {
 project(':sidebar_demo_jfx') {
 	apply plugin: 'application'
 
-	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+	/* if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
 		apply plugin: 'org.openjfx.javafxplugin'
 		javafx {
 			version = "${JFX_VERSION}"
 			modules = ["javafx.web"]
 		}
-	}
+	} */
 	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
 	javadoc.enabled = false
