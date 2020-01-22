@@ -119,7 +119,7 @@ As prerequisite for the SWT sample:
 
 ### Building Integrations based on Swing or JFX
 
-Since Java 11 JavaFX isn't part of the JDK anymore. Therefore this project uses [the Gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
+Since Java 11 JavaFX isn't part of the JDK anymore. Therefore this project uses [the gradle-plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
 Depending on what you want to achieve there are multiple options available on how to bundle your application.
 Please have a look into the build.gradle file as well as the [OpenJFX documentation](https://openjfx.io/openjfx-docs/).
 
