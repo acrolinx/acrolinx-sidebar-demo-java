@@ -7,11 +7,13 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 
 ## Live Demo
 
-Supported Java Versions: 
+Supported Java Versions:
+
 + Oracle Java Version >= 8
 + OpenJDK Version >= 11  
 
 Steps to set up:
+
 1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
 2. Within the assets for the latest release you'll find a zipped version of the acrolinx-sidebar-java-demo.
    This includes a fat jar and startup scripts to run the java ui demos.
@@ -43,10 +45,10 @@ Acrolinx offers different other SDKs, and examples for developing integrations.
 
 Before you start developing your own integration, you might benefit from looking into:
 
-* [Getting Started with Custom Integrations](https://docs.acrolinx.com/customintegrations),
-* the [Guidance for the Development of Acrolinx Integrations](https://github.com/acrolinx/acrolinx-coding-guidance),
-* the [Acrolinx SDKs](https://github.com/acrolinx?q=sdk), and
-* the [Acrolinx Demo Projects](https://github.com/acrolinx?q=demo).
++ [Getting Started with Custom Integrations](https://docs.acrolinx.com/customintegrations),
++ the [Guidance for the Development of Acrolinx Integrations](https://github.com/acrolinx/acrolinx-coding-guidance),
++ the [Acrolinx SDKs](https://github.com/acrolinx?q=sdk), and
++ the [Acrolinx Demo Projects](https://github.com/acrolinx?q=demo).
 
 ## Getting Started
 
@@ -69,10 +71,10 @@ Before you start developing your own integration, you might benefit from looking
 
 3. All dependencies needed will be downloaded and the samples are ready to be run.
 4. You'll find three runnable main classes inside the `demo`-folder.
-5. Keep in mind, that this sample creates a fat jar, that includes the JFX dependencies for all platforms. 
+5. Keep in mind, that this sample creates a fat jar, that includes the JFX dependencies for all platforms.
    Depending on your needs you might want to use a different project configuration with fewer dependencies.
    Check below for more information.
-   
+
 ### Run the Samples
 
 Build the project first, then run:
@@ -110,16 +112,16 @@ As prerequisite for the SWT sample:
 1. Just reference the Maven artifact `com.acrolinx.client:sidebar-sdk` that is available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.acrolinx.client%22%20a%3A%22sidebar-sdk%22%20).
    Have a look at the [`build.gradle`](build.gradle) file if you use Gradle.
 2. Implement:
-    + `AcrolinxIntegrationInterface`, and the
-    + `InputAdapterInterface`.
-    + The `AcrolinxSidebarInitParameterBuilder` helps you initialize the Acrolinx Sidebar.
+    * `AcrolinxIntegrationInterface`, and the
+    * `InputAdapterInterface`.
+    * The `AcrolinxSidebarInitParameterBuilder` helps you initialize the Acrolinx Sidebar.
 3. Check out the [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/) for more details.
 
 ![Architecture and Interfaces](https://raw.githubusercontent.com/acrolinx/sidebar-sdk-java/master/img/ArchitectureInterfaces.png)
 
-### Building Integrations based on Swing or JFX
+### Building Integrations Based on Swing or JFX
 
-Since Java 11 JavaFX isn't part of the JDK anymore. Therefore this project uses [the gradle-plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
+Since Java 11 JavaFX isn't part of the JDK anymore, therefore this project uses [the gradle plugin for JFX](https://plugins.gradle.org/plugin/org.openjfx.javafxplugin).
 Depending on what you want to achieve there are multiple options available on how to bundle your application.
 Please have a look into the build.gradle file as well as the [OpenJFX documentation](https://openjfx.io/openjfx-docs/).
 
@@ -144,12 +146,12 @@ must be enabled as well.
 ## SDK Features
 
 1. Support for UI-frameworks:
-    + JavaFx
-    + Swing
-    + SWT
+    * JavaFX
+    * Swing
+    * SWT
 2. `LookupRangesDiff` - Provides [lookup](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/text-lookup.md)
   functionality.
-3. **Start page**: Provides interactive way to sign in to Acrolinx with built-in error handling.
+3. **Start page**: Provides an interactive way to sign in to Acrolinx with built-in error handling.
 4. Provides [logging](https://github.com/acrolinx/sidebar-sdk-dotnet/blob/master/Acrolinx.Sidebar/Util/Logging/Logger.cs).
    Logging can be activated via:
 
@@ -162,13 +164,13 @@ must be enabled as well.
 
 ## References
 
-* This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
-* [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
-* The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
++ This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
++ [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
++ The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
 
 ## Release a New Live Demo Version
 
-Increment `currentVersion` in the gradle.properties file, commit, and push on master branch.
+Increment `currentVersion` in the gradle.properties file, commit, and push to the master branch.
 This will start a build on Jenkins, which will automatically create a tag. Creating the tag will start another build on Travis.
 The compiled, bundled, and ready to run `acrolinx-sidebar-demo-java.zip` will be uploaded to the release assets.
 
