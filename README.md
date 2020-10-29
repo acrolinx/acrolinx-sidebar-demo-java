@@ -168,6 +168,15 @@ must be enabled as well.
 + [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 + The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
 
+## Update the Demo 
+
+To update dependent libraries, run the following Gradle task. This will update to the latest stable release version
+and exclude any alpha or beta versions.
+
+```bash
+./gradlew useLatestVersions && ./gradlew useLatestVersionsCheck
+```
+
 ## Release a New Live Demo Version
 
 Increment `currentVersion` in the gradle.properties file, commit, and push to the `master` branch.
