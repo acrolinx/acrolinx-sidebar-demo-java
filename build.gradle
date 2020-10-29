@@ -1,16 +1,19 @@
 import org.gradle.internal.jvm.Jvm
 
 /*
-* Copyright (c) 2016-2017 Acrolinx GmbH
+* Copyright (c) 2016-present Acrolinx GmbH
 */
 
 plugins {
-	id "com.github.spotbugs" version "2.0.0"
-	id "com.diffplug.gradle.swt.nativedeps" version "3.18.1"
-	// id "org.openjfx.javafxplugin" version "0.0.8" apply false
-	id "com.github.jk1.dependency-license-report" version "1.12"
+	id "com.github.spotbugs" version "4.5.1"
+	id "com.diffplug.swt.nativedeps" version "3.25.0"
+	id "org.openjfx.javafxplugin" version "0.0.9" apply false
+	id "com.github.jk1.dependency-license-report" version "1.16"
 	id "com.github.johnrengelman.shadow" version "5.2.0"
-	id "org.ajoberstar.grgit" version "4.0.1"
+	id "org.ajoberstar.grgit" version "4.1.0"
+
+	id 'se.patrikerdes.use-latest-versions' version '0.2.15'
+	id 'com.github.ben-manes.versions' version '0.33.0'
 }
 
 apply plugin: 'org.ajoberstar.grgit'
@@ -76,7 +79,6 @@ subprojects {
 	apply plugin: 'com.github.spotbugs'
 	spotbugs {
 		toolVersion = '3.1.12'
-		sourceSets = [sourceSets.main]    // don't check the test code
 		ignoreFailures = false    // bug free or it doesn't ship!
 		reportsDir = file('build/findbugs')
 		effort = 'max'            // min|default|max
@@ -89,7 +91,7 @@ subprojects {
 project(':sidebar_demo_swt') {
 
 	apply plugin: 'application'
-	apply plugin: 'com.diffplug.gradle.swt.nativedeps'
+	apply plugin: 'com.diffplug.swt.nativedeps'
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
@@ -101,14 +103,14 @@ project(':sidebar_demo_swt') {
 project(':sidebar_demo_swing') {
 	apply plugin: 'application'
 
-	/*if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
 		apply plugin: 'org.openjfx.javafxplugin'
 
 		javafx {
 			version = "${JFX_VERSION}"
 			modules = ["javafx.web", "javafx.swing"]
 		}
-	}*/
+	}
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 	jar {
@@ -147,13 +149,13 @@ project(':sidebar_demo_swing') {
 project(':sidebar_demo_jfx') {
 	apply plugin: 'application'
 
-	/* if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
+	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
 		apply plugin: 'org.openjfx.javafxplugin'
 		javafx {
 			version = "${JFX_VERSION}"
 			modules = ["javafx.web"]
 		}
-	} */
+	}
 	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
 
 	javadoc.enabled = false
