@@ -1,4 +1,5 @@
 import org.gradle.internal.jvm.Jvm
+import org.gradle.internal.os.OperatingSystem
 
 /*
 * Copyright (c) 2016-present Acrolinx GmbH
@@ -6,7 +7,6 @@ import org.gradle.internal.jvm.Jvm
 
 plugins {
 	id "com.github.spotbugs" version "4.5.1"
-	id "com.diffplug.swt.nativedeps" version "3.25.0"
 	id "org.openjfx.javafxplugin" version "0.0.9" apply false
 	id "com.github.jk1.dependency-license-report" version "1.16"
 	id "com.github.johnrengelman.shadow" version "5.2.0"
@@ -21,6 +21,18 @@ ext.grgit = grgit.open(currentDir: rootDir)
 
 println("Current JVM Version " + Jvm.current().getJavaVersion());
 
+switch ( OperatingSystem.current() ) {
+	case OperatingSystem.WINDOWS:
+		project.ext.swtNatives = "org.eclipse.swt.win32.win32.x86_64"
+		break
+	case OperatingSystem.LINUX:
+		project.ext.swtNatives = "org.eclipse.swt.gtk.linux.x86_64"
+		break
+	case OperatingSystem.MAC_OS:
+		project.ext.swtNatives = "org.eclipse.swt.cocoa.macosx.x86_64"
+		break
+}
+
 allprojects {
 
 	/*tasks.withType(Javadoc) {
@@ -34,8 +46,7 @@ allprojects {
 		}
 	}
 
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+
 	project.version = currentVersion
 }
 
@@ -46,6 +57,9 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'idea'
 	apply plugin: 'eclipse'
+
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
 
 	compileJava.options.encoding = 'UTF-8'
 	compileTestJava.options.encoding = 'UTF-8'
@@ -65,11 +79,26 @@ subprojects {
 
 	repositories {
 		mavenCentral()
-		jcenter()
-		maven {
-			url "http://maven-eclipse.github.io/maven"
-		}
 		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+	}
+
+	configurations.all {
+		resolutionStrategy {
+			dependencySubstitution {
+				// The maven property ${osgi.platform} is not handled by Gradle
+				// so we replace the dependency, using the osgi platform from the project settings
+				def os = System.getProperty("os.name").toLowerCase()
+				if (os.contains("windows")) {
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.win32.win32.x86_64:$SWT_VERSION")
+				}
+				else if (os.contains("linux")) {
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.gtk.linux.x86_64:$SWT_VERSION")
+				}
+				else if (os.contains("mac")) {
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.cocoa.macosx.x86_64:$SWT_VERSION")
+				}
+			}
+		}
 	}
 
 	dependencies {
@@ -92,13 +121,26 @@ subprojects {
 project(':sidebar_demo_swt') {
 
 	apply plugin: 'application'
-	apply plugin: 'com.diffplug.swt.nativedeps'
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
+	jar {
+		manifest {
+			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
+		}
+		from {
+			configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+		}
+	}
 
 	javadoc.enabled = false
+
+	dependencies {
+		compileSuperFatJar "org.eclipse.platform:$swtNatives:$SWT_VERSION"
+	}
+
+
 }
 
 project(':sidebar_demo_swing') {
@@ -207,9 +249,7 @@ project(':java-sdk-demo-build') {
 	dependencies {
 		compile project(':sidebar_demo_jfx')
 		compile project(':sidebar_demo_swing')
-		compile(project(':sidebar_demo_swt')) {
-			exclude group: 'eclipse-swt-deps'
-		}
+		compile(project(':sidebar_demo_swt'))
 	}
 
 	task createJar(type: Jar) {
