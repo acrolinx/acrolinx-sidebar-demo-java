@@ -9,7 +9,6 @@ See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/custom
 
 Supported Java Versions:
 
-+ Oracle Java Version >= 8
 + OpenJDK Version >= 11  
 
 Steps to set up:
