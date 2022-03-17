@@ -34,7 +34,7 @@ To get an impression what the Sidebar looks like in existing integrations, have 
 
 ## Prerequisites
 
-Please contact [Acrolinx SDK support](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/sdk-support.md)
+Please contact [Acrolinx SDK support](https://github.com/acrolinx/acrolinx-coding-guidance/blob/main/topics/sdk-support.md)
 for consulting and getting your integration certified.
 This sample works with a test license on an internal Acrolinx URL.
 This license is only meant for demonstration and developing purposes.
@@ -116,7 +116,7 @@ As prerequisite for the SWT sample:
     * The `AcrolinxSidebarInitParameterBuilder` helps you initialize the Acrolinx Sidebar.
 3. Check out the [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/) for more details.
 
-![Architecture and Interfaces](https://raw.githubusercontent.com/acrolinx/sidebar-sdk-java/master/img/ArchitectureInterfaces.png)
+![Architecture and Interfaces](https://raw.githubusercontent.com/acrolinx/sidebar-sdk-java/main/img/ArchitectureInterfaces.png)
 
 ### Building Integrations Based on Swing or JFX
 
@@ -148,10 +148,10 @@ must be enabled as well.
     * JavaFX
     * Swing
     * SWT
-2. `LookupRangesDiff` - Provides [lookup](https://github.com/acrolinx/acrolinx-coding-guidance/blob/master/topics/text-lookup.md)
+2. `LookupRangesDiff` - Provides [lookup](https://github.com/acrolinx/acrolinx-coding-guidance/blob/main/topics/text-lookup.md)
   functionality.
 3. **Start page**: Provides an interactive way to sign in to Acrolinx with built-in error handling.
-4. Provides [logging](https://github.com/acrolinx/sidebar-sdk-dotnet/blob/master/Acrolinx.Sidebar/Util/Logging/Logger.cs).
+4. Provides [logging](https://github.com/acrolinx/sidebar-sdk-dotnet/blob/main/Acrolinx.Sidebar/Util/Logging/Logger.cs).
    Logging can be activated via:
 
     ```java
@@ -178,7 +178,7 @@ and exclude any alpha or beta versions.
 
 ## Release a New Live Demo Version
 
-Increment `currentVersion` in the gradle.properties file, commit, and push to the `master` branch.
+Increment `currentVersion` in the gradle.properties file, commit, and push to the `main` branch.
 This will start a build on Jenkins, which will automatically create a tag. Creating the tag will start another build on Travis.
 The compiled, bundled, and ready to run `acrolinx-sidebar-demo-java.zip` will be uploaded to the release assets.
 
