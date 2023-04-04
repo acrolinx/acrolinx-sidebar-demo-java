@@ -1,7 +1,5 @@
 rootProject.name = 'acrolinx-sidebar-demo-java'
 
-include 'spotless-java-sdk-demo'
-
 include ":sidebar_demo_jfx"
 project(":sidebar_demo_jfx").projectDir = file("./demo/jfx")
 

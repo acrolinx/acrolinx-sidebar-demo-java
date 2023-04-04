@@ -6,6 +6,7 @@ import org.gradle.internal.os.OperatingSystem
 */
 
 plugins {
+	id "java"
 	id "com.github.spotbugs" version "4.5.1"
 	id "org.openjfx.javafxplugin" version "0.0.9" apply false
 	id "com.github.jk1.dependency-license-report" version "1.16"
@@ -15,6 +16,7 @@ plugins {
 	id 'se.patrikerdes.use-latest-versions' version '0.2.15'
 	id 'com.github.ben-manes.versions' version '0.33.0'
 	id "org.sonarqube" version "4.0.0.2929"
+	id 'com.diffplug.spotless' version '6.17.0'
 }
 
 apply plugin: 'org.ajoberstar.grgit'
@@ -49,6 +51,10 @@ allprojects {
 
 
 	project.version = currentVersion
+}
+
+repositories {
+	mavenCentral()
 }
 
 subprojects {
@@ -366,3 +372,22 @@ sonar {
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
+
+spotless {
+	java {
+		importOrderFile rootProject.file('spotless.importorder')
+		// An import ordering file, exported from Eclipse
+		eclipse().configFile	rootProject.file('spotless.eclipseformat.xml')
+		// XML file dumped out by the Eclipse formatter
+		custom 'Lambda fix', { it.replace('} )', '})').replace('} ,', '},') }
+	}
+	format 'misc', {
+		target '*.gradle', '*.md', '.gitignore', '*.sh'
+
+		indentWithTabs()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+spotlessMisc.dependsOn spotlessJava
