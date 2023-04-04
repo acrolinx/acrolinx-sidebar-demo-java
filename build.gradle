@@ -75,7 +75,7 @@ subprojects {
 
 		// Disable this setting if you don't want to have the JFX dependencies for ALL platforms in a fat jar.
 		// By disabling only the dependencies for your current (build hosting) platform will be included (in JRE 11).
-		compile.extendsFrom(compileSuperFatJar)
+		implementation.extendsFrom(compileSuperFatJar)
 	}
 
 	repositories {
@@ -127,6 +127,7 @@ project(':sidebar_demo_swt') {
 
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 	jar {
+		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
 			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 		}
@@ -274,7 +275,7 @@ project(':java-sdk-demo-build') {
 		manifest {
 			inheritFrom project.tasks.createJar.manifest
 		}
-		configurations = [project.configurations.compile]
+		configurations = [project.configurations.compileClasspath]
 	}
 
 	task createStartScriptsJFX(type: CreateStartScripts) {
