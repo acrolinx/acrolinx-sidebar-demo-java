@@ -10,7 +10,7 @@ plugins {
 	id "com.github.spotbugs" version "4.5.1"
 	id "org.openjfx.javafxplugin" version "0.0.9" apply false
 	id "com.github.jk1.dependency-license-report" version "1.16"
-	id "com.github.johnrengelman.shadow" version "5.2.0"
+	id "com.github.johnrengelman.shadow" version "8.1.1"
 	id "org.ajoberstar.grgit" version "4.1.0"
 
 	id 'se.patrikerdes.use-latest-versions' version '0.2.15'
@@ -96,13 +96,13 @@ subprojects {
 				// so we replace the dependency, using the osgi platform from the project settings
 				def os = System.getProperty("os.name").toLowerCase()
 				if (os.contains("windows")) {
-					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.win32.win32.x86_64:$SWT_VERSION")
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') using module("org.eclipse.platform:org.eclipse.swt.win32.win32.x86_64:$SWT_VERSION")
 				}
 				else if (os.contains("linux")) {
-					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.gtk.linux.x86_64:$SWT_VERSION")
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') using module("org.eclipse.platform:org.eclipse.swt.gtk.linux.x86_64:$SWT_VERSION")
 				}
 				else if (os.contains("mac")) {
-					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.cocoa.macosx.x86_64:$SWT_VERSION")
+					substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') using module("org.eclipse.platform:org.eclipse.swt.cocoa.macosx.x86_64:$SWT_VERSION")
 				}
 			}
 		}
