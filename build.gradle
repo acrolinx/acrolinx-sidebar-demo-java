@@ -6,6 +6,7 @@ import org.gradle.internal.os.OperatingSystem
 */
 
 plugins {
+	id "java"
 	id "com.github.spotbugs" version "4.5.1"
 	id "org.openjfx.javafxplugin" version "0.0.9" apply false
 	id "com.github.jk1.dependency-license-report" version "1.16"
@@ -15,6 +16,7 @@ plugins {
 	id 'se.patrikerdes.use-latest-versions' version '0.2.15'
 	id 'com.github.ben-manes.versions' version '0.33.0'
 	id "org.sonarqube" version "4.0.0.2929"
+	id 'com.diffplug.spotless' version '6.17.0'
 }
 
 apply plugin: 'org.ajoberstar.grgit'
@@ -51,6 +53,10 @@ allprojects {
 	project.version = currentVersion
 }
 
+repositories {
+	mavenCentral()
+}
+
 subprojects {
 
 	group 'com.acrolinx'
@@ -75,7 +81,7 @@ subprojects {
 
 		// Disable this setting if you don't want to have the JFX dependencies for ALL platforms in a fat jar.
 		// By disabling only the dependencies for your current (build hosting) platform will be included (in JRE 11).
-		compile.extendsFrom(compileSuperFatJar)
+		implementation.extendsFrom(compileSuperFatJar)
 	}
 
 	repositories {
@@ -127,6 +133,7 @@ project(':sidebar_demo_swt') {
 
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 	jar {
+		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
 			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
 		}
@@ -158,6 +165,7 @@ project(':sidebar_demo_swing') {
 
 	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 	jar {
+		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
 			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
 		}
@@ -205,6 +213,7 @@ project(':sidebar_demo_jfx') {
 	javadoc.enabled = false
 
 	jar {
+		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
 			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.jfx.Launcher"
 		}
@@ -272,26 +281,26 @@ project(':java-sdk-demo-build') {
 		manifest {
 			inheritFrom project.tasks.createJar.manifest
 		}
-		configurations = [project.configurations.compile]
+		configurations = [project.configurations.compileClasspath]
 	}
 
 	task createStartScriptsJFX(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/jfx")
-		mainClassName = 'com.acrolinx.client.sidebar.demo.jfx.Launcher'
+		mainClass = 'com.acrolinx.client.sidebar.demo.jfx.Launcher'
 		applicationName = 'acrolinxDemoClientJFX'
 		classpath = files("${artifactName}-${fullVersion}.jar")
 	}
 
 	task createStartScriptsSwing(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/swing")
-		mainClassName = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
+		mainClass = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
 		applicationName = 'acrolinxDemoClientSwing'
 		classpath = files("${artifactName}-${fullVersion}.jar")
 	}
 
 	task createStartScriptsSWT(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/swt")
-		mainClassName = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
+		mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
 		applicationName = 'acrolinxDemoClientSWT'
 		classpath = files("*")
 	}
@@ -363,3 +372,22 @@ sonar {
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
+
+spotless {
+	java {
+		importOrderFile rootProject.file('spotless.importorder')
+		// An import ordering file, exported from Eclipse
+		eclipse().configFile	rootProject.file('spotless.eclipseformat.xml')
+		// XML file dumped out by the Eclipse formatter
+		custom 'Lambda fix', { it.replace('} )', '})').replace('} ,', '},') }
+	}
+	format 'misc', {
+		target '*.gradle', '*.md', '.gitignore', '*.sh'
+
+		indentWithTabs()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+spotlessMisc.dependsOn spotlessJava
