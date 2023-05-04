@@ -3,7 +3,7 @@
 This is a showcase for integrating the [Acrolinx](https://www.acrolinx.com/) Sidebar
 into different Java UI framework-based applications (JFX, Swing, and SWT).
 
-See: [Getting Started with Custom Integrations](https://docs.acrolinx.com/customintegrations)
+See: [Build With Acrolinx](https://support.acrolinx.com/hc/en-us/categories/10209837818770-Build-With-Acrolinx)
 
 ## Live Demo
 
@@ -30,7 +30,7 @@ See Also: [Acrolinx Sidebar Web Live Demo](https://acrolinx.github.io/acrolinx-s
 The Acrolinx Sidebar is designed to show up beside the window where you edit your content.
 You use it for checking, reviewing, and correcting your content.
 To get an impression what the Sidebar looks like in existing integrations, have a look at
-[Get Started With the Sidebar](https://docs.acrolinx.com/coreplatform/latest/en/the-sidebar/get-started-with-the-sidebar).
+[Sidebar Quick Start](https://support.acrolinx.com/hc/en-us/articles/10252588984594-Sidebar-Quick-Start).
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ Acrolinx offers different other SDKs, and examples for developing integrations.
 
 Before you start developing your own integration, you might benefit from looking into:
 
-+ [Getting Started with Custom Integrations](https://docs.acrolinx.com/customintegrations),
++ [Build With Acrolinx](https://support.acrolinx.com/hc/en-us/categories/10209837818770-Build-With-Acrolinx),
 + the [Guidance for the Development of Acrolinx Integrations](https://github.com/acrolinx/acrolinx-coding-guidance),
 + the [Acrolinx SDKs](https://github.com/acrolinx?q=sdk), and
 + the [Acrolinx Demo Projects](https://github.com/acrolinx?q=demo).
@@ -139,7 +139,7 @@ Or via code:
 System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 ```
 
-On the Acrolinx Platform [Cross-Origin Resource Sharing](https://docs.acrolinx.com/coreplatform/latest/en/advanced/sidebar-configurations/enable-cross-origin-resource-sharing-cors),
+On the Acrolinx Platform [Cross-Origin Resource Sharing](https://support.acrolinx.com/hc/en-us/articles/10211162946962-Enable-CORS),
 must be enabled as well.
 
 ## SDK Features
