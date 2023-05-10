@@ -5,22 +5,8 @@ package com.acrolinx.client.sidebar.demo.jfx;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
-import com.acrolinx.sidebar.lookup.LookupRangesDiff;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
@@ -28,17 +14,19 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-@SuppressWarnings("unused")
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
 public class AcrolinxDemoClientJFX extends Application
 {
+    static final AtomicReference<InputFormat> inputFormat = new AtomicReference<>();
+    static final AtomicReference<AcrolinxSidebar> sidebar = new AtomicReference<>();
+
     private final TextArea textArea = new TextArea();
-    private final LookupRangesDiff lookup = new LookupRangesDiff();
-    private String logFilePath;
-
-    final static AtomicReference<InputFormat> inputFormat = new AtomicReference<>();
-    final static AtomicReference<AcrolinxSidebar> sidebar = new AtomicReference<>();
-
-    private final Logger logger = LoggerFactory.getLogger(AcrolinxDemoClientJFX.class);
 
     @Override
     public void start(final Stage primaryStage)
@@ -88,18 +76,5 @@ public class AcrolinxDemoClientJFX extends Application
         textArea.setPrefHeight(600);
         textArea.setPrefWidth(600);
         return textArea;
-    }
-
-    private static Stage getPopUpStage(final String url)
-    {
-        final WebView browser = new WebView();
-        final WebEngine webEngine = browser.getEngine();
-        webEngine.load(url);
-        final Scene scene = new Scene(browser, 900, 600);
-        final Stage newStage = new Stage();
-        newStage.setScene(scene);
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        newStage.setTitle("Acrolinx Demo Client JFX");
-        return newStage;
     }
 }

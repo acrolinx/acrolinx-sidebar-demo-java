@@ -22,10 +22,8 @@ import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-@SuppressWarnings("WeakerAccess")
 public class AcrolinxDemoClientSWT
 {
-
     private final Display display = new Display();
     private final Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
 
@@ -80,12 +78,6 @@ public class AcrolinxDemoClientSWT
         warning.setText("Warning");
         warning.setMessage(
                 "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo.");
-
-        /*
-         * Floating Sidebar is here: ChildShell childShell = new ChildShell(shell, display);
-         * AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(childShell.getShell(), 600);
-         * childShell.getShell().open();
-         */
 
         shell.layout();
         shell.open();

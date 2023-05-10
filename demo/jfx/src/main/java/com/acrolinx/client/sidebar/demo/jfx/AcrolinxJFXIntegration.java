@@ -5,8 +5,6 @@ package com.acrolinx.client.sidebar.demo.jfx;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.scene.control.TextArea;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +17,12 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 
+import javafx.scene.control.TextArea;
+
 class AcrolinxJFXIntegration implements AcrolinxIntegration
 {
+    private static final Logger logger = LoggerFactory.getLogger(AcrolinxJFXIntegration.class);
 
-    private final Logger logger = LoggerFactory.getLogger(AcrolinxJFXIntegration.class);
     private final TextArea textArea;
     private final AcrolinxSidebarInitParameter initParameter;
 
@@ -47,16 +47,13 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
     @Override
     public void onCheckResult(final CheckResult checkResult)
     {
-        logger.debug("Got check result for check id: " + checkResult.getCheckedDocumentPart().getCheckId());
-        // Do nothing for now;
+        logger.debug("Got check result for check id: {}", checkResult.getCheckedDocumentPart().getCheckId());
     }
 
     @Override
-    public void onInitFinished(
-            @SuppressWarnings("OptionalUsedAsFieldOrParameterType") final Optional<SidebarError> initResult)
+    public void onInitFinished(final Optional<SidebarError> initResult)
     {
-        logger.debug("Sidebar init done: " + initResult.toString());
-        // Do nothing for now;
+        logger.debug("Sidebar init done: {}", initResult);
     }
 
     @Override
