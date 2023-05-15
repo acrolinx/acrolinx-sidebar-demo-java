@@ -23,7 +23,8 @@ import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
 
 class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
-    private final Logger logger = LoggerFactory.getLogger(AcrolinxSwingIntegration.class);
+    private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwingIntegration.class);
+
     private final JTextArea textArea;
     private final AcrolinxSidebarInitParameter initParameter;
 
@@ -52,7 +53,6 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     }
 
     @Override
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public void onInitFinished(final Optional<SidebarError> initResult)
     {
         logger.debug("Finished init!");
@@ -81,5 +81,4 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     {
         throw new NotImplementedException();
     }
-
 }

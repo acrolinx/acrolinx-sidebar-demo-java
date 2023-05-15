@@ -5,8 +5,6 @@ package com.acrolinx.client.sidebar.demo.jfx;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.scene.control.TextArea;
-
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.lookup.LookupRangesDiff;
 import com.acrolinx.sidebar.pojo.document.AbstractMatch;
@@ -14,10 +12,10 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 
-@SuppressWarnings("unchecked")
+import javafx.scene.control.TextArea;
+
 class JFXTextAdapterWithLookUp extends TextAreaAdapter
 {
-
     JFXTextAdapterWithLookUp(final TextArea textArea, final InputFormat inputFormat, final String documentReference)
     {
         super(textArea, inputFormat, documentReference);
@@ -31,24 +29,23 @@ class JFXTextAdapterWithLookUp extends TextAreaAdapter
                 lastCheckedDocument, this.getContent(), matches);
         if (correctedRanges.isPresent()) {
             return correctedRanges.get();
-        } else {
-            AcrolinxDemoClientJFX.sidebar.get().invalidateRangesForMatches(matches);
-            return null;
         }
+
+        AcrolinxDemoClientJFX.sidebar.get().invalidateRangesForMatches(matches);
+        return null;
     }
 
     @Override
-    public void selectRanges(final String checkId, final List<AcrolinxMatch> matches)
+    public synchronized void selectRanges(final String checkId, final List<AcrolinxMatch> matches)
     {
         final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
         if (correctedMatches != null) {
             super.selectRanges(checkId, (List<AcrolinxMatch>) correctedMatches);
         }
-
     }
 
     @Override
-    public void replaceRanges(final String checkId, final List<AcrolinxMatchWithReplacement> matches)
+    public synchronized void replaceRanges(final String checkId, final List<AcrolinxMatchWithReplacement> matches)
     {
         final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
         if (correctedMatches != null) {

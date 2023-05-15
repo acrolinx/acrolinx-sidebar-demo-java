@@ -17,13 +17,12 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 
-@SuppressWarnings("WeakerAccess")
 public class AcrolinxSWTIntegration implements AcrolinxIntegration
 {
-    final private AcrolinxSidebarInitParameter initParameters;
-    final private InputAdapterInterface inputAdapterInterface;
+    private static final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
 
-    private final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
+    private final AcrolinxSidebarInitParameter initParameters;
+    private final InputAdapterInterface inputAdapterInterface;
 
     public AcrolinxSWTIntegration(final AcrolinxSidebarInitParameter initParameters,
             final InputAdapterInterface inputAdapterInterface)
@@ -48,15 +47,12 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     public void onCheckResult(final CheckResult checkResult)
     {
         logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
-
     }
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Override
     public void onInitFinished(final Optional<SidebarError> initResult)
     {
-        logger.debug(initResult.toString());
-
+        logger.debug("{}", initResult);
     }
 
     @Override
