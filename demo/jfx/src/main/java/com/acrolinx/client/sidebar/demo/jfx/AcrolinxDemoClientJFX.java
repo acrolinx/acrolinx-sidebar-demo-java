@@ -1,9 +1,15 @@
-/* Copyright (c) 2016-present Acrolinx GmbH */
-
+/* Copyright (c) 2018-present Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
@@ -13,13 +19,6 @@ import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 public class AcrolinxDemoClientJFX extends Application
 {
