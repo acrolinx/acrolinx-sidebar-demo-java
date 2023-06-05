@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javafx.scene.control.TextArea;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,24 +57,24 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
     @Override
     public boolean openDocumentInEditor(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<BatchCheckRequestOptions> extractReferences()
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public CheckOptions getCheckOptionsForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String getContentForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }

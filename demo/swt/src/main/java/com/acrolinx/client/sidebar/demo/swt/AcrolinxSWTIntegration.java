@@ -4,7 +4,6 @@ package com.acrolinx.client.sidebar.demo.swt;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,24 +56,24 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     @Override
     public boolean openDocumentInEditor(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<BatchCheckRequestOptions> extractReferences()
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public CheckOptions getCheckOptionsForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String getContentForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }

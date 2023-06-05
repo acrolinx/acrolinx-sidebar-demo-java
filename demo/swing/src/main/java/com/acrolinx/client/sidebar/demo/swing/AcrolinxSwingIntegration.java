@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javax.swing.JTextArea;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,24 +59,24 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
     @Override
     public boolean openDocumentInEditor(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<BatchCheckRequestOptions> extractReferences()
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public CheckOptions getCheckOptionsForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String getContentForDocument(String documentIdentifier)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }
