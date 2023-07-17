@@ -178,16 +178,23 @@ and exclude any alpha or beta versions.
 
 ## Release a New Live Demo Version
 
-Create a task branch, commit your changes.
-Increment `currentVersion` in the gradle.properties file.
+Steps for releasing:
 
-Create a tag via using the following commands:
-```bash
-git tag v[major].[minor].[fix] (etc. v0.11.0)
-git push origin tag v[major].[minor].[fix]
-```
+- Create a task branch.
+- Drop the SNAPSHOT from gradle.properties file. example `0.11.1`
+- Merge PR to main
+- Create a tag via using the following commands (Or the GitHub UI)
+  ```bash
+  git tag v[major].[minor].[fix] (etc. v0.11.0)
+  git push origin tag v[major].[minor].[fix]
+  ```
+- Github will create the specified tag on the remote repository and it will build and make a release when merged with the main branch there. Artifacts are automatically generated.
 
-Github will create the specified tag on the remote repository and it will build and make a release when merged with the main branch there. Artifacts are automatically generated.
+Once tag is created:
+
+- Created new task branch
+- Add new SNAPSHOT version. example: `0.12.0-SNAPSHOT`
+- Create a PR and merge to main
 
 ## License
 
