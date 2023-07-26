@@ -2,6 +2,7 @@
 package com.acrolinx.client.sidebar.demo.swt;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -21,15 +22,15 @@ import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-public class AcrolinxDemoClientSWT
+public class AcrolinxDemoClientSwt
 {
     private final Display display = new Display();
     private final Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
 
-    AcrolinxDemoClientSWT()
+    AcrolinxDemoClientSwt()
     {
         try {
-            LoggingUtils.setupLogging("AcrolinxDemoClientSWT");
+            LoggingUtils.setupLogging("AcrolinxDemoClientSwt");
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +56,7 @@ public class AcrolinxDemoClientSWT
         right.heightHint = 600;
         right.grabExcessVerticalSpace = true;
 
-        final ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
+        final List<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swt", "Acrolinx Demo Client SWT",
                 "1.0", SoftwareComponentCategory.MAIN));
         final AcrolinxSidebarInitParameter initParameters = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
@@ -63,37 +64,36 @@ public class AcrolinxDemoClientSWT
 
         final TextAdapter textAdapter = new TextAdapter(textArea, InputFormat.TEXT, "samplefilename");
 
-        final AcrolinxSWTIntegration client = new AcrolinxSWTIntegration(initParameters, textAdapter);
+        final AcrolinxSwtIntegration acrolinxSwtIntegration = new AcrolinxSwtIntegration(initParameters, textAdapter);
 
-        final AcrolinxSidebarSWT sidebarSWT = new AcrolinxSidebarSWT(shell, client);
-        sidebarSWT.getSidebarBrowser().setLayoutData(right);
+        final AcrolinxSidebarSWT acrolinxSidebarSWT = new AcrolinxSidebarSWT(shell, acrolinxSwtIntegration);
+        acrolinxSidebarSWT.getSidebarBrowser().setLayoutData(right);
 
         open();
     }
 
     public void open()
     {
-        final MessageBox warning = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-        warning.setText("Warning");
-        warning.setMessage(
+        final MessageBox warningMessageBox = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+        warningMessageBox.setText("Warning");
+        warningMessageBox.setMessage(
                 "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo.");
 
         shell.layout();
         shell.open();
-        warning.open();
+        warningMessageBox.open();
 
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {
                 display.sleep();
             }
         }
-        display.dispose();
 
+        display.dispose();
     }
 
     public static void main(final String[] args)
     {
-        final AcrolinxDemoClientSWT demo = new AcrolinxDemoClientSWT();
-        demo.open();
+        new AcrolinxDemoClientSwt().open();
     }
 }

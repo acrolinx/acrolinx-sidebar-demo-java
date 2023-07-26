@@ -21,7 +21,7 @@ Within the `bin`-folder, you'll find the start scripts.
 For a windows environment, run the `.bat`-files and on a Unix System run the shell scripts.
 4. Choose the sample, that you want to see. Use `https://test-ssl.acrolinx.com` as the Acrolinx URL.
 
-*Note: To run the acrolinxDemoClientSWT files, you'll have to [put the Eclipse SWT library into the lib folder](#SWT).*
+*Note: To run the acrolinxDemoClientSWT files, you'll have to [put the Eclipse SWT library into the lib folder](#swt).*
 
 See Also: [Acrolinx Sidebar Web Live Demo](https://acrolinx.github.io/acrolinx-sidebar-demo/samples/index.html)
 
@@ -60,13 +60,13 @@ Before you start developing your own integration, you might benefit from looking
 ./gradlew build
 ```
 
-	on an UNIX system, or
+on an UNIX system, or
 
-	```batch
-	gradlew build
-	```
+```batch
+gradlew build
+```
 
-	on a Windows computer.
+on a Windows computer.
 
 3. All dependencies needed will be downloaded and the samples are ready to be run.
 4. You'll find three runnable main classes inside the `demo`-folder.
@@ -100,7 +100,7 @@ As prerequisite for the SWT sample:
 2. Select the last stable build, then on the left you'll find the entry for "SWT binary and Source".
 3. Choose the download according to your OS.
 4. Unzip and put the included jar file into the `lib`-folder next to `acrolinx-sidebar-java-demo-<version>.jar`.
-5. Run the `acrolinxDemoClientSWT` start script.
+5. Run the `acrolinxDemoClientSwt` start script.
 
 ```bash
 ./gradlew sidebar_demo_swt:run
@@ -155,7 +155,7 @@ functionality.
 Logging can be activated via:
 
 	```java
-	LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
+	LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
 	```
 
 5. Provides an `AcrolinxStorage` that can be used to persist Sidebar settings in the data store of the host editors.
