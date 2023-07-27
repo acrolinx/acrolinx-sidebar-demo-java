@@ -17,29 +17,29 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 
-class AcrolinxJFXIntegration implements AcrolinxIntegration
+class AcrolinxJfxIntegration implements AcrolinxIntegration
 {
-    private static final Logger logger = LoggerFactory.getLogger(AcrolinxJFXIntegration.class);
+    private static final Logger logger = LoggerFactory.getLogger(AcrolinxJfxIntegration.class);
 
     private final TextArea textArea;
-    private final AcrolinxSidebarInitParameter initParameter;
+    private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
 
-    AcrolinxJFXIntegration(final TextArea textArea, final AcrolinxSidebarInitParameter initParameter)
+    AcrolinxJfxIntegration(final TextArea textArea, final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter)
     {
         this.textArea = textArea;
-        this.initParameter = initParameter;
+        this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
     }
 
     @Override
     public InputAdapterInterface getEditorAdapter()
     {
-        return new JFXTextAdapterWithLookUp(textArea, AcrolinxDemoClientJFX.inputFormat.get(), "sampleFile.txt");
+        return new JfxTextAdapterWithLookUp(textArea, AcrolinxDemoClientJfx.inputFormat.get(), "sampleFile.txt");
     }
 
     @Override
     public AcrolinxSidebarInitParameter getInitParameters()
     {
-        return this.initParameter;
+        return this.acrolinxSidebarInitParameter;
     }
 
     @Override
@@ -49,9 +49,9 @@ class AcrolinxJFXIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onInitFinished(final Optional<SidebarError> initResult)
+    public void onInitFinished(final Optional<SidebarError> sidebarError)
     {
-        logger.debug("Sidebar init done: {}", initResult);
+        logger.debug("Sidebar init done: {}", sidebarError);
     }
 
     @Override

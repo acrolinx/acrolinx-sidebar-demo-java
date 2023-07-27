@@ -13,24 +13,25 @@ import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 
-class JFXTextAdapterWithLookUp extends TextAreaAdapter
+class JfxTextAdapterWithLookUp extends TextAreaAdapter
 {
-    JFXTextAdapterWithLookUp(final TextArea textArea, final InputFormat inputFormat, final String documentReference)
+    JfxTextAdapterWithLookUp(final TextArea textArea, final InputFormat inputFormat, final String documentReference)
     {
         super(textArea, inputFormat, documentReference);
     }
 
     private List<? extends AbstractMatch> lookupRanges(final List<? extends AbstractMatch> matches)
     {
-        final String lastCheckedDocument = AcrolinxDemoClientJFX.sidebar.get().getLastCheckedDocument();
-        final LookupRangesDiff lookup = new LookupRangesDiff();
-        final Optional<List<? extends AbstractMatch>> correctedRanges = lookup.getMatchesWithCorrectedRanges(
+        final String lastCheckedDocument = AcrolinxDemoClientJfx.sidebar.get().getLastCheckedDocument();
+        final LookupRangesDiff lookupRangesDiff = new LookupRangesDiff();
+        final Optional<List<? extends AbstractMatch>> correctedRanges = lookupRangesDiff.getMatchesWithCorrectedRanges(
                 lastCheckedDocument, this.getContent(), matches);
+
         if (correctedRanges.isPresent()) {
             return correctedRanges.get();
         }
 
-        AcrolinxDemoClientJFX.sidebar.get().invalidateRangesForMatches(matches);
+        AcrolinxDemoClientJfx.sidebar.get().invalidateRangesForMatches(matches);
         return null;
     }
 
@@ -38,6 +39,7 @@ class JFXTextAdapterWithLookUp extends TextAreaAdapter
     public synchronized void selectRanges(final String checkId, final List<AcrolinxMatch> matches)
     {
         final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
+
         if (correctedMatches != null) {
             super.selectRanges(checkId, (List<AcrolinxMatch>) correctedMatches);
         }
@@ -47,6 +49,7 @@ class JFXTextAdapterWithLookUp extends TextAreaAdapter
     public synchronized void replaceRanges(final String checkId, final List<AcrolinxMatchWithReplacement> matches)
     {
         final List<? extends AbstractMatch> correctedMatches = lookupRanges(matches);
+
         if (correctedMatches != null) {
             super.replaceRanges(checkId, (List<AcrolinxMatchWithReplacement>) correctedMatches);
         }

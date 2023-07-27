@@ -114,13 +114,13 @@ subprojects {
 project(':sidebar_demo_swt') {
 	apply plugin: 'application'
 
-	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
+	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt"
 
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 	jar {
 		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
-			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT"
+			attributes 'Main-Class': "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt"
 		}
 		from {
 			configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -191,7 +191,7 @@ project(':sidebar_demo_jfx') {
 			modules = ["javafx.web"]
 		}
 	}
-	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJFX"
+	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJfx"
 
 	javadoc.enabled = false
 
@@ -269,7 +269,7 @@ project(':java-sdk-demo-build') {
 	task createStartScriptsJFX(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/jfx")
 		mainClass = 'com.acrolinx.client.sidebar.demo.jfx.Launcher'
-		applicationName = 'acrolinxDemoClientJFX'
+		applicationName = 'acrolinxDemoClientJfx'
 		classpath = files("${artifactName}-${fullVersion}.jar")
 	}
 
@@ -282,8 +282,8 @@ project(':java-sdk-demo-build') {
 
 	task createStartScriptsSWT(type: CreateStartScripts) {
 		outputDir = file("${buildDir}/bin/swt")
-		mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSWT'
-		applicationName = 'acrolinxDemoClientSWT'
+		mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt'
+		applicationName = 'AcrolinxDemoClientSwt'
 		classpath = files("*")
 	}
 

@@ -15,17 +15,17 @@ import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 
-public class AcrolinxSWTIntegration implements AcrolinxIntegration
+public class AcrolinxSwtIntegration implements AcrolinxIntegration
 {
-    private static final Logger logger = LoggerFactory.getLogger(AcrolinxSWTIntegration.class);
+    private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwtIntegration.class);
 
-    private final AcrolinxSidebarInitParameter initParameters;
+    private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
     private final InputAdapterInterface inputAdapterInterface;
 
-    public AcrolinxSWTIntegration(final AcrolinxSidebarInitParameter initParameters,
+    public AcrolinxSwtIntegration(final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
             final InputAdapterInterface inputAdapterInterface)
     {
-        this.initParameters = initParameters;
+        this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
         this.inputAdapterInterface = inputAdapterInterface;
     }
 
@@ -38,7 +38,7 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     @Override
     public AcrolinxSidebarInitParameter getInitParameters()
     {
-        return this.initParameters;
+        return this.acrolinxSidebarInitParameter;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class AcrolinxSWTIntegration implements AcrolinxIntegration
     }
 
     @Override
-    public void onInitFinished(final Optional<SidebarError> initResult)
+    public void onInitFinished(final Optional<SidebarError> sidebarError)
     {
-        logger.debug("{}", initResult);
+        logger.debug("{}", sidebarError);
     }
 
     @Override

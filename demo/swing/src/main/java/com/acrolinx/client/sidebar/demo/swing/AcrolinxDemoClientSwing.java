@@ -39,11 +39,12 @@ class AcrolinxDemoClientSwing
                     "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(
                             true).build();
 
-            final JTextArea textArea = new JTextArea();
-            textArea.setPreferredSize(new Dimension(550, 600));
+            final JTextArea jTextArea = new JTextArea();
+            jTextArea.setPreferredSize(new Dimension(550, 600));
 
-            final AcrolinxSwingIntegration integration = new AcrolinxSwingIntegration(initParameter, textArea);
-            final AcrolinxSidebarSwing acrolinxSidebarSwing = new AcrolinxSidebarSwing(integration, null);
+            final AcrolinxSwingIntegration acrolinxSwingIntegration = new AcrolinxSwingIntegration(initParameter,
+                    jTextArea);
+            final AcrolinxSidebarSwing acrolinxSidebarSwing = new AcrolinxSidebarSwing(acrolinxSwingIntegration, null);
 
             JFrame.setDefaultLookAndFeelDecorated(true);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -53,7 +54,7 @@ class AcrolinxDemoClientSwing
             final JPanel innerPanel = new JPanel();
             innerPanel.setLayout(new FlowLayout());
             innerPanel.setPreferredSize(new Dimension(870, 600));
-            innerPanel.add(textArea);
+            innerPanel.add(jTextArea);
             innerPanel.add(acrolinxSidebarSwing);
 
             innerPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

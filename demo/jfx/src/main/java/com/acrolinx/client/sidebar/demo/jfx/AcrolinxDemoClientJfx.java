@@ -2,6 +2,7 @@
 package com.acrolinx.client.sidebar.demo.jfx;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.application.Application;
@@ -20,7 +21,7 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
-public class AcrolinxDemoClientJFX extends Application
+public class AcrolinxDemoClientJfx extends Application
 {
     static final AtomicReference<InputFormat> inputFormat = new AtomicReference<>();
     static final AtomicReference<AcrolinxSidebar> sidebar = new AtomicReference<>();
@@ -31,15 +32,15 @@ public class AcrolinxDemoClientJFX extends Application
     public void start(final Stage primaryStage)
     {
         try {
-            LoggingUtils.setupLogging("AcrolinxDemoClientJFX");
+            LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
         } catch (final Exception e) {
             e.printStackTrace();
         }
 
-        final ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
+        final List<SoftwareComponent> softwareComponents = new ArrayList<>();
         softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX",
                 "1.0", SoftwareComponentCategory.MAIN));
-        final AcrolinxSidebarInitParameter initParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
+        final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
                 "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withPluginSupportedParameters(
                         new PluginSupportedParameters(true)).withShowServerSelector(true).build();
 
@@ -51,10 +52,11 @@ public class AcrolinxDemoClientJFX extends Application
         formatDropdown.setValue(InputFormat.TEXT);
         inputFormat.set(InputFormat.TEXT);
         formatDropdown.valueProperty().addListener(
-                (observable, oldValue, newValue) -> inputFormat.set(InputFormat.valueOf(newValue.toString())));
+                (observable, oldInputFormat, newInputFormat) -> inputFormat.set(newInputFormat));
 
-        final AcrolinxJFXIntegration integration = new AcrolinxJFXIntegration(this.textArea, initParameter);
-        sidebar.set(new AcrolinxSidebarJFX(integration));
+        final AcrolinxJfxIntegration acrolinxJfxIntegration = new AcrolinxJfxIntegration(this.textArea,
+                acrolinxSidebarInitParameter);
+        sidebar.set(new AcrolinxSidebarJFX(acrolinxJfxIntegration));
         ((AcrolinxSidebarJFX) sidebar.get()).getWebView().setPrefWidth(300);
         borderPane.setRight(((AcrolinxSidebarJFX) sidebar.get()).getWebView());
         borderPane.setLeft(textArea);
