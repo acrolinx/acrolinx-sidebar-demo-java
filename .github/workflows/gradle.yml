@@ -20,16 +20,16 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
-      - uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
         with:
           arguments: build
-      - uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
         with:
           arguments: sonar
-      - uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
         with:
           arguments: zipDist
       - uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
