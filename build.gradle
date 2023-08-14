@@ -3,7 +3,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
 	id 'java'
-	id 'org.openjfx.javafxplugin' version '0.0.9' apply false
+	id 'org.openjfx.javafxplugin' version '0.0.14' apply false
 	id 'com.github.jk1.dependency-license-report' version '1.16'
 	id 'com.github.johnrengelman.shadow' version '8.1.1'
 	id 'org.ajoberstar.grgit' version '4.1.1'
