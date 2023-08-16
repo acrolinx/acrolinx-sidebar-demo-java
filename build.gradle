@@ -3,6 +3,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.openjfx.javafxplugin' version '0.0.14' apply false
 	id 'com.github.jk1.dependency-license-report' version '2.5'
 	id 'com.github.johnrengelman.shadow' version '8.1.1'
@@ -339,6 +340,13 @@ project(':java-sdk-demo-build') {
 				grgit.push(tags: true)
 			}
 		}
+	}
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
 	}
 }
 
