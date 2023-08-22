@@ -21,7 +21,7 @@ jobs:
           java-version: '11'
           java-package: 'jdk+fx'
 
-      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
+      - uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
         with:
@@ -40,10 +40,10 @@ jobs:
           java-version: '8'
           java-package: 'jdk+fx'
       - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
-      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
+      - uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691
         with:
           arguments: build
-      - uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
+      - uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691
         with:
           arguments: zipDist
       - uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
