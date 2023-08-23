@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
           java-package: 'jdk+fx'
 
       - uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691
