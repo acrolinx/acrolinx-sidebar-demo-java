@@ -8,5 +8,3 @@ project(":sidebar_demo_swing").projectDir = file("./demo/swing")
 
 include ":sidebar_demo_swt"
 project(":sidebar_demo_swt").projectDir = file("./demo/swt")
-
-include 'java-sdk-demo-build'

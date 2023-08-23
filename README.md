@@ -5,26 +5,6 @@ into different Java UI framework-based applications (JFX, Swing, and SWT).
 
 See: [Build With Acrolinx](https://support.acrolinx.com/hc/en-us/categories/10209837818770-Build-With-Acrolinx)
 
-## Live Demo
-
-Supported Java Versions:
-
-+ OpenJDK Version >= 11
-
-Steps to set up:
-
-1. Go to [releases](https://github.com/acrolinx/acrolinx-sidebar-demo-java/releases).
-2. Within the assets for the latest release you'll find a zipped version of the acrolinx-sidebar-java-demo.
-This includes a fat jar and startup scripts to run the java ui demos.
-3. Download this zip file and unpack it.
-Within the `bin`-folder, you'll find the start scripts.
-For a windows environment, run the `.bat`-files and on a Unix System run the shell scripts.
-4. Choose the sample, that you want to see. Use `https://test-ssl.acrolinx.com` as the Acrolinx URL.
-
-*Note: To run the acrolinxDemoClientSWT files, you'll have to [put the Eclipse SWT library into the lib folder](#swt).*
-
-See Also: [Acrolinx Sidebar Web Live Demo](https://acrolinx.github.io/acrolinx-sidebar-demo/samples/index.html)
-
 ## The Acrolinx Sidebar
 
 The Acrolinx Sidebar is designed to show up beside the window where you edit your content.
@@ -166,35 +146,6 @@ If not set, the SDK will default to the browsers LocalStorage.
 + This DEMO is built on the [Sidebar SDK Java](https://github.com/acrolinx/sidebar-sdk-java).
 + [Sidebar SDK Java API Reference](https://acrolinx.github.io/sidebar-sdk-java/).
 + The Sidebar SDKs are based on the [Acrolinx Sidebar Interface](https://acrolinx.github.io/sidebar-interface/).
-
-## Update the Demo
-
-To update dependent libraries, run the following Gradle task. This will update to the latest stable release version
-and exclude any alpha or beta versions.
-
-```bash
-./gradlew useLatestVersions && ./gradlew useLatestVersionsCheck
-```
-
-## Release a New Live Demo Version
-
-Steps for releasing:
-
-- Create a task branch.
-- Drop the SNAPSHOT from gradle.properties file. example `0.11.1`
-- Merge PR to main
-- Create a tag via using the following commands (Or the GitHub UI)
-  ```bash
-  git tag v[major].[minor].[fix] (etc. v0.11.0)
-  git push origin tag v[major].[minor].[fix]
-  ```
-- Github will create the specified tag on the remote repository and it will build and make a release when merged with the main branch there. Artifacts are automatically generated.
-
-Once tag is created:
-
-- Created new task branch
-- Add new SNAPSHOT version. example: `0.12.0-SNAPSHOT`
-- Create a PR and merge to main
 
 ## License
 
