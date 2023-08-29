@@ -22,41 +22,11 @@ public class AcrolinxSwtIntegration implements AcrolinxIntegration
     private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
     private final InputAdapterInterface inputAdapterInterface;
 
-    public AcrolinxSwtIntegration(final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
-            final InputAdapterInterface inputAdapterInterface)
+    public AcrolinxSwtIntegration(AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
+            InputAdapterInterface inputAdapterInterface)
     {
         this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
         this.inputAdapterInterface = inputAdapterInterface;
-    }
-
-    @Override
-    public InputAdapterInterface getEditorAdapter()
-    {
-        return this.inputAdapterInterface;
-    }
-
-    @Override
-    public AcrolinxSidebarInitParameter getInitParameters()
-    {
-        return this.acrolinxSidebarInitParameter;
-    }
-
-    @Override
-    public void onCheckResult(final CheckResult checkResult)
-    {
-        logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
-    }
-
-    @Override
-    public void onInitFinished(final Optional<SidebarError> sidebarError)
-    {
-        logger.debug("{}", sidebarError);
-    }
-
-    @Override
-    public boolean openDocumentInEditor(String documentIdentifier)
-    {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -73,6 +43,36 @@ public class AcrolinxSwtIntegration implements AcrolinxIntegration
 
     @Override
     public String getContentForDocument(String documentIdentifier)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public InputAdapterInterface getEditorAdapter()
+    {
+        return inputAdapterInterface;
+    }
+
+    @Override
+    public AcrolinxSidebarInitParameter getInitParameters()
+    {
+        return acrolinxSidebarInitParameter;
+    }
+
+    @Override
+    public void onCheckResult(CheckResult checkResult)
+    {
+        logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
+    }
+
+    @Override
+    public void onInitFinished(Optional<SidebarError> sidebarError)
+    {
+        logger.debug("{}", sidebarError);
+    }
+
+    @Override
+    public boolean openDocumentInEditor(String documentIdentifier)
     {
         throw new UnsupportedOperationException();
     }

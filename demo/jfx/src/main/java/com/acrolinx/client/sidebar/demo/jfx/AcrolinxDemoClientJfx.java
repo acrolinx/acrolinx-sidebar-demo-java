@@ -1,7 +1,8 @@
 /* Copyright (c) 2018-present Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.jfx;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -12,70 +13,89 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import com.acrolinx.sidebar.AcrolinxSidebar;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
+import ch.qos.logback.core.joran.spi.JoranException;
+
 public class AcrolinxDemoClientJfx extends Application
 {
+    static final AtomicReference<AcrolinxSidebarJFX> acrolinxSidebar = new AtomicReference<>();
     static final AtomicReference<InputFormat> inputFormat = new AtomicReference<>();
-    static final AtomicReference<AcrolinxSidebar> sidebar = new AtomicReference<>();
 
-    private final TextArea textArea = new TextArea();
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
+
+    private static AcrolinxSidebarInitParameter createAcrolinxSidebarInitParameter()
+    {
+        return new AcrolinxSidebarInitParameterBuilder("SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5",
+                createSoftwareComponents()).withPluginSupportedParameters(
+                        new PluginSupportedParameters(true)).withShowServerSelector(true).build();
+    }
+
+    private static ComboBox<InputFormat> createComboBox()
+    {
+        ComboBox<InputFormat> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(InputFormat.values());
+        comboBox.setValue(InputFormat.TEXT);
+        comboBox.valueProperty().addListener(
+                (observableValue, oldInputFormat, newInputFormat) -> inputFormat.set(newInputFormat));
+        return comboBox;
+    }
+
+    private static List<SoftwareComponent> createSoftwareComponents()
+    {
+        return Collections.singletonList(new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx",
+                "Acrolinx Demo Client JFX", "1.0", SoftwareComponentCategory.MAIN));
+    }
+
+    private static TextArea createTextArea()
+    {
+        TextArea textArea = new TextArea();
+        textArea.setPrefHeight(600);
+        textArea.setPrefWidth(600);
+        return textArea;
+    }
+
+    private final TextArea textArea = createTextArea();
 
     @Override
-    public void start(final Stage primaryStage)
+    public void start(Stage primaryStage) throws IOException, JoranException
     {
-        try {
-            LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
+        LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
 
-        final List<SoftwareComponent> softwareComponents = new ArrayList<>();
-        softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.jfx", "Acrolinx Demo Client JFX",
-                "1.0", SoftwareComponentCategory.MAIN));
-        final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
-                "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withPluginSupportedParameters(
-                        new PluginSupportedParameters(true)).withShowServerSelector(true).build();
+        AcrolinxSidebarJFX acrolinxSidebarJfx = new AcrolinxSidebarJFX(createAcrolinxJfxIntegration());
+        acrolinxSidebarJfx.getWebView().setPrefWidth(300);
+        acrolinxSidebar.set(acrolinxSidebarJfx);
 
-        final BorderPane borderPane = new BorderPane();
-        final TextArea textArea = this.getTextArea();
-        final ComboBox<InputFormat> formatDropdown = new ComboBox<>();
-        formatDropdown.getItems().addAll(InputFormat.XML, InputFormat.HTML, InputFormat.TEXT, InputFormat.MARKDOWN,
-                InputFormat.AUTO);
-        formatDropdown.setValue(InputFormat.TEXT);
-        inputFormat.set(InputFormat.TEXT);
-        formatDropdown.valueProperty().addListener(
-                (observable, oldInputFormat, newInputFormat) -> inputFormat.set(newInputFormat));
+        ComboBox<InputFormat> comboBox = createComboBox();
+        inputFormat.set(comboBox.getValue());
 
-        final AcrolinxJfxIntegration acrolinxJfxIntegration = new AcrolinxJfxIntegration(this.textArea,
-                acrolinxSidebarInitParameter);
-        sidebar.set(new AcrolinxSidebarJFX(acrolinxJfxIntegration));
-        ((AcrolinxSidebarJFX) sidebar.get()).getWebView().setPrefWidth(300);
-        borderPane.setRight(((AcrolinxSidebarJFX) sidebar.get()).getWebView());
-        borderPane.setLeft(textArea);
-        borderPane.setTop(formatDropdown);
-        final Scene scene = new Scene(borderPane, 900, 600);
+        Scene scene = new Scene(createBorderPane(acrolinxSidebarJfx, comboBox), 900, 600);
         primaryStage.setTitle("Acrolinx Demo JFX");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public static void main(final String[] args)
+    private AcrolinxJfxIntegration createAcrolinxJfxIntegration()
     {
-        launch(args);
+        return new AcrolinxJfxIntegration(textArea, createAcrolinxSidebarInitParameter());
     }
 
-    private TextArea getTextArea()
+    private BorderPane createBorderPane(AcrolinxSidebarJFX acrolinxSidebarJfx, ComboBox<InputFormat> comboBox)
     {
-        textArea.setPrefHeight(600);
-        textArea.setPrefWidth(600);
-        return textArea;
+        BorderPane borderPane = new BorderPane();
+        borderPane.setRight(acrolinxSidebarJfx.getWebView());
+        borderPane.setLeft(textArea);
+        borderPane.setTop(comboBox);
+        return borderPane;
     }
 }
