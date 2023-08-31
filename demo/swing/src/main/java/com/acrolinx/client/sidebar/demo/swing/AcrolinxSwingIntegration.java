@@ -23,43 +23,13 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
     private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwingIntegration.class);
 
-    private final JTextArea textArea;
-    private final AcrolinxSidebarInitParameter initParameter;
+    private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
+    private final JTextArea jTextArea;
 
-    AcrolinxSwingIntegration(final AcrolinxSidebarInitParameter initParameter, final JTextArea textArea)
+    AcrolinxSwingIntegration(AcrolinxSidebarInitParameter acrolinxSidebarInitParameter, JTextArea jTextArea)
     {
-        this.initParameter = initParameter;
-        this.textArea = textArea;
-    }
-
-    @Override
-    public InputAdapterInterface getEditorAdapter()
-    {
-        return new TextAreaAdapter(this.textArea, InputFormat.TEXT, "sampleFileName");
-    }
-
-    @Override
-    public AcrolinxSidebarInitParameter getInitParameters()
-    {
-        return this.initParameter;
-    }
-
-    @Override
-    public void onCheckResult(final CheckResult checkResult)
-    {
-        logger.debug("Got check result");
-    }
-
-    @Override
-    public void onInitFinished(final Optional<SidebarError> initResult)
-    {
-        logger.debug("Finished init!");
-    }
-
-    @Override
-    public boolean openDocumentInEditor(String documentIdentifier)
-    {
-        throw new UnsupportedOperationException();
+        this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
+        this.jTextArea = jTextArea;
     }
 
     @Override
@@ -76,6 +46,36 @@ class AcrolinxSwingIntegration implements AcrolinxIntegration
 
     @Override
     public String getContentForDocument(String documentIdentifier)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public InputAdapterInterface getEditorAdapter()
+    {
+        return new TextAreaAdapter(jTextArea, InputFormat.TEXT, "sampleFileName");
+    }
+
+    @Override
+    public AcrolinxSidebarInitParameter getInitParameters()
+    {
+        return acrolinxSidebarInitParameter;
+    }
+
+    @Override
+    public void onCheckResult(CheckResult checkResult)
+    {
+        logger.debug("Got check result");
+    }
+
+    @Override
+    public void onInitFinished(Optional<SidebarError> initResult)
+    {
+        logger.debug("Finished init!");
+    }
+
+    @Override
+    public boolean openDocumentInEditor(String documentIdentifier)
     {
         throw new UnsupportedOperationException();
     }

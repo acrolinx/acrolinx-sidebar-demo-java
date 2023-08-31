@@ -2,10 +2,11 @@
 package com.acrolinx.client.sidebar.demo.swing;
 
 import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -15,61 +16,85 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
+import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 
+import ch.qos.logback.core.joran.spi.JoranException;
+
 class AcrolinxDemoClientSwing
 {
-    public static void main(final String[] args)
+    public static void main(String[] args) throws IOException, JoranException
     {
-        try {
-            LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
+        LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
 
         javax.swing.SwingUtilities.invokeLater(() -> {
-            final JFrame frame = new JFrame("Acrolinx Demo Client Swing");
-            final ArrayList<SoftwareComponent> softwareComponents = new ArrayList<>();
-            softwareComponents.add(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swing",
-                    "Acrolinx Demo Client Swing", "1.0", SoftwareComponentCategory.MAIN));
-            final AcrolinxSidebarInitParameter initParameter = new AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder(
-                    "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", softwareComponents).withShowServerSelector(
-                            true).build();
-
-            final JTextArea jTextArea = new JTextArea();
-            jTextArea.setPreferredSize(new Dimension(550, 600));
-
-            final AcrolinxSwingIntegration acrolinxSwingIntegration = new AcrolinxSwingIntegration(initParameter,
-                    jTextArea);
-            final AcrolinxSidebarSwing acrolinxSidebarSwing = new AcrolinxSidebarSwing(acrolinxSwingIntegration, null);
-
             JFrame.setDefaultLookAndFeelDecorated(true);
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setResizable(false);
+            createJFrame(createJTextArea());
 
-            final Container contentPanel = frame.getContentPane();
-            final JPanel innerPanel = new JPanel();
-            innerPanel.setLayout(new FlowLayout());
-            innerPanel.setPreferredSize(new Dimension(870, 600));
-            innerPanel.add(jTextArea);
-            innerPanel.add(acrolinxSidebarSwing);
-
-            innerPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
-            contentPanel.add(innerPanel);
-
-            frame.pack();
-            frame.setVisible(true);
-
-            final JOptionPane optionPane = new JOptionPane(
-                    "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo",
-                    JOptionPane.WARNING_MESSAGE);
-            final JDialog dialog = optionPane.createDialog("Warning!");
-            dialog.setAlwaysOnTop(true); // to show top of all other application
-            dialog.setVisible(true); // to visible the dialog
+            createJDialog(createJOptionPane());
         });
+    }
+
+    private static AcrolinxSidebarInitParameter createAcrolinxSidebarInitParameter()
+    {
+        return new AcrolinxSidebarInitParameterBuilder("SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5",
+                createSoftwareComponents()).withShowServerSelector(true).build();
+    }
+
+    private static AcrolinxSidebarSwing createAcrolinxSidebarSwing(JTextArea jTextArea)
+    {
+        return new AcrolinxSidebarSwing(new AcrolinxSwingIntegration(createAcrolinxSidebarInitParameter(), jTextArea),
+                null);
+    }
+
+    private static void createJDialog(JOptionPane optionPane)
+    {
+        JDialog jDialog = optionPane.createDialog("Warning!");
+        jDialog.setAlwaysOnTop(true);
+        jDialog.setVisible(true);
+    }
+
+    private static void createJFrame(JTextArea jTextArea)
+    {
+        JFrame jFrame = new JFrame("Acrolinx Demo Client Swing");
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.setResizable(false);
+        jFrame.getContentPane().add(createJPanel(jTextArea));
+        jFrame.pack();
+        jFrame.setVisible(true);
+    }
+
+    private static JOptionPane createJOptionPane()
+    {
+        return new JOptionPane(
+                "This is not a feature complete demo of the Java SDK, please have a look into the Java FX Demo",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    private static JPanel createJPanel(JTextArea jTextArea)
+    {
+        JPanel innerPanel = new JPanel();
+        innerPanel.setLayout(new FlowLayout());
+        innerPanel.setPreferredSize(new Dimension(870, 600));
+        innerPanel.add(jTextArea);
+        innerPanel.add(createAcrolinxSidebarSwing(jTextArea));
+        innerPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        return innerPanel;
+    }
+
+    private static JTextArea createJTextArea()
+    {
+        JTextArea jTextArea = new JTextArea();
+        jTextArea.setPreferredSize(new Dimension(550, 600));
+        return jTextArea;
+    }
+
+    private static List<SoftwareComponent> createSoftwareComponents()
+    {
+        return Collections.singletonList(new SoftwareComponent("com.acrolinx.client.sidebar.demo.swing",
+                "Acrolinx Demo Client Swing", "1.0", SoftwareComponentCategory.MAIN));
     }
 }
