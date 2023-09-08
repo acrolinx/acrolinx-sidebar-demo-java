@@ -1,14 +1,6 @@
 /* Copyright (c) 2018-present Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.swing;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.swing.JTextArea;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
 import com.acrolinx.sidebar.pojo.SidebarError;
@@ -18,6 +10,11 @@ import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JTextArea;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class AcrolinxSwingIntegration implements AcrolinxIntegration
 {
