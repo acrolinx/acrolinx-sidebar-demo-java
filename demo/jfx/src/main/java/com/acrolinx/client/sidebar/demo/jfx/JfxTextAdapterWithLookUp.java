@@ -1,17 +1,15 @@
 /* Copyright (c) 2018-present Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.jfx;
 
-import java.util.List;
-import java.util.Optional;
-
-import javafx.scene.control.TextArea;
-
 import com.acrolinx.sidebar.jfx.adapter.TextAreaAdapter;
 import com.acrolinx.sidebar.lookup.LookupRangesDiff;
 import com.acrolinx.sidebar.pojo.document.AbstractMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatch;
 import com.acrolinx.sidebar.pojo.document.AcrolinxMatchWithReplacement;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import java.util.List;
+import java.util.Optional;
+import javafx.scene.control.TextArea;
 
 class JfxTextAdapterWithLookUp extends TextAreaAdapter
 {

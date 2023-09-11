@@ -1,19 +1,7 @@
 /* Copyright (c) 2018-present Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.swt;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-
+import ch.qos.logback.core.joran.spi.JoranException;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
@@ -23,8 +11,17 @@ import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
-
-import ch.qos.logback.core.joran.spi.JoranException;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 public class AcrolinxDemoClientSwt
 {
