@@ -224,6 +224,11 @@ project(':sidebar_demo_jfx') {
 	}
 }
 
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
+
 jacocoTestReport {
 	dependsOn test
 	reports {
