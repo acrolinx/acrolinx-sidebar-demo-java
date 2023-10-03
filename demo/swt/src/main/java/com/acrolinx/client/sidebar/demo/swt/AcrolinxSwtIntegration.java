@@ -13,65 +13,56 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AcrolinxSwtIntegration implements AcrolinxIntegration
-{
-    private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwtIntegration.class);
+public class AcrolinxSwtIntegration implements AcrolinxIntegration {
+  private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwtIntegration.class);
 
-    private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
-    private final InputAdapterInterface inputAdapterInterface;
+  private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
+  private final InputAdapterInterface inputAdapterInterface;
 
-    public AcrolinxSwtIntegration(AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
-            InputAdapterInterface inputAdapterInterface)
-    {
-        this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
-        this.inputAdapterInterface = inputAdapterInterface;
-    }
+  public AcrolinxSwtIntegration(
+      AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
+      InputAdapterInterface inputAdapterInterface) {
+    this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
+    this.inputAdapterInterface = inputAdapterInterface;
+  }
 
-    @Override
-    public List<BatchCheckRequestOptions> extractReferences()
-    {
-        throw new UnsupportedOperationException();
-    }
+  @Override
+  public List<BatchCheckRequestOptions> extractReferences() {
+    throw new UnsupportedOperationException();
+  }
 
-    @Override
-    public CheckOptions getCheckOptionsForDocument(String documentIdentifier)
-    {
-        throw new UnsupportedOperationException();
-    }
+  @Override
+  public CheckOptions getCheckOptionsForDocument(String documentIdentifier) {
+    throw new UnsupportedOperationException();
+  }
 
-    @Override
-    public String getContentForDocument(String documentIdentifier)
-    {
-        throw new UnsupportedOperationException();
-    }
+  @Override
+  public String getContentForDocument(String documentIdentifier) {
+    throw new UnsupportedOperationException();
+  }
 
-    @Override
-    public InputAdapterInterface getEditorAdapter()
-    {
-        return inputAdapterInterface;
-    }
+  @Override
+  public InputAdapterInterface getEditorAdapter() {
+    return inputAdapterInterface;
+  }
 
-    @Override
-    public AcrolinxSidebarInitParameter getInitParameters()
-    {
-        return acrolinxSidebarInitParameter;
-    }
+  @Override
+  public AcrolinxSidebarInitParameter getInitParameters() {
+    return acrolinxSidebarInitParameter;
+  }
 
-    @Override
-    public void onCheckResult(CheckResult checkResult)
-    {
-        logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
-    }
+  @Override
+  public void onCheckResult(CheckResult checkResult) {
+    logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
+  }
 
-    @Override
-    public void onInitFinished(Optional<SidebarError> sidebarError)
-    {
-        logger.debug("{}", sidebarError);
-    }
+  @Override
+  public void onInitFinished(Optional<SidebarError> sidebarError) {
+    logger.debug("{}", sidebarError);
+  }
 
-    @Override
-    public boolean openDocumentInEditor(String documentIdentifier)
-    {
-        throw new UnsupportedOperationException();
-    }
+  @Override
+  public boolean openDocumentInEditor(String documentIdentifier) {
+    throw new UnsupportedOperationException();
+  }
 }

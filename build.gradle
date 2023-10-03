@@ -98,7 +98,7 @@ subprojects {
 		java {
 			importOrder()
 			removeUnusedImports()
-			eclipse().configFile rootProject.file('spotless.eclipseformat.xml')
+			googleJavaFormat()
 			licenseHeaderFile rootProject.file('spotless.license.java')
 		}
 		format 'misc', {
