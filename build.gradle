@@ -47,9 +47,6 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'com.diffplug.spotless'
 
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
-
 	compileJava.options.encoding = 'UTF-8'
 	compileTestJava.options.encoding = 'UTF-8'
 
@@ -94,6 +91,12 @@ subprojects {
 		implementation("com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}") { changing = true }
 	}
 
+	java {
+		sourceCompatibility = JavaVersion.VERSION_1_8
+		withJavadocJar()
+		withSourcesJar()
+	}
+
 	spotless {
 		java {
 			importOrder()
@@ -114,7 +117,9 @@ subprojects {
 project(':sidebar_demo_swt') {
 	apply plugin: 'application'
 
-	mainClassName = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt"
+	application {
+		mainClass = "com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt"
+	}
 
 	sourceSets.main.resources.srcDir "../../sidebar/swt/src/main/resources";
 	jar {
@@ -126,8 +131,6 @@ project(':sidebar_demo_swt') {
 			configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 		}
 	}
-
-	javadoc.enabled = false
 
 	dependencies {
 		compileSuperFatJar "org.eclipse.platform:$swtNatives:$SWT_VERSION"
@@ -146,7 +149,10 @@ project(':sidebar_demo_swing') {
 		}
 	}
 
-	mainClassName = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
+	application {
+		mainClass = "com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing"
+	}
+
 	jar {
 		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 		manifest {
@@ -177,8 +183,6 @@ project(':sidebar_demo_swing') {
 		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:linux"
 		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:mac"
 	}
-
-	javadoc.enabled = false
 }
 
 project(':sidebar_demo_jfx') {
@@ -191,9 +195,10 @@ project(':sidebar_demo_jfx') {
 			modules = ["javafx.web"]
 		}
 	}
-	mainClassName = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJfx"
 
-	javadoc.enabled = false
+	application {
+		mainClass = "com.acrolinx.client.sidebar.demo.jfx.AcrolinxDemoClientJfx"
+	}
 
 	jar {
 		duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
@@ -222,11 +227,6 @@ project(':sidebar_demo_jfx') {
 		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:linux"
 		compileSuperFatJar "org.openjfx:javafx-media:${JFX_VERSION}:mac"
 	}
-}
-
-java {
-	withJavadocJar()
-	withSourcesJar()
 }
 
 jacocoTestReport {
