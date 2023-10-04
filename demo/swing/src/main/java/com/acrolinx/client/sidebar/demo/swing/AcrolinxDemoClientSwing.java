@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-class AcrolinxDemoClientSwing {
+public class AcrolinxDemoClientSwing {
   public static void main(String[] args) throws IOException, JoranException {
     LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
 
