@@ -88,7 +88,7 @@ subprojects {
 	}
 
 	dependencies {
-		implementation("com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}") { changing = true }
+		implementation "com.acrolinx.client:sidebar-sdk:${JAVA_SDK_VERSION}"
 	}
 
 	java {
@@ -102,7 +102,7 @@ subprojects {
 			importOrder()
 			removeUnusedImports()
 			googleJavaFormat()
-			licenseHeaderFile rootProject.file('spotless.license.java')
+			licenseHeader '/* Copyright (c) $YEAR-present Acrolinx GmbH */'
 		}
 		format 'misc', {
 			target '*.gradle', '*.md', '.gitignore', '*.sh'
