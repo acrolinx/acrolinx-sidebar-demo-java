@@ -61,7 +61,7 @@ Build the project first, then run:
 #### JavaFX
 
 ```bash
-./gradlew sidebar_demo_jfx:run
+./gradlew sidebar-demo-jfx:run
 ```
 
 ![Java FX Acrolinx Sidebar Sample](/doc/img/AcrolinxDemoCheck.png)
@@ -69,7 +69,7 @@ Build the project first, then run:
 #### Swing
 
 ```bash
-./gradlew sidebar_demo_swing:run
+./gradlew sidebar-demo-swing:run
 ```
 
 #### SWT
@@ -83,7 +83,7 @@ As prerequisite for the SWT sample:
 5. Run the `acrolinxDemoClientSwt` start script.
 
 ```bash
-./gradlew sidebar_demo_swt:run
+./gradlew sidebar-demo-swt:run
 ```
 
 ## Using the SDK

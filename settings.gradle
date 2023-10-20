@@ -1,10 +1,2 @@
 rootProject.name = 'acrolinx-sidebar-demo-java'
-
-include ":sidebar_demo_jfx"
-project(":sidebar_demo_jfx").projectDir = file("./demo/jfx")
-
-include ":sidebar_demo_swing"
-project(":sidebar_demo_swing").projectDir = file("./demo/swing")
-
-include ":sidebar_demo_swt"
-project(":sidebar_demo_swt").projectDir = file("./demo/swt")
+include 'sidebar-demo-jfx', 'sidebar-demo-swing', 'sidebar-demo-swt'
