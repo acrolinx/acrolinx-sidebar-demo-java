@@ -65,7 +65,6 @@ subprojects {
 
 	repositories {
 		mavenCentral()
-		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 	}
 
 	configurations.all {
@@ -114,7 +113,7 @@ subprojects {
 	}
 }
 
-project(':sidebar_demo_swt') {
+project(':sidebar-demo-swt') {
 	apply plugin: 'application'
 
 	application {
@@ -137,7 +136,7 @@ project(':sidebar_demo_swt') {
 	}
 }
 
-project(':sidebar_demo_swing') {
+project(':sidebar-demo-swing') {
 	apply plugin: 'application'
 
 	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
@@ -185,7 +184,7 @@ project(':sidebar_demo_swing') {
 	}
 }
 
-project(':sidebar_demo_jfx') {
+project(':sidebar-demo-jfx') {
 	apply plugin: 'application'
 
 	if (Integer.parseInt(Jvm.current().getJavaVersion().getMajorVersion()) >= 11) {
