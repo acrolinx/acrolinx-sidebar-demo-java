@@ -1,0 +1,66 @@
+plugins {
+    id 'application'
+    id 'jacoco'
+    id 'org.sonarqube'
+    id 'com.diffplug.spotless'
+    id 'org.openjfx.javafxplugin' apply false
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'com.acrolinx'
+version = '0.1.0-SNAPSHOT'
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options.addStringOption('Xdoclint:all,-missing', '-quiet')
+}
+
+sonar {
+    properties {
+        property "sonar.organization", "acrolinx"
+        property 'sonar.projectKey', 'acrolinx_acrolinx-sidebar-demo-java'
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        googleJavaFormat()
+        licenseHeader '/* Copyright (c) $YEAR-present Acrolinx GmbH */'
+    }
+    format 'misc', {
+        target '.gitignore', '*.gradle', '*.md', '*.properties'
+
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+test {
+    testLogging {
+        exceptionFormat "full"
+    }
+}
