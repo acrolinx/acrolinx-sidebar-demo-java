@@ -38,3 +38,12 @@ dependencies {
 application {
     mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt'
 }
+
+if (JavaVersion.current().isJava11Compatible()) {
+    apply plugin: 'org.openjfx.javafxplugin'
+
+    javafx {
+        version = '13'
+        modules = [ 'javafx.web' ]
+    }
+}
