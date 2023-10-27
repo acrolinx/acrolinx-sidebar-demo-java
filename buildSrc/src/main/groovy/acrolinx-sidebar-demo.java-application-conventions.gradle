@@ -3,7 +3,6 @@ plugins {
     id 'jacoco'
     id 'org.sonarqube'
     id 'com.diffplug.spotless'
-    id 'org.openjfx.javafxplugin' apply false
 }
 
 repositories {
