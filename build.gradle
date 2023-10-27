@@ -1,3 +1,0 @@
-plugins {
-    id 'acrolinx-sidebar-demo.java-application-conventions'
-}
