@@ -63,3 +63,12 @@ test {
         exceptionFormat 'full'
     }
 }
+
+if (JavaVersion.current().isJava11Compatible()) {
+    project.plugins.apply('org.openjfx.javafxplugin')
+
+    javafx {
+        version = '13'
+        modules = [ 'javafx.web' ]
+    }
+}
