@@ -1,0 +1,17 @@
+plugins {
+    id 'acrolinx-sidebar-demo.java-application-conventions'
+}
+
+dependencies {
+    implementation libs.sidebar.sdk
+}
+
+application {
+    mainClass = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
+}
+
+if (JavaVersion.current().isJava11Compatible()) {
+    javafx {
+        modules = [ 'javafx.swing', 'javafx.web' ]
+    }
+}

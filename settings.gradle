@@ -1,2 +1,10 @@
 rootProject.name = 'acrolinx-sidebar-demo-java'
 include 'sidebar-demo-jfx', 'sidebar-demo-swing', 'sidebar-demo-swt'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            library('sidebar-sdk', 'com.acrolinx.client:sidebar-sdk:2.5.2')
+        }
+    }
+}
