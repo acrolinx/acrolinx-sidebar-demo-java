@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.diffplug.spotless:spotless-plugin-gradle:6.13.0'
+    implementation 'com.diffplug.spotless:spotless-plugin-gradle:6.22.0'
     implementation 'org.sonarqube:org.sonarqube.gradle.plugin:4.0.0.2929'
 
     if (JavaVersion.current().isJava11Compatible()) {
