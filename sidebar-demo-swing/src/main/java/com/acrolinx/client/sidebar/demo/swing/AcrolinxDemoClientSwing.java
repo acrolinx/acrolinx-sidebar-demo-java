@@ -46,8 +46,8 @@ public class AcrolinxDemoClientSwing {
         new AcrolinxSwingIntegration(createAcrolinxSidebarInitParameter(), jTextArea), null);
   }
 
-  private static void createJDialog(JOptionPane optionPane) {
-    JDialog jDialog = optionPane.createDialog("Warning!");
+  private static void createJDialog(JOptionPane jOptionPane) {
+    JDialog jDialog = jOptionPane.createDialog("Warning!");
     jDialog.setAlwaysOnTop(true);
     jDialog.setVisible(true);
   }
