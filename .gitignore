@@ -11,6 +11,3 @@
 # IntelliJ IDEA
 .idea/
 .iml
-
-# Other files
-/dist/
