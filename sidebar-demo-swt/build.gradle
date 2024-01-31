@@ -10,7 +10,7 @@ private static String getOsgiPlatformValue() {
     } else if (osName.contains('linux')) {
         return 'gtk.linux.x86_64'
     } else if (osName.contains('mac')) {
-        return 'cocoa.macosx.x86_64';
+        return 'cocoa.macosx.x86_64'
     }
 
     throw new GradleException('unknown OS name: ' + osName)
