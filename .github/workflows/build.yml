@@ -1,4 +1,4 @@
-name: acrolinx-sidebar-demo-java build
+name: Build
 on:
   push:
     branches: [ main ]
@@ -31,7 +31,7 @@ jobs:
         with:
           arguments: jacocoTestReport sonar
 
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
