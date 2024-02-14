@@ -12,6 +12,6 @@ application {
 
 if (JavaVersion.current().isJava11Compatible()) {
     javafx {
-        modules = [ 'javafx.swing', 'javafx.web' ]
+        modules = ['javafx.swing', 'javafx.web']
     }
 }

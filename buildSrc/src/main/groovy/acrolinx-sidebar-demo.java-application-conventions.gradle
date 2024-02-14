@@ -12,8 +12,12 @@ repositories {
 group = 'com.acrolinx'
 version = '0.1.0-SNAPSHOT'
 
-tasks.named('test') {
+tasks.named('test', Test) {
     useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat 'full'
+    }
 }
 
 jacocoTestReport {
@@ -58,17 +62,11 @@ spotless {
     }
 }
 
-test {
-    testLogging {
-        exceptionFormat 'full'
-    }
-}
-
 if (JavaVersion.current().isJava11Compatible()) {
     project.plugins.apply('org.openjfx.javafxplugin')
 
     javafx {
         version = '13'
-        modules = [ 'javafx.web' ]
+        modules = ['javafx.web']
     }
 }
