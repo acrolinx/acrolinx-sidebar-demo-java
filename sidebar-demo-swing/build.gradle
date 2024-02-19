@@ -10,8 +10,6 @@ application {
     mainClass = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
 }
 
-if (JavaVersion.current().isJava11Compatible()) {
-    javafx {
-        modules = ['javafx.swing', 'javafx.web']
-    }
+javafx {
+    modules = ['javafx.swing', 'javafx.web']
 }
