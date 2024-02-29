@@ -64,6 +64,6 @@ spotless {
 }
 
 javafx {
-    version = '13'
+    version = '19'
     modules = ['javafx.web']
 }
