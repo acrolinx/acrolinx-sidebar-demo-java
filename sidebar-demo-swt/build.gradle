@@ -20,11 +20,9 @@ private static String getOsgiPlatformValue() {
 final String SWT_VERSION = '3.122.0'
 final String OSGI_PLATFORM = getOsgiPlatformValue()
 
-configurations.all {
-    resolutionStrategy {
-        dependencySubstitution {
-            substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') using module("org.eclipse.platform:org.eclipse.swt.$OSGI_PLATFORM:$SWT_VERSION")
-        }
+configurations.configureEach {
+    resolutionStrategy.dependencySubstitution {
+        substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') using module("org.eclipse.platform:org.eclipse.swt.$OSGI_PLATFORM:$SWT_VERSION")
     }
 }
 
