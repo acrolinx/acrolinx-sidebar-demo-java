@@ -17,7 +17,7 @@ private static String getOsgiPlatformValue() {
 }
 
 
-final String SWT_VERSION = '3.122.0'
+final String SWT_VERSION = '3.123.0'
 final String OSGI_PLATFORM = getOsgiPlatformValue()
 
 configurations.configureEach {
