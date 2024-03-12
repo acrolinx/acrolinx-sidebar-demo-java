@@ -2,21 +2,6 @@ plugins {
     id 'acrolinx-sidebar-demo.java-application-conventions'
 }
 
-private static String getOsgiPlatformValue() {
-    String osName = System.getProperty('os.name').toLowerCase()
-
-    if (osName.contains('windows')) {
-        return 'win32.win32.x86_64'
-    } else if (osName.contains('linux')) {
-        return 'gtk.linux.x86_64'
-    } else if (osName.contains('mac')) {
-        return 'cocoa.macosx.x86_64'
-    }
-
-    throw new GradleException('unknown OS name: ' + osName)
-}
-
-
 final String SWT_VERSION = '3.123.0'
 final String OSGI_PLATFORM = getOsgiPlatformValue()
 
@@ -33,4 +18,18 @@ dependencies {
 
 application {
     mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt'
+}
+
+private static String getOsgiPlatformValue() {
+    String osName = System.getProperty('os.name').toLowerCase()
+
+    if (osName.contains('windows')) {
+        return 'win32.win32.x86_64'
+    } else if (osName.contains('linux')) {
+        return 'gtk.linux.x86_64'
+    } else if (osName.contains('mac')) {
+        return 'cocoa.macosx.x86_64'
+    }
+
+    throw new GradleException('unknown OS name: ' + osName)
 }
