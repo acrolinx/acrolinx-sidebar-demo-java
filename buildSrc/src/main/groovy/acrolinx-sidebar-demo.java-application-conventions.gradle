@@ -13,12 +13,12 @@ repositories {
 group = 'com.acrolinx'
 version = '0.1.0-SNAPSHOT'
 
-tasks.named('test', Test) {
-    useJUnitPlatform()
+compileJava {
+    options.encoding = "UTF-8"
+}
 
-    testLogging {
-        exceptionFormat 'full'
-    }
+compileTestJava {
+    options.encoding = "UTF-8"
 }
 
 jacocoTestReport {
@@ -37,6 +37,11 @@ java {
 
 javadoc {
     options.addStringOption('Xdoclint:all,-missing', '-quiet')
+}
+
+javafx {
+    version = '19'
+    modules = ['javafx.web']
 }
 
 sonar {
@@ -63,7 +68,10 @@ spotless {
     }
 }
 
-javafx {
-    version = '19'
-    modules = ['javafx.web']
+tasks.named('test', Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat 'full'
+    }
 }
