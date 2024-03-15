@@ -40,7 +40,7 @@ javadoc {
 }
 
 javafx {
-    version = '19'
+    version = '18'
     modules = ['javafx.web']
 }
 
