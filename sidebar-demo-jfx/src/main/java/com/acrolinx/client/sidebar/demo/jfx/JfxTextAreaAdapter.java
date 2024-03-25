@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import javafx.scene.control.TextArea;
 
-class JfxTextAdapterWithLookUp extends TextAreaAdapter {
-  JfxTextAdapterWithLookUp(
+class JfxTextAreaAdapter extends TextAreaAdapter {
+  JfxTextAreaAdapter(
       final TextArea textArea, final InputFormat inputFormat, final String documentReference) {
     super(textArea, inputFormat, documentReference);
   }
@@ -40,7 +40,7 @@ class JfxTextAdapterWithLookUp extends TextAreaAdapter {
   private List<? extends AbstractMatch> lookupRanges(
       final List<? extends AbstractMatch> abstractMatches) {
     final String lastCheckedDocument =
-        AcrolinxDemoClientJfx.acrolinxSidebar.get().getLastCheckedDocument();
+        JfxAcrolinxApplication.acrolinxSidebar.get().getLastCheckedDocument();
     final LookupRangesDiff lookupRangesDiff = new LookupRangesDiff();
     final Optional<List<? extends AbstractMatch>> correctedRanges =
         lookupRangesDiff.getMatchesWithCorrectedRanges(
@@ -50,7 +50,7 @@ class JfxTextAdapterWithLookUp extends TextAreaAdapter {
       return correctedRanges.get();
     }
 
-    AcrolinxDemoClientJfx.acrolinxSidebar.get().invalidateRangesForMatches(abstractMatches);
+    JfxAcrolinxApplication.acrolinxSidebar.get().invalidateRangesForMatches(abstractMatches);
     return null;
   }
 }

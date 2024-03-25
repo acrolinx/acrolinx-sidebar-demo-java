@@ -1,5 +1,5 @@
 /* Copyright (c) 2018 Acrolinx GmbH */
-package com.acrolinx.client.sidebar.demo.jfx;
+package com.acrolinx.client.sidebar.demo.swt;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
@@ -10,20 +10,20 @@ import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
 import java.util.List;
 import java.util.Optional;
-import javafx.scene.control.TextArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class AcrolinxJfxIntegration implements AcrolinxIntegration {
-  private static final Logger logger = LoggerFactory.getLogger(AcrolinxJfxIntegration.class);
+class SwtAcrolinxIntegration implements AcrolinxIntegration {
+  private static final Logger logger = LoggerFactory.getLogger(SwtAcrolinxIntegration.class);
 
   private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
-  private final TextArea textArea;
+  private final InputAdapterInterface inputAdapterInterface;
 
-  AcrolinxJfxIntegration(
-      TextArea textArea, AcrolinxSidebarInitParameter acrolinxSidebarInitParameter) {
-    this.textArea = textArea;
+  SwtAcrolinxIntegration(
+      AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
+      InputAdapterInterface inputAdapterInterface) {
     this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
+    this.inputAdapterInterface = inputAdapterInterface;
   }
 
   @Override
@@ -43,8 +43,7 @@ class AcrolinxJfxIntegration implements AcrolinxIntegration {
 
   @Override
   public InputAdapterInterface getEditorAdapter() {
-    return new JfxTextAdapterWithLookUp(
-        textArea, AcrolinxDemoClientJfx.inputFormat.get(), "sampleFile.txt");
+    return inputAdapterInterface;
   }
 
   @Override
@@ -54,13 +53,12 @@ class AcrolinxJfxIntegration implements AcrolinxIntegration {
 
   @Override
   public void onCheckResult(CheckResult checkResult) {
-    logger.debug(
-        "Got check result for check id: {}", checkResult.getCheckedDocumentPart().getCheckId());
+    logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
   }
 
   @Override
   public void onInitFinished(Optional<SidebarError> sidebarError) {
-    logger.debug("Sidebar init done: {}", sidebarError);
+    logger.debug("{}", sidebarError);
   }
 
   @Override

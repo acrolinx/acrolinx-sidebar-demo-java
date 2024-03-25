@@ -12,24 +12,23 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-public class AcrolinxDemoClientSwing {
+public class SwingAcrolinxApplication {
   public static void main(String[] args) throws IOException, JoranException {
     LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
 
-    javax.swing.SwingUtilities.invokeLater(
+    SwingUtilities.invokeLater(
         () -> {
           JFrame.setDefaultLookAndFeelDecorated(true);
           createJFrame(createJTextArea());
-
           createJDialog(createJOptionPane());
         });
   }
@@ -39,11 +38,6 @@ public class AcrolinxDemoClientSwing {
             "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", createSoftwareComponents())
         .withShowServerSelector(true)
         .build();
-  }
-
-  private static AcrolinxSidebarSwing createAcrolinxSidebarSwing(JTextArea jTextArea) {
-    return new AcrolinxSidebarSwing(
-        new AcrolinxSwingIntegration(createAcrolinxSidebarInitParameter(), jTextArea), null);
   }
 
   private static void createJDialog(JOptionPane jOptionPane) {
@@ -72,7 +66,7 @@ public class AcrolinxDemoClientSwing {
     innerPanel.setLayout(new FlowLayout());
     innerPanel.setPreferredSize(new Dimension(870, 600));
     innerPanel.add(jTextArea);
-    innerPanel.add(createAcrolinxSidebarSwing(jTextArea));
+    innerPanel.add(createSwingAcrolinxIntegration(jTextArea));
     innerPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     return innerPanel;
   }
@@ -84,11 +78,16 @@ public class AcrolinxDemoClientSwing {
   }
 
   private static List<SoftwareComponent> createSoftwareComponents() {
-    return Collections.singletonList(
+    return List.of(
         new SoftwareComponent(
             "com.acrolinx.client.sidebar.demo.swing",
             "Acrolinx Demo Client Swing",
             "1.0",
             SoftwareComponentCategory.MAIN));
+  }
+
+  private static AcrolinxSidebarSwing createSwingAcrolinxIntegration(JTextArea jTextArea) {
+    return new AcrolinxSidebarSwing(
+        new SwingAcrolinxIntegration(createAcrolinxSidebarInitParameter(), jTextArea), null);
   }
 }

@@ -1,5 +1,5 @@
 /* Copyright (c) 2018 Acrolinx GmbH */
-package com.acrolinx.client.sidebar.demo.swt;
+package com.acrolinx.client.sidebar.demo.swing;
 
 import com.acrolinx.sidebar.AcrolinxIntegration;
 import com.acrolinx.sidebar.InputAdapterInterface;
@@ -8,22 +8,24 @@ import com.acrolinx.sidebar.pojo.document.CheckResult;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.BatchCheckRequestOptions;
 import com.acrolinx.sidebar.pojo.settings.CheckOptions;
+import com.acrolinx.sidebar.pojo.settings.InputFormat;
+import com.acrolinx.sidebar.swing.adapter.TextAreaAdapter;
 import java.util.List;
 import java.util.Optional;
+import javax.swing.JTextArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AcrolinxSwtIntegration implements AcrolinxIntegration {
-  private static final Logger logger = LoggerFactory.getLogger(AcrolinxSwtIntegration.class);
+class SwingAcrolinxIntegration implements AcrolinxIntegration {
+  private static final Logger logger = LoggerFactory.getLogger(SwingAcrolinxIntegration.class);
 
   private final AcrolinxSidebarInitParameter acrolinxSidebarInitParameter;
-  private final InputAdapterInterface inputAdapterInterface;
+  private final JTextArea jTextArea;
 
-  public AcrolinxSwtIntegration(
-      AcrolinxSidebarInitParameter acrolinxSidebarInitParameter,
-      InputAdapterInterface inputAdapterInterface) {
+  SwingAcrolinxIntegration(
+      AcrolinxSidebarInitParameter acrolinxSidebarInitParameter, JTextArea jTextArea) {
     this.acrolinxSidebarInitParameter = acrolinxSidebarInitParameter;
-    this.inputAdapterInterface = inputAdapterInterface;
+    this.jTextArea = jTextArea;
   }
 
   @Override
@@ -43,7 +45,7 @@ public class AcrolinxSwtIntegration implements AcrolinxIntegration {
 
   @Override
   public InputAdapterInterface getEditorAdapter() {
-    return inputAdapterInterface;
+    return new TextAreaAdapter(jTextArea, InputFormat.TEXT, "sampleFileName");
   }
 
   @Override
@@ -53,12 +55,12 @@ public class AcrolinxSwtIntegration implements AcrolinxIntegration {
 
   @Override
   public void onCheckResult(CheckResult checkResult) {
-    logger.debug(checkResult.getCheckedDocumentPart().getCheckId());
+    logger.debug("Got check result");
   }
 
   @Override
-  public void onInitFinished(Optional<SidebarError> sidebarError) {
-    logger.debug("{}", sidebarError);
+  public void onInitFinished(Optional<SidebarError> initResult) {
+    logger.debug("Finished init!");
   }
 
   @Override
