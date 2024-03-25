@@ -7,7 +7,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.acrolinx.client.sidebar.demo.swing.AcrolinxDemoClientSwing'
+    mainClass = 'com.acrolinx.client.sidebar.demo.swing.SwingAcrolinxApplication'
 }
 
 javafx {

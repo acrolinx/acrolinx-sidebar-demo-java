@@ -11,7 +11,6 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Application;
@@ -21,12 +20,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class AcrolinxDemoClientJfx extends Application {
+public class JfxAcrolinxApplication extends Application {
   static final AtomicReference<AcrolinxSidebarJFX> acrolinxSidebar = new AtomicReference<>();
   static final AtomicReference<InputFormat> inputFormat = new AtomicReference<>();
 
   public static void main(String[] args) {
-    launch(args);
+    Application.launch(args);
   }
 
   private static AcrolinxSidebarInitParameter createAcrolinxSidebarInitParameter() {
@@ -49,7 +48,7 @@ public class AcrolinxDemoClientJfx extends Application {
   }
 
   private static List<SoftwareComponent> createSoftwareComponents() {
-    return Collections.singletonList(
+    return List.of(
         new SoftwareComponent(
             "com.acrolinx.client.sidebar.demo.jfx",
             "Acrolinx Demo Client JFX",
@@ -70,7 +69,7 @@ public class AcrolinxDemoClientJfx extends Application {
   public void start(Stage primaryStage) throws IOException, JoranException {
     LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
 
-    AcrolinxSidebarJFX acrolinxSidebarJfx = new AcrolinxSidebarJFX(createAcrolinxJfxIntegration());
+    AcrolinxSidebarJFX acrolinxSidebarJfx = new AcrolinxSidebarJFX(createJfxAcrolinxIntegration());
     acrolinxSidebarJfx.getWebView().setPrefWidth(300);
     acrolinxSidebar.set(acrolinxSidebarJfx);
 
@@ -83,10 +82,6 @@ public class AcrolinxDemoClientJfx extends Application {
     primaryStage.show();
   }
 
-  private AcrolinxJfxIntegration createAcrolinxJfxIntegration() {
-    return new AcrolinxJfxIntegration(textArea, createAcrolinxSidebarInitParameter());
-  }
-
   private BorderPane createBorderPane(
       AcrolinxSidebarJFX acrolinxSidebarJfx, ComboBox<InputFormat> comboBox) {
     BorderPane borderPane = new BorderPane();
@@ -94,5 +89,9 @@ public class AcrolinxDemoClientJfx extends Application {
     borderPane.setLeft(textArea);
     borderPane.setTop(comboBox);
     return borderPane;
+  }
+
+  private JfxAcrolinxIntegration createJfxAcrolinxIntegration() {
+    return new JfxAcrolinxIntegration(textArea, createAcrolinxSidebarInitParameter());
   }
 }

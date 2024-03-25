@@ -17,7 +17,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.acrolinx.client.sidebar.demo.swt.AcrolinxDemoClientSwt'
+    mainClass = 'com.acrolinx.client.sidebar.demo.swt.SwtAcrolinxApplication'
 }
 
 private static String getOsgiPlatformValue() {

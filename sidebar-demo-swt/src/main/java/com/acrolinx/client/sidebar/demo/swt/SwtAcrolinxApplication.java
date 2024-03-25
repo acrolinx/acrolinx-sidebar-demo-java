@@ -12,7 +12,6 @@ import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
 import com.acrolinx.sidebar.utils.LoggingUtils;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -23,9 +22,9 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class AcrolinxDemoClientSwt {
+public class SwtAcrolinxApplication {
   public static void main(String[] args) throws IOException, JoranException {
-    new AcrolinxDemoClientSwt().open();
+    new SwtAcrolinxApplication().open();
   }
 
   private static AcrolinxSidebarInitParameter createAcrolinxSidebarInitParameter() {
@@ -33,10 +32,6 @@ public class AcrolinxDemoClientSwt {
             "SW50ZWdyYXRpb25EZXZlbG9wbWVudERlbW9Pbmx5", createSoftwareComponents())
         .withShowServerSelector(true)
         .build();
-  }
-
-  private static AcrolinxSwtIntegration createAcrolinxSwtIntegration(TextAdapter textAdapter) {
-    return new AcrolinxSwtIntegration(createAcrolinxSidebarInitParameter(), textAdapter);
   }
 
   private static Image createImage(Display display) {
@@ -69,12 +64,16 @@ public class AcrolinxDemoClientSwt {
   }
 
   private static List<SoftwareComponent> createSoftwareComponents() {
-    return Collections.singletonList(
+    return List.of(
         new SoftwareComponent(
             "com.acrolinx.client.sidebar.demo.swt",
             "Acrolinx Demo Client SWT",
             "1.0",
             SoftwareComponentCategory.MAIN));
+  }
+
+  private static SwtAcrolinxIntegration createSwtAcrolinxIntegration(TextAdapter textAdapter) {
+    return new SwtAcrolinxIntegration(createAcrolinxSidebarInitParameter(), textAdapter);
   }
 
   private static TextAdapter createTextAdapter(Text text) {
@@ -84,12 +83,12 @@ public class AcrolinxDemoClientSwt {
   private final Display display = new Display();
   private final Shell shell = createShell(display);
 
-  AcrolinxDemoClientSwt() throws IOException, JoranException {
+  SwtAcrolinxApplication() throws IOException, JoranException {
     LoggingUtils.setupLogging("AcrolinxDemoClientSwt");
 
     AcrolinxSidebarSWT acrolinxSidebarSwt =
         new AcrolinxSidebarSWT(
-            shell, createAcrolinxSwtIntegration(createTextAdapter(createText())));
+            shell, createSwtAcrolinxIntegration(createTextAdapter(createText())));
     acrolinxSidebarSwt.getSidebarBrowser().setLayoutData(createRightGridData());
 
     open();
