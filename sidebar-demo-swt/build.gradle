@@ -12,7 +12,7 @@ configurations.configureEach {
 }
 
 dependencies {
-    implementation libs.sidebar.sdk
+    implementation libs.sidebar.sdk.java
     implementation "org.eclipse.platform:org.eclipse.swt.$OSGI_PLATFORM:$SWT_VERSION"
 }
 
