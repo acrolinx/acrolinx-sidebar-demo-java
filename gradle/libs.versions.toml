@@ -1,11 +1,11 @@
 [versions]
 javafx-plugin = "0.1.0"
 sidebar-sdk-java = "2.5.29"
-sonarqube = "5.0.0.4638"
-spotless = "6.25.0"
+sonarqube-plugin = "5.0.0.4638"
+spotless-plugin = "6.25.0"
 
 [libraries]
 javafx-plugin = { group = "org.openjfx", name = "javafx-plugin", version.ref = "javafx-plugin" }
 sidebar-sdk-java = { group = "com.acrolinx.client", name = "sidebar-sdk-java", version.ref = "sidebar-sdk-java" }
-sonarqube-plugin = { group = "org.sonarqube", name = "org.sonarqube.gradle.plugin", version.ref = "sonarqube" }
-spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+sonarqube-plugin = { group = "org.sonarqube", name = "org.sonarqube.gradle.plugin", version.ref = "sonarqube-plugin" }
+spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless-plugin" }
