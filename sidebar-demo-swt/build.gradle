@@ -31,5 +31,5 @@ private static String getOsgiPlatformValue() {
         return 'cocoa.macosx.x86_64'
     }
 
-    throw new GradleException('unknown OS name: ' + osName)
+    throw new IllegalStateException('unknown OS name: ' + osName)
 }
