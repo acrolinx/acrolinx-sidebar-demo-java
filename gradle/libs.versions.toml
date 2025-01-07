@@ -2,7 +2,7 @@
 javafx-plugin = "0.1.0"
 sidebar-sdk-java = "2.6.1"
 sonarqube-plugin = "6.0.0.5145"
-spotless-plugin = "6.25.0"
+spotless-plugin = "7.0.0"
 
 [libraries]
 javafx-plugin = { group = "org.openjfx", name = "javafx-plugin", version.ref = "javafx-plugin" }
