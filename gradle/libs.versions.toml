@@ -1,7 +1,7 @@
 [versions]
 javafx-plugin = "0.1.0"
 sidebar-sdk-java = "2.6.1"
-sonarqube-plugin = "6.0.0.5145"
+sonarqube-plugin = "6.0.1.5171"
 spotless-plugin = "7.0.2"
 
 [libraries]
