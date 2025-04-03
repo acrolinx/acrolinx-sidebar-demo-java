@@ -1,17 +1,14 @@
 /* Copyright (c) 2018 Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.swing;
 
-import ch.qos.logback.core.joran.spi.JoranException;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swing.AcrolinxSidebarSwing;
-import com.acrolinx.sidebar.utils.LoggingUtils;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.IOException;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,9 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 public class SwingAcrolinxApplication {
-  public static void main(String[] args) throws IOException, JoranException {
-    LoggingUtils.setupLogging("AcrolinxDemoClientSwing");
-
+  public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
           JFrame.setDefaultLookAndFeelDecorated(true);

@@ -1,7 +1,6 @@
 /* Copyright (c) 2018 Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.jfx;
 
-import ch.qos.logback.core.joran.spi.JoranException;
 import com.acrolinx.sidebar.jfx.AcrolinxSidebarJFX;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
@@ -9,8 +8,6 @@ import com.acrolinx.sidebar.pojo.settings.InputFormat;
 import com.acrolinx.sidebar.pojo.settings.PluginSupportedParameters;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponent;
 import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
-import com.acrolinx.sidebar.utils.LoggingUtils;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Application;
@@ -66,9 +63,7 @@ public class JfxAcrolinxApplication extends Application {
   private final TextArea textArea = createTextArea();
 
   @Override
-  public void start(Stage primaryStage) throws IOException, JoranException {
-    LoggingUtils.setupLogging("AcrolinxDemoClientJfx");
-
+  public void start(Stage primaryStage) {
     AcrolinxSidebarJFX acrolinxSidebarJfx = new AcrolinxSidebarJFX(createJfxAcrolinxIntegration());
     acrolinxSidebarJfx.getWebView().setPrefWidth(300);
     acrolinxSidebar.set(acrolinxSidebarJfx);

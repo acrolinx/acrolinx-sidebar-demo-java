@@ -1,7 +1,6 @@
 /* Copyright (c) 2018 Acrolinx GmbH */
 package com.acrolinx.client.sidebar.demo.swt;
 
-import ch.qos.logback.core.joran.spi.JoranException;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter;
 import com.acrolinx.sidebar.pojo.settings.AcrolinxSidebarInitParameter.AcrolinxSidebarInitParameterBuilder;
 import com.acrolinx.sidebar.pojo.settings.InputFormat;
@@ -10,8 +9,6 @@ import com.acrolinx.sidebar.pojo.settings.SoftwareComponentCategory;
 import com.acrolinx.sidebar.swt.AcrolinxSidebarSWT;
 import com.acrolinx.sidebar.swt.adapter.TextAdapter;
 import com.acrolinx.sidebar.utils.IconUtils;
-import com.acrolinx.sidebar.utils.LoggingUtils;
-import java.io.IOException;
 import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -23,7 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public class SwtAcrolinxApplication {
-  public static void main(String[] args) throws IOException, JoranException {
+  public static void main(String[] args) {
     new SwtAcrolinxApplication().open();
   }
 
@@ -83,9 +80,7 @@ public class SwtAcrolinxApplication {
   private final Display display = new Display();
   private final Shell shell = createShell(display);
 
-  SwtAcrolinxApplication() throws IOException, JoranException {
-    LoggingUtils.setupLogging("AcrolinxDemoClientSwt");
-
+  SwtAcrolinxApplication() {
     AcrolinxSidebarSWT acrolinxSidebarSwt =
         new AcrolinxSidebarSWT(
             shell, createSwtAcrolinxIntegration(createTextAdapter(createText())));
