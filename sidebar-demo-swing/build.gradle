@@ -4,6 +4,8 @@ plugins {
 
 dependencies {
     implementation libs.sidebar.sdk.java
+
+    runtimeOnly libs.slf4j.simple
 }
 
 application {
